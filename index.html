@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>index</title>
+<meta name="author" content="(Fabian Homborg)"/>
+<link rel="stylesheet" href="/home/alfa/dev/reveal.js/css/reveal.min.css"/>
+<link rel="stylesheet" href="/home/alfa/dev/reveal.js/css/theme/default.css" id="theme"/>
+
+<link rel="stylesheet" href="/home/alfa/dev/reveal.js/css/print/pdf.css" type="text/css" media="print"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section>
+<h1>index</h1>
+<h2>Fabian Homborg</h2>
+<h2><a href="mailto:alfa@fordprefect">alfa@fordprefect</a></h2>
+<h2></h2></section>
+<section>
+<h2>Table of Contents</h2><ul>
+<li>
+<a href="#sec-1">This is a test</a>
+</li>
+<li>
+<a href="#sec-2">It's created in orgmode</a>
+<ul>
+<li>
+<a href="#sec-2-1">With emacs</a>
+</li>
+</ul>
+<li>
+<a href="#sec-3">It doesn't contain much</a>
+</li>
+</ul>
+</section>
+<section>
+<section id="sec-1" >
+
+<h2><span class="section-number-2">1</span> This is a test</h2>
+</section>
+</section>
+<section>
+<section id="sec-2" >
+
+<h2><span class="section-number-2">2</span> It's created in orgmode</h2>
+</section>
+<section id="sec-2-1" >
+
+<h3><span class="section-number-3">2.1</span> With emacs</h3>
+<p>
+Cos' emacs is nice
+</p>
+</section>
+
+</section>
+<section>
+<section id="sec-3" >
+
+<h2><span class="section-number-2">3</span> It doesn't contain much</h2>
+</section>
+</section>
+</div>
+</div>
+<script src="/home/alfa/dev/reveal.js/lib/js/head.min.js"></script>
+<script src="/home/alfa/dev/reveal.js/js/reveal.min.js"></script>
+<script>
+
+        		// Full list of configuration options available here:
+        		// https://github.com/hakimel/reveal.js#configuration
+        		Reveal.initialize({
+        			controls: true,
+        			progress: true,
+        			history: false,
+        			center: true,
+                                slideNumber: true,
+        			rollingLinks: false,
+        			keyboard: true,
+        			overview: true,
+        			 // slide width
+        			 // slide height
+        			 // slide margin
+        			 // slide minimum scaling factor
+        			 // slide maximum scaling factor
+
+
+        			theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        			transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        			transitionSpeed: 'default',
+
+        			// Optional libraries used to extend on reveal.js
+        			dependencies: [
+        				{ src: '/home/alfa/dev/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } }
+        				,{ src: '/home/alfa/dev/reveal.js/plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: '/home/alfa/dev/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } }
+        				,{ src: '/home/alfa/dev/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        				,{ src: '/home/alfa/dev/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } }
+        				,{ src: '/home/alfa/dev/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: '/home/alfa/dev/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        				// { src: '/home/alfa/dev/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+         				
+        			]
+        		});
+</script>
+</body>
+</html>

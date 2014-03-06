@@ -1,0 +1,6 @@
+#+EMAIL: FHomborg@gmail.com
+* This is a test
+* It's created in orgmode
+** With emacs
+   Cos' emacs is nice
+* It doesn't contain much
