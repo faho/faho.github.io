@@ -1,7 +1,0 @@
-#+EMAIL: FHomborg@gmail.com
-#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/2.5.0/
-* This is a test
-* It's created in orgmode
-** With emacs
-   Cos' emacs is nice
-* It doesn't contain much
