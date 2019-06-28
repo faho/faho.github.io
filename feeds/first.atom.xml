@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Ramblings - First</title><link href="https://faho.github.io/" rel="alternate"></link><link href="https://faho.github.io/feeds/first.atom.xml" rel="self"></link><id>https://faho.github.io/</id><updated>2019-06-25T19:20:00+02:00</updated><entry><title>FIIIIRST</title><link href="https://faho.github.io/fiiiirst.html" rel="alternate"></link><published>2019-06-25T19:20:00+02:00</published><updated>2019-06-25T19:20:00+02:00</updated><author><name>Fabian Homborg</name></author><id>tag:faho.github.io,2019-06-25:/fiiiirst.html</id><summary type="html">&lt;p&gt;Dis is first post.&lt;/p&gt;
-&lt;p&gt;=====&lt;/p&gt;
-&lt;p&gt;Me wrote post!&lt;/p&gt;
-&lt;p&gt;Me wrote goodly!&lt;/p&gt;</summary><content type="html">&lt;p&gt;Dis is first post.&lt;/p&gt;
-&lt;p&gt;=====&lt;/p&gt;
-&lt;p&gt;Me wrote post!&lt;/p&gt;
-&lt;p&gt;Me wrote goodly!&lt;/p&gt;</content></entry></feed>
