@@ -17,10 +17,10 @@
 /***** Global *****/
 /* Body */
 body {
-    background: #F5F4EF;
-    color: #000305;
+    background: #222222;
+    color: #DDD;
     font-size: 87.5%; /* Base font size: 14px */
-    font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: sans-serif;
     line-height: 1.429;
     margin: 0;
     padding: 0;
@@ -39,7 +39,8 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 400;
 	line-height: 1.1;
 	margin-bottom: .8em;
-    font-family: 'Yanone Kaffeesatz', arial, serif;
+    font-family: serif;
+    color: #FFF;
 }
 
 h3, h4, h5, h6 { margin-top: .8em; }
@@ -50,12 +51,12 @@ hr { border: 2px solid #EEEEEE; }
 a {outline: 0;}
 a img {border: 0px; text-decoration: none;}
 a:link, a:visited {
-	color: #C74350;
+	color: #D85461;
 	padding: 0 1px;
 	text-decoration: underline;
 }
 a:hover, a:active {
-	background-color: #C74350;
+	background-color: #D85461;
 	color: #fff;
 	text-decoration: none;
 	text-shadow: 1px 1px 1px #333;
@@ -104,7 +105,7 @@ dl {margin: 0 0 1.5em 0;}
 dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
-pre{background-color:  rgb(238, 238, 238); padding: 10px; margin: 10px; overflow: auto;}
+pre{background-color:  rgb(23, 23, 23); padding: 10px; margin: 10px; overflow: auto;}
 
 /* Quotes */
 blockquote {
@@ -162,7 +163,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	/* Banner */
 	#banner h1 {font-size: 3.571em; line-height: 0;}
 	#banner h1 a:link, #banner h1 a:visited {
-		color: #000305;
+		color: #000507;
 		display: block;
 		font-weight: bold;
 		margin: 0 0 .6em .2em;
@@ -170,7 +171,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	}
 	#banner h1 a:hover, #banner h1 a:active {
 		background: none;
-		color: #C74350;
+		color: #D85461;
 		text-shadow: none;
 	}
 
@@ -223,7 +224,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	Featured
 *****************/
 #featured {
-	background: #fff;
+	background: #222;
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px;
@@ -235,7 +236,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 }
 
 #featured figure {
-	border: 2px solid #eee;
+	border: 2px solid #111;
 	float: right;
 	margin: 0.786em 2em 0 5em;
 	width: 248px;
@@ -339,7 +340,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	About
 *****************/
 #about {
-	background: #fff;
+	background: #000;
 	font-style: normal;
 	margin-bottom: 2em;
 	overflow: hidden;
@@ -370,15 +371,15 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 .hentry {
 	display: block;
 	clear: both;
-	border-bottom: 1px solid #eee;
+	border-bottom: 1px solid #222;
 	padding: 1.5em 0;
 }
 li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 #content > .hentry {padding: 1em 0;}
 .hentry img{display : none ;}
 .entry-title {font-size: 3em; margin-bottom: 10px; margin-top: 0;}
-.entry-title a:link, .entry-title a:visited {text-decoration: none; color: #333;}
-.entry-title a:visited {background-color: #fff;}
+.entry-title a:link, .entry-title a:visited {text-decoration: none; color: #555;}
+.entry-title a:visited {background-color: #000;}
 
 .hentry .post-info * {font-style: normal;}
 
@@ -401,7 +402,7 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 
 	/* About the Author */
 	#about-author {
-		background: #f9f9f9;
+		background: #222;
 		clear: both;
 		font-style: normal;
 		margin: 2em 0;
@@ -419,34 +420,4 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 		font-size: 1.429em;
 	}
 
-	#about-author .photo {border: 1px solid #ddd; float: left; margin: 5px 1em 0 0;}
-
-	/* Comments */
-	#comments-list {list-style: none; margin: 0 1em;}
-	#comments-list blockquote {
-		background: #f8f8f8;
-		clear: both;
-		font-style: normal;
-		margin: 0;
-		padding: 15px 20px;
-
-		border-radius: 5px;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
-	}
-	#comments-list footer {color: #888; padding: .5em 1em 0 0; text-align: right;}
-
-	#comments-list li:nth-child(2n) blockquote {background: #F5f5f5;}
-
-	/* Add a Comment */
-	#add-comment label {clear: left; float: left; text-align: left; width: 150px;}
-	#add-comment input[type='text'],
-	#add-comment input[type='email'],
-	#add-comment input[type='url'] {float: left; width: 200px;}
-
-	#add-comment textarea {float: left; height: 150px; width: 495px;}
-
-	#add-comment p.req {clear: both; margin: 0 .5em 1em 0; text-align: right;}
-
-	#add-comment input[type='submit'] {float: right; margin: 0 .5em;}
-	#add-comment * {margin-bottom: .5em;}
+	#about-author .photo {border: 1px solid #333; float: left; margin: 5px 1em 0 0;}
