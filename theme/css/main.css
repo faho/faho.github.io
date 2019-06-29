@@ -17,8 +17,8 @@
 /***** Global *****/
 /* Body */
 body {
-    background: #222222;
-    color: #DDD;
+    background: #111;
+    color: #EEE;
     font-size: 87.5%; /* Base font size: 14px */
     font-family: sans-serif;
     line-height: 1.429;
@@ -27,6 +27,9 @@ body {
     text-align: left;
 }
 
+article {
+    background: #222;
+}
 /* Headings */
 h1 {font-size: 2em }
 h2 {font-size: 1.571em}	/* 22px */
@@ -163,7 +166,7 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	/* Banner */
 	#banner h1 {font-size: 3.571em; line-height: 0;}
 	#banner h1 a:link, #banner h1 a:visited {
-		color: #000507;
+		color: #005577;
 		display: block;
 		font-weight: bold;
 		margin: 0 0 .6em .2em;
@@ -246,14 +249,14 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 #featured h2 {color: #C74451; font-size: 1.714em; margin-bottom: 0.333em;}
 #featured h3 {font-size: 1.429em; margin-bottom: .5em;}
 
-#featured h3 a:link, #featured h3 a:visited {color: #000305; text-decoration: none;}
-#featured h3 a:hover, #featured h3 a:active {color: #fff;}
+#featured h3 a:link, #featured h3 a:visited {color: #444; text-decoration: none;}
+#featured h3 a:hover, #featured h3 a:active {color: #444;}
 
 /*
 	Body
 *****************/
 #content {
-	background: #fff;
+	background: #111;
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px 20px;

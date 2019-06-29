@@ -17,7 +17,141 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://faho.github.io/sometimes-support-tools-can-delight.html">Sometimes, support tools can delight</a></h1>
+                    <h1 class="entry-title"><a href="https://faho.github.io/cool-stuff-in-fish-31.html">Cool stuff in fish 3.1</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2019-06-29T20:20:00+02:00">
+                Published: Sat 29 June 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
+
+</footer><!-- /.post-info --><p>We're at that point in the release cycle where it's taking shape, and we're slowly thinking about maybe releasing. We don't have a set release schedule or anything, and there's quite some stabilization to be done, but we know most of what will be in the release, so now seems like a good time to talk about it.</p>
+<p>So here's some of my favorite things about the next fish release:</p>
+<div class="section" id="no-more-buffering-in-some-cases">
+<h2>No more buffering (in some cases)</h2>
+<p>Fish has a long-standing issue, in that it fully buffers the output of all builtins and functions.</p>
+<p>That means that, for instance, something like</p>
+<div class="highlight"><pre><span></span>cat largefile <span class="o">|</span> grep something
+</pre></div>
+<p>would only show the output once everything was processed (because fish ships a default <cite>grep --color=auto</cite> &quot;alias&quot; <a class="footnote-reference" href="#id9" id="id1">[1]</a>).</p>
+<p>In 3.1, this restriction was relaxed for the last process in a pipeline, so the above won't buffer anymore. This makes some things much faster, and even allows functions to read indefinite output - <cite>ip monitor | grep</cite> would appear to hang before.</p>
+</div>
+<div class="section" id="nicer-error-messages">
+<h2>Nicer error messages</h2>
+<p>Our builtins were a bit... chatty, when it came to errors.</p>
+<img alt="An old error, showing a massive stack trace and a usage summary" src="../img/cd-error-old.png" style="height: 300px;" />
+<img alt="The same error in the new version, with the stack trace slimmed down and the usage summary removed" src="../img/cd-error-new.png" style="height: 200px;" />
+<p><a class="footnote-reference" href="#id10" id="id2">[2]</a></p>
+<p>Also <cite>test</cite> now shows a stack trace on error, making it actually possible to find where the error occured. This is especially important because <cite>test</cite> has some sharp edges.</p>
+<p><cite>argparse</cite>'s error messages now use the current function name by default, so it's often unnecessary to explicitly give a name. Since argparse parses arg(ument)s, its errors are errors of the &quot;program&quot; or function it parses them for, so this seemed like the right thing to do.</p>
+</div>
+<div class="section" id="brace-expansion-doesn-t-trigger-unless-necessary">
+<h2>Brace expansion doesn't trigger unless necessary</h2>
+<p>One of my favorite things is making FAQs obsolete.</p>
+<p>A question we frequently get <a class="footnote-reference" href="#id11" id="id3">[3]</a> is why <cite>git reset HEAD&#64;{0}</cite> isn't working. The reason for that is that fish, unlike e.g. bash, interpreted the <cite>{0}</cite> as a brace expansion <a class="footnote-reference" href="#id12" id="id4">[4]</a> with one element, so it expanded to <cite>git reset HEAD&#64;0</cite>, and git wouldn't take that.</p>
+<p>Instead, we now only interpret braces as triggering brace expansion if there is a &quot;,&quot; (i.e. more than one element) or a variable expansion (possibly more than one element). So git works as expected, any useful brace expansion continues working.</p>
+<p>This is, strictly speaking, backwards-incompatible. We still allow it because it's very unlikely to be a problem in practice, because the old syntax was useless <a class="footnote-reference" href="#id13" id="id5">[5]</a>.</p>
+</div>
+<div class="section" id="some-builtin-niceties">
+<h2>Some builtin niceties</h2>
+<ul class="simple">
+<li><cite>-q</cite> now means &quot;query&quot; across the board for all &quot;does this kind of thing exist&quot; builtins - whether it's <cite>command</cite>, <cite>functions</cite>, <cite>builtin</cite> or <cite>type</cite>.</li>
+<li><cite>complete -C foo</cite> works instead of requiring <cite>complete -Cfoo</cite>.</li>
+<li><cite>math</cite> now allows &quot;x&quot; for multiplication. This is useful because <cite>math</cite> is an ordinary builtin, so <cite>*</cite> would be expanded. <cite>math 5 x 2</cite> is nicer to type than <cite>math '5 * 2'</cite>.</li>
+<li><cite>count</cite> will now also read from stdin - <cite>count &lt;/etc/hosts</cite> now works.</li>
+<li><cite>argparse</cite> gained a new <cite>--ignore-unknown</cite> option so you can parse the arguments in multiple stages (or, in completions, ignore options you don't care about).</li>
+</ul>
+</div>
+<div class="section" id="nicer-semicolon-handling-in-fish-indent">
+<h2>Nicer semicolon handling in fish_indent</h2>
+<p><cite>fish_indent</cite>, our autoformatter for fish scripts, will now turn most semicolons into line breaks.</p>
+<p>So</p>
+<div class="highlight"><pre><span></span><span class="k">echo</span><span class="p">;</span> <span class="k">echo</span>
+</pre></div>
+<p>becomes</p>
+<div class="highlight"><pre><span></span><span class="k">echo</span>
+<span class="k">echo</span>
+</pre></div>
+<p>The exception is <cite>and</cite> and <cite>or</cite>, because we are okay with</p>
+<div class="highlight"><pre><span></span>foo<span class="p">;</span> <span class="k">and</span> <span class="k">return</span>
+</pre></div>
+<p>and don't really want</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="k">true</span>
+<span class="k">and</span> <span class="k">false</span>
+</pre></div>
+<p>So in this case, it will just keep whatever is there, whether that's line breaks or semicolons.</p>
+</div>
+<div class="section" id="unicode-version-autodetection">
+<h2>Unicode version autodetection</h2>
+<p>Because fish does a bunch of cursor movement (for suggestions and syntax highlighting), it needs to know the width of characters. Even worse, it needs to know what width the terminal thinks the characters are. This mostly works <a class="footnote-reference" href="#id14" id="id6">[6]</a>, only plenty of characters <em>changed</em> width in Unicode 9, so we need to know if the current system understands Unicode 9 <a class="footnote-reference" href="#id15" id="id7">[7]</a>.</p>
+<p>So what we actually do is ask the system for the width of <cite>😃</cite>. If it says 2, we think it's Unicode 9-capable. If it says anything else, we guess it doesn't.</p>
+<p>There are some other unicode improvements, including for variation selectors and korean characters <a class="footnote-reference" href="#id16" id="id8">[8]</a>.</p>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Remember, fish emulates aliases via functions.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>If I made this comparison with <cite>string</cite> instead of <cite>cd</cite>, the old error wouldn't fit on the screen.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>But didn't mention in the FAQ because we forgot to add it.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>The <cite>/usr/{s,}bin</cite> stuff.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>We have already changed what <cite>{}</cite> means in 3.0 - before it was a zero-element brace expansion, which means it would always be removed entirely.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>It's the bain of my existence.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>Ubuntu 16.04, which is still supported, doesn't.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>Both of which break a core assumption of our code - that the width of each codepoint is independent. Variation selectors change the width of what they are attached to, and korean &quot;characters&quot; are composed of three parts, each of which their own codepoint. Truly solving this requires a major rearchitecture, so we hack around it for now.</td></tr>
+</tbody>
+</table>
+</div>
+                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://faho.github.io/sometimes-support-tools-can-delight.html" rel="bookmark"
+                           title="Permalink to Sometimes, support tools can delight">Sometimes, support tools can delight</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2019-06-28T19:20:00+02:00">
                 Published: Fri 28 June 2019
@@ -28,103 +162,14 @@
         </address>
 <p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
 
-</footer><!-- /.post-info --><p>What's this blogging thing all about? Lemme check!</p>
+</footer><!-- /.post-info -->                <p>What's this blogging thing all about? Lemme check!</p>
 <p>So, there's a recent addition to <a class="reference external" href="https://fishshell.com">fish</a> that I really like. It's called &quot;littlecheck&quot;, and it's a new test driver <a class="footnote-reference" href="#id9" id="id1">[1]</a>.</p>
-<p>Now, test drivers are unlikely to ever really receive praise (or even be mentioned at all in most contexts), but they're surprisingly impactful. A bad test driver will leave you scratching your head if you have a failure, or will introduce friction to adding tests, which will make people not add tests.</p>
-<p>For example, in our previous driver, each test consisted of three files:</p>
-<ul class="simple">
-<li>test.in, the file to actually run.</li>
-<li>test.out - the stdout of running test.in</li>
-<li>test.err - the stderr</li>
-</ul>
-<p>Which had a few problems:</p>
-<ul class="simple">
-<li>To create a new test, you need to create 3 files.</li>
-<li>To figure out where a test failed, you need to follow 3 files at the same time</li>
-<li>The &quot;.in&quot; is a fish script, but it can't be called &quot;.fish&quot; for internal reasons <a class="footnote-reference" href="#id10" id="id2">[2]</a></li>
-</ul>
-<p>The replacement looks a little something like this:</p>
-<div class="highlight"><pre><span></span><span class="c">#RUN: %fish %s</span>
-<span class="k">echo</span> banana
-<span class="c">#CHECK: banana</span>
-date +%Y
-<span class="c">#CHECK: 20{{\d+}}</span>
-</pre></div>
-<p>Which immediately solves all the above issues (the files are indeed called &quot;something.fish&quot; <a class="footnote-reference" href="#id11" id="id3">[3]</a>), but also some I haven't even talked about yet.</p>
-<p>See, we had an odd bug where redirecting to a directory (<tt class="docutils literal">echo something &gt; /directory/</tt>) didn't immediately fail. That's certainly something you'd like to test, and we did for quite a while. We just tested that redirecting to <cite>.</cite> failed with an error, and that was that. One file for the command, one file for the error and one file just because.</p>
-<p>Fast forward 5 years to this January, when I was working on getting test suite to succeed on Solaris <a class="footnote-reference" href="#id12" id="id4">[4]</a>. As it turns out Solaris also prints an error, but a different one (instead of &quot;Is a directory&quot; EISDIR you'd get &quot;Invalid argument&quot; EINVAL). The old test driver had no way to express this, and the error couldn't be redirected (because it's a syntax error), so this required us to disable the test. <a class="footnote-reference" href="#id13" id="id5">[5]</a></p>
-<p>Then we got another test driver (yes, that's two in parallel), which ran &quot;invocation tests&quot;, which checked how fish behaved when calling the binary with options. This was enough of an indirection that we managed to wedge in a way to use different test output depending on <cite>uname</cite>, so it worked again. But this required:</p>
-<ul class="simple">
-<li>A second test driver</li>
-<li>Checking operating system based on _name_, not feature testing. Using <cite>uname</cite> should be avoided if at all possible.</li>
-</ul>
-<p>So what does littlecheck do here? See that <tt class="docutils literal"><span class="pre">{{\d+}}</span></tt> above? That's an embedded regex that matches any string of digits, meaning that <tt class="docutils literal">date</tt> test will succeed as long as it's run in this century, or in about 18000 years <a class="footnote-reference" href="#id14" id="id6">[6]</a>. Or, alternatively, you could use it for something useful like this actual test:</p>
-<div class="highlight"><pre><span></span><span class="c">#RUN: %fish %s</span>
-<span class="k">begin</span><span class="p">;</span> <span class="k">end</span> <span class="o">&gt;</span> . <span class="p">;</span> <span class="nb">status</span> -b<span class="p">;</span> <span class="k">and</span> <span class="k">echo</span> <span class="s2">&quot;status -b returned true after bad redirect on a begin block&quot;</span>
-<span class="c"># Note that we sometimes get fancy quotation marks here, so let&#39;s match three characters</span>
-<span class="c">#CHECKERR: &lt;W&gt; fish: An error occurred while redirecting file {{...}}</span>
-<span class="c">#CHECKERR: {{open: Is a directory|open: Invalid argument}}</span>
-<span class="k">echo</span> <span class="nv">$status</span>
-<span class="c">#CHECK: 1</span>
-</pre></div>
-<p>So you just embed the possibilities in a regex, and it'll just allow both. <a class="footnote-reference" href="#id15" id="id7">[7]</a></p>
-<p>Hopefully you'll see why I really like this (thanks ridiculousfish!), and I haven't even mentioned the cherries on top:</p>
-<ul class="simple">
-<li>It's entirely fish-agnostic - this can run any scripting language (that uses <cite>#</cite> as a comment character)</li>
-<li>It's one single python file, no further dependencies</li>
-<li>It's public domain <a class="footnote-reference" href="#id16" id="id8">[8]</a></li>
-</ul>
-<p>Littlecheck is available at <a class="reference external" href="https://github.com/ridiculousfish/littlecheck">https://github.com/ridiculousfish/littlecheck</a>. I kinda love it right now.</p>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>I define &quot;test driver&quot; as &quot;thing that runs the tests&quot;.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>We glob, and they are in the same directory as the main &quot;test.fish&quot; orchestration script. I didn't say it was a good reason!</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Which makes text editors highlight them as fish scripts, which makes me happy.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>Or Illumos, or OpenIndiana? I still don't get the nomenclature.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>Alternatively, we could have caught the error and swapped it for the other one. But that would require behavioral changes, and it's not clear that every EINVAL is because of a directory, so we'd have to figure that out or just use the more generic error everywhere.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>It's not an actual test we use.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>For astute readers, there's another thing this allows, which required us to disable even the invocation tests.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>My thoughts on licensing are a tad more complex, but in short I believe for a simple thing like this you want it to be drop-in-and-forget.</td></tr>
-</tbody>
-</table>
-                </article>
-            </aside><!-- /#featured -->
+<p>Now, test drivers are unlikely to ever really receive praise (or even be mentioned at all in most contexts), but they're …</p>
+                <a class="readmore" href="https://faho.github.io/sometimes-support-tools-can-delight.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="social">
                         <h2>social</h2>
