@@ -1,4 +1,0 @@
-- fish_indent/autoformatters
-- string subcommands
-- what I did
-- fish 3.1
