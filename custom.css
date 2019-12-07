@@ -5,6 +5,7 @@ body {
 
 article {
     background: #222222;
+    padding: 10px;
 }
 
 .entry-content {
