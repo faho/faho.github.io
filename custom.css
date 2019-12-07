@@ -6,3 +6,7 @@ body {
 article {
     background: #222222;
 }
+
+.entry-content {
+    padding: 5px;
+}
