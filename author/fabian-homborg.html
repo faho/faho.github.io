@@ -18,7 +18,286 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://faho.github.io/cool-stuff-in-fish-31.html">Cool stuff in fish 3.1</a></h1>
+                    <h1 class="entry-title"><a href="https://faho.github.io/bashfaq-through-fishs-eyes.html">BashFAQ through fish's eyes</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2019-12-07T14:40:00+01:00">
+                Published: Sat 07 December 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
+
+</footer><!-- /.post-info --><p>So here's one thing I wanted to do for a while. Let's look at the <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">BashFAQ</a> and see how it holds up in fish.</p>
+<p>This is not a comprehensive comparison (in particular the BashFAQ is by its nature something of a list of bash's most obvious problems, which leaves fish's most obvious problems out) and I'm going to skip over uninteresting questions (including those that are substantially similar in both and those that deal with certain commands). Since much of this is down to Bash following POSIX most of the bash answers apply to e.g. dash and zsh as well.</p>
+<p>This isn't meant to bash (hehehe) bash, but more of an explanation of why we're bothering with our own scripting language at all. One of the most common comments whenever fish is discussed is &quot;well, it's not POSIX compatible&quot;, so this is, in part, an attempt to show <em>why</em>.</p>
+<ol class="arabic">
+<li><p class="first">How can I read a file (data stream, variable) line-by-line (and/or field-by-field)?</p>
+<p>The bash answer: Don't try to use &quot;for&quot;. Use a while loop and the read command (specifically <cite>read -r</cite> with IFS unset)</p>
+<p>The fish answer: A for-loop is fine (<cite>for line in (cat file)</cite>), as is <cite>while read line</cite>.</p>
+<p>Fish doesn't do word-splitting the way bash does - it splits command substitutions on newlines, and while <cite>read</cite> obeys $IFS it is the only part of fish to do so <a class="footnote-reference" href="#id10" id="id1">[1]</a> so $IFS isn't typically changed. If you want to be super-pedantic set $IFS to <cite>nt</cite> before doing anything.</p>
+</li>
+</ol>
+<ol class="arabic" start="4">
+<li><p class="first">How can I check whether a directory is empty or not? How do I check for any .mpg files, or count how many there are?</p>
+<p>The bash answer: Set nullglob, dotglob and an array. Possibly use subshells.</p>
+<p>The fish answer: Use <cite>count * .*</cite>. Fish uses nullglob behavior for that, and doesn't have dotglob.</p>
+<p>The nice part here is that the answer is <em>always</em> valid, and that you don't have to remember to set an option, possibly, if you haven't already set it.</p>
+</li>
+<li><p class="first">How can I use array variables?</p>
+<p>The fish answer: Use <cite>set</cite> to set/erase an &quot;array&quot; <a class="footnote-reference" href="#id11" id="id2">[2]</a> or any of its elements, use <cite>$var</cite> to expand it fully and <cite>$var[slice]</cite> to expand some of its elements (including <cite>$var[1..3 7..-2]</cite>). Overall fish defaults to lists as first-class things, while bash added them onto POSIXoid syntax, so it needs to do a bunch of contortions.</p>
+</li>
+</ol>
+<ol class="arabic" start="7">
+<li><p class="first">Is there a function to return the length of a string?</p>
+<p>The bash answer: <cite>${#varname}</cite></p>
+<p>The fish answer: <cite>string length -q -- $varname</cite>.</p>
+<p>This is simply a case where fish prefers to use commands, while bash prefers syntax.</p>
+</li>
+</ol>
+<ol class="arabic" start="20">
+<li><p class="first">How can I find and safely handle file names containing newlines, spaces or both?</p>
+<p>The bash answer: Complicated. Quote, use <cite>--</cite>, use globs or <cite>find -print0</cite>.</p>
+<p>The fish anwer: Fish doesn't do word-splitting on variables and only splits command substitutions on newline, so you don't have to worry about spaces at all (apart from quoting them in literal arguments). Bash's <cite>read</cite> also features a <cite>-d</cite> option that can be passed a NULL as a delimiter via <cite>$'0'</cite>. In fish you'd use <cite>read -z</cite>. Also since fish doesn't put while-loops into subshells you can set variables inside them. Also since fish 3.0 <cite>string split0</cite> is available to split an entire command substitution on NULLs.</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> file <span class="k">in</span> <span class="o">(</span>find . -print0 <span class="o">|</span> string split0<span class="o">)</span>
+</pre></div>
+<p>works.</p>
+</li>
+</ol>
+<ol class="arabic" start="22">
+<li><p class="first">How can I calculate with floating point numbers instead of just integers?</p>
+<p>The bash answer: Bash's arithmetic does ints only, use <cite>bc</cite>.</p>
+<p>The fish answer, since fish 3.0: Use <cite>math</cite>, and <cite>test</cite> even for floating comparisons. Fish's <cite>math</cite> used to be a function that called <cite>bc</cite> in the background, but <cite>bc</cite> has some major issues. For one macOS (being the paragon of current software that it is) ships a slightly-outdated version of bc that has problems with large results <a class="footnote-reference" href="#id12" id="id3">[3]</a> and bc can't do modulo and floats at the same time <a class="footnote-reference" href="#id13" id="id4">[4]</a>. Also <cite>bc</cite> does a heck of a lot of stuff and we can't document all of it so there's always this weird corner where we'd have to send people to external documentation. So we wrote our own <cite>math</cite> <a class="footnote-reference" href="#id14" id="id5">[5]</a>, and it should <em>just work</em>.</p>
+</li>
+</ol>
+<ol class="arabic" start="24">
+<li><p class="first">I set variables in a loop that's in a pipeline. Why do they disappear after the loop terminates? Or, why can't I pipe data to read?</p>
+<p>The bash answer: Subshells.</p>
+<p>The fish answer: They don't, unless you've scoped them to be local to the loop. Any variable defined with <cite>set -l</cite> inside will disappear, but put that outside and <cite>set</cite> it inside and it stays. No subshells here.</p>
+</li>
+<li><p class="first">How can I access positional parameters after $9?</p>
+<p>The bash answer: Use ${10} instead of $10. For other shells you might have to use <cite>shift</cite>.</p>
+<p>The fish answer: Use <cite>$argv[10]</cite>.</p>
+</li>
+</ol>
+<ol class="arabic" start="35">
+<li><p class="first">How can I handle command-line options and arguments in my script easily?</p>
+<p>The bash answer: Either manual parsing (&quot;the most flexible approach, and is sufficient for most scripts. It is the best way, really&quot;) or <cite>getopts</cite>, never <cite>getopt</cite> (because that doesn't do long options). The manual approach makes it hard to use grouped short options (like in <cite>ls -lah</cite>).</p>
+<p>The fish answer: <cite>argparse</cite>. This is one tool that was written explicitly as a reaction to questions about how to parse arguments.</p>
+<p>It's probably easiest to demonstrate with an example. So let's see how fish's <cite>abbr</cite> function handles its arguments:</p>
+<div class="highlight"><pre><span></span><span class="k">set</span> -l options --stop-nonopt --exclusive <span class="s1">&#39;a,r,e,l,s,q&#39;</span> --exclusive <span class="s1">&#39;g,U&#39;</span>
+<span class="k">set</span> -a options h/help a/add r/rename e/erase l/list s/show q/query
+<span class="k">set</span> -a options g/global U/universal
+
+argparse -n abbr <span class="nv">$options</span> -- <span class="nv">$argv</span>
+<span class="k">or</span> <span class="k">return</span>
+
+<span class="k">if</span> <span class="k">set</span> -q _flag_help
+    __fish_print_help abbr
+    <span class="k">return</span> 0
+<span class="k">end</span>
+</pre></div>
+<p>As you see, <cite>argparse</cite> gets a list of options to handle (with long and short versions), and then the arguments to parse. It puts the found options into $_flag_XYZ variables and leaves the positional arguments in $argv.</p>
+<p>This takes care of all the option ungrouping, finding option parameters and such, and can even be used to disallow option combinations and require a minimum or maximum number of arguments.</p>
+</li>
+</ol>
+<ol class="arabic" start="37">
+<li><p class="first">How can I print text in various colors?</p>
+<p>The bash answer: Use <cite>tput</cite>, like <cite>blue=$(tput setaf 4)</cite>.</p>
+<p>The fish answer: Use <cite>set_color</cite>. Of course <cite>tput</cite> would also work, but it's a bit weird to require an external tool for this <a class="footnote-reference" href="#id15" id="id6">[6]</a>, <cite>set_color</cite> can take RGB or named colors <a class="footnote-reference" href="#id16" id="id7">[7]</a>.</p>
+</li>
+</ol>
+<ol class="arabic" start="39">
+<li><p class="first">What are all the dot-files that bash reads?</p>
+<p>The bash answer: Depends on whether your shell is interactive and/or a login shell. Sometimes there are multiple options (&quot;/etc/profile and then one of .bash_profile or .bash_login or .profile&quot;).</p>
+<p>The fish answer: /etc/fish/config.fish and ~/.config/fish/config.fish <a class="footnote-reference" href="#id17" id="id8">[8]</a>. Always. In an interactive shell, a login shell, on tuesdays, when it's raining outside and whether your system is Debian or Solaris.</p>
+<p>This is one point where I'd argue it's a bit of an over-simplification. It's obvious to me that login-shells aren't special or useful enough to deserve their own config file (in fish you can guard bits behind <cite>if status is-login</cite> and that seems entirely enough to me), but I think reading config.fish in non-interactive shells causes issues if you're using it as a script interpreter (via <cite>#!/usr/bin/env fish</cite>).</p>
+<p>So personally I'd prefer if we didn't read config.fish in that case, but I don't have an answer as to what we should then read. Bash would do well with some simplification however.</p>
+</li>
+</ol>
+<ol class="arabic" start="41">
+<li><p class="first">How do I determine whether a variable contains a substring?</p>
+<p>The bash answer: Use <cite>if [[ $foo = *bar* ]]</cite></p>
+<p>The fish answer: You want to do something with strings? Use <cite>string</cite>. Here <cite>string match -- '*bar*' $foo</cite> would do.</p>
+</li>
+</ol>
+<ol class="arabic" start="46">
+<li><p class="first">I want to check to see whether a word is in a list (or an element is a member of a set).</p>
+<p>The bash answer: Use associative arrays (bash &gt;= 4) or for-loops.</p>
+<p>In this case the associative array seems to be used purely for performance reasons and doesn't actually simplify the code (because you still need to loop through the things to set the array).</p>
+<p>The fish answer: Use <cite>contains</cite>.</p>
+<div class="highlight"><pre><span></span><span class="nb">read </span>input
+<span class="k">if</span> <span class="nb">contains</span> -- <span class="nv">$input</span> Bigfoot UFOs Republicans
+    <span class="k">echo</span> <span class="nv">$input</span> exists
+<span class="k">else</span>
+    <span class="k">echo</span> <span class="nv">$input</span> does <span class="k">not</span> exist
+<span class="k">end</span>
+</pre></div>
+</li>
+</ol>
+<ol class="arabic" start="51">
+<li><p class="first">I want history-search just like in tcsh. How can I bind it to the up and down keys?</p>
+<p>The bash answer: Just add the following to /etc/inputrc or your ~/.inputrc:</p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;\e[A&quot;</span>:history-search-backward
+<span class="s2">&quot;\e[B&quot;</span>:history-search-forward
+</pre></div>
+<p>The fish answer: It's bound like that by default.</p>
+<p>This is one of the first things I add whenever I use bash anywhere. It baffles me why it's not the default.</p>
+</li>
+</ol>
+<ol class="arabic" start="66">
+<li><p class="first">I want to check if [[ $var == foo || $var == bar || $var == more ]] without repeating $var n times.</p>
+<p>The bash answer: Use <cite>case</cite> or extglobs.</p>
+<p>The fish answer: Use <cite>contains</cite> or <cite>case</cite>.</p>
+</li>
+<li><p class="first">How can I trim leading/trailing white space from one of my variables?</p>
+<p>The bash answer: Use extglobs or incantations like</p>
+<div class="highlight"><pre><span></span><span class="nv">junk</span><span class="o">=</span><span class="si">${</span><span class="nv">var</span><span class="p">%%[! ]*</span><span class="si">}</span>   <span class="c1"># remove all but leading spaces</span>
+<span class="nv">var</span><span class="o">=</span><span class="si">${</span><span class="nv">var</span><span class="p">#</span><span class="s2">&quot;</span><span class="nv">$junk</span><span class="s2">&quot;</span><span class="si">}</span>   <span class="c1"># remove leading spaces from original string</span>
+
+<span class="nv">junk</span><span class="o">=</span><span class="si">${</span><span class="nv">var</span><span class="p">##*[! ]</span><span class="si">}</span>   <span class="c1"># remove all but trailing spaces</span>
+<span class="nv">var</span><span class="o">=</span><span class="si">${</span><span class="nv">var</span><span class="p">%</span><span class="s2">&quot;</span><span class="nv">$junk</span><span class="s2">&quot;</span><span class="si">}</span>   <span class="c1"># remove trailing spaces from original string</span>
+</pre></div>
+<p>The fish answer: Use <cite>string trim</cite>.</p>
+</li>
+</ol>
+<ol class="arabic" start="73">
+<li><p class="first">How can I use parameter expansion? How can I get substrings? How can I get a file without its extension, or get just a file's extension? What are some good ways to do basename and dirname?</p>
+<p>The bash answer: Use parameter expansion.</p>
+<p>The fish answer: Use <cite>string</cite>. This also applies to FAQ 100, which explicitly asks for string manipulation.</p>
+</li>
+</ol>
+<ol class="arabic" start="118">
+<li><p class="first">How do I print the contents of an array in reverse order, or reverse an array?</p>
+<p>The bash answer:</p>
+<div class="highlight"><pre><span></span><span class="nv">idx</span><span class="o">=(</span><span class="s2">&quot;</span><span class="si">${</span><span class="p">!a[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+<span class="nv">b</span><span class="o">=()</span>
+<span class="k">for</span> <span class="o">((</span> <span class="nv">i</span><span class="o">=</span><span class="si">${#</span><span class="nv">idx</span><span class="p">[@]</span><span class="si">}</span> - <span class="m">1</span><span class="p">;</span> i &gt;<span class="o">=</span> <span class="m">0</span><span class="p">;</span> i-- <span class="o">))</span><span class="p">;</span> <span class="k">do</span>
+  <span class="nv">j</span><span class="o">=</span><span class="si">${</span><span class="nv">idx</span><span class="p">[i]</span><span class="si">}</span>
+  <span class="nv">b</span><span class="o">+=(</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">a</span><span class="p">[j]</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">)</span>
+<span class="k">done</span>
+</pre></div>
+<p>The fish answer: <cite>set b $a[-1..1]</cite>.</p>
+</li>
+</ol>
+<p>So, what have we learned here? Fish builds most of its scripting power on its builtins, not its syntax, and it has builtins made to solve actual problems that people have. <cite>math</cite> does computations, <cite>string</cite> does string-handling, <cite>argparse</cite> parses args. Also &quot;arrays&quot; are nicer to work with because they're first-class instead of an afterthought <a class="footnote-reference" href="#id18" id="id9">[9]</a>.</p>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>And we want to remove it.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>We standardized on calling it a &quot;list&quot; a while ago because that's a more normal english word, but it's the same idea.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>It's been a while, but I think it insists on splitting them into multiple lines with a backslash at the end of each? Which makes it not a valid number anymore for other tools, which means it's quite dangerous to use.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>Seriously. <cite>echo &quot;5 % 2&quot; | bc -l</cite> prints &quot;0&quot;.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>Based on the tinyexpr library, which we modified extensively.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>That may not be installed - NetBSD doesn't have it.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>And handles how many colors the terminal supports.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>Okay, technically these are SYSCONFDIR/fish/config.fish and $XDG_CONFIG_HOME/fish/config.fish.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[9]</a></td><td>Because coming from POSIX sh, arrays <em>are</em> an afterthought.</td></tr>
+</tbody>
+</table>
+                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://faho.github.io/whats-in-a-prompt.html" rel="bookmark"
+                           title="Permalink to What's in a prompt?">What's in a prompt?</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-12-07T14:40:00+01:00">
+                Published: Sat 07 December 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
+
+</footer><!-- /.post-info -->                <p>There's something weird about shell prompts. You'll see them described as &quot;minimalist&quot; or featureful, and you'll see them as multiline, single-line, monochrome or lit up like a christmas tree, but they'll all incorporate the same 10 or so bits of information:</p>
+<ul class="simple">
+<li>The working directory - where the shell currently &quot;is&quot;</li>
+<li>The …</li></ul>
+                <a class="readmore" href="https://faho.github.io/whats-in-a-prompt.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://faho.github.io/the-best-faq-doesnt-exist.html" rel="bookmark"
+                           title="Permalink to The best FAQ doesn't exist">The best FAQ doesn't exist</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-07-16T20:20:00+02:00">
+                Published: Tue 16 July 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
+
+</footer><!-- /.post-info -->                <p>In fish &lt; 3.0, we've had a frequently asked question <a class="footnote-reference" href="#id4" id="id1">[1]</a> that adding bindings in your config.fish (the configuration file) didn't work.</p>
+<p>You see, fish doesn't use the common &quot;readline&quot; library, but has its own input/output facilities, and to bind keys you'd just execute a <cite>bind</cite> command like …</p>
+                <a class="readmore" href="https://faho.github.io/the-best-faq-doesnt-exist.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://faho.github.io/cool-stuff-in-fish-31.html" rel="bookmark"
+                           title="Permalink to Cool stuff in fish 3.1">Cool stuff in fish 3.1</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2019-06-29T20:20:00+02:00">
                 Published: Sat 29 June 2019
@@ -29,122 +308,10 @@
         </address>
 <p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
 
-</footer><!-- /.post-info --><p>We're at that point in the release cycle where it's taking shape, and we're slowly thinking about maybe releasing. We don't have a set release schedule or anything, and there's quite some stabilization to be done, but we know most of what will be in the release, so now seems like a good time to talk about it.</p>
-<p>So here's some of my favorite things about the next fish release:</p>
-<div class="section" id="no-more-buffering-in-some-cases">
-<h2>No more buffering (in some cases)</h2>
-<p>Fish has a long-standing issue, in that it fully buffers the output of all builtins and functions.</p>
-<p>That means that, for instance, something like</p>
-<div class="highlight"><pre><span></span>cat largefile <span class="o">|</span> grep something
-</pre></div>
-<p>would only show the output once everything was processed (because fish ships a default <cite>grep --color=auto</cite> &quot;alias&quot; <a class="footnote-reference" href="#id9" id="id1">[1]</a>).</p>
-<p>In 3.1, this restriction was relaxed for the last process in a pipeline, so the above won't buffer anymore. This makes some things much faster, and even allows functions to read indefinite output - <cite>ip monitor | grep</cite> would appear to hang before.</p>
-</div>
-<div class="section" id="nicer-error-messages">
-<h2>Nicer error messages</h2>
-<p>Our builtins were a bit... chatty, when it came to errors.</p>
-<img alt="An old error, showing a massive stack trace and a usage summary" src="../img/cd-error-old.png" style="height: 300px;" />
-<img alt="The same error in the new version, with the stack trace slimmed down and the usage summary removed" src="../img/cd-error-new.png" style="height: 200px;" />
-<p><a class="footnote-reference" href="#id10" id="id2">[2]</a></p>
-<p>Also <cite>test</cite> now shows a stack trace on error, making it actually possible to find where the error occured. This is especially important because <cite>test</cite> has some sharp edges.</p>
-<p><cite>argparse</cite>'s error messages now use the current function name by default, so it's often unnecessary to explicitly give a name. Since argparse parses arg(ument)s, its errors are errors of the &quot;program&quot; or function it parses them for, so this seemed like the right thing to do.</p>
-</div>
-<div class="section" id="brace-expansion-doesn-t-trigger-unless-necessary">
-<h2>Brace expansion doesn't trigger unless necessary</h2>
-<p>One of my favorite things is making FAQs obsolete.</p>
-<p>A question we frequently get <a class="footnote-reference" href="#id11" id="id3">[3]</a> is why <cite>git reset HEAD&#64;{0}</cite> isn't working. The reason for that is that fish, unlike e.g. bash, interpreted the <cite>{0}</cite> as a brace expansion <a class="footnote-reference" href="#id12" id="id4">[4]</a> with one element, so it expanded to <cite>git reset HEAD&#64;0</cite>, and git wouldn't take that.</p>
-<p>Instead, we now only interpret braces as triggering brace expansion if there is a &quot;,&quot; (i.e. more than one element) or a variable expansion (possibly more than one element). So git works as expected, any useful brace expansion continues working.</p>
-<p>This is, strictly speaking, backwards-incompatible. We still allow it because it's very unlikely to be a problem in practice, because the old syntax was useless <a class="footnote-reference" href="#id13" id="id5">[5]</a>.</p>
-</div>
-<div class="section" id="some-builtin-niceties">
-<h2>Some builtin niceties</h2>
-<ul class="simple">
-<li><cite>-q</cite> now means &quot;query&quot; across the board for all &quot;does this kind of thing exist&quot; builtins - whether it's <cite>command</cite>, <cite>functions</cite>, <cite>builtin</cite> or <cite>type</cite>.</li>
-<li><cite>complete -C foo</cite> works instead of requiring <cite>complete -Cfoo</cite>.</li>
-<li><cite>math</cite> now allows &quot;x&quot; for multiplication. This is useful because <cite>math</cite> is an ordinary builtin, so <cite>*</cite> would be expanded. <cite>math 5 x 2</cite> is nicer to type than <cite>math '5 * 2'</cite>.</li>
-<li><cite>count</cite> will now also read from stdin - <cite>count &lt;/etc/hosts</cite> now works.</li>
-<li><cite>argparse</cite> gained a new <cite>--ignore-unknown</cite> option so you can parse the arguments in multiple stages (or, in completions, ignore options you don't care about).</li>
-</ul>
-</div>
-<div class="section" id="nicer-semicolon-handling-in-fish-indent">
-<h2>Nicer semicolon handling in fish_indent</h2>
-<p><cite>fish_indent</cite>, our autoformatter for fish scripts, will now turn most semicolons into line breaks.</p>
-<p>So</p>
-<div class="highlight"><pre><span></span><span class="k">echo</span><span class="p">;</span> <span class="k">echo</span>
-</pre></div>
-<p>becomes</p>
-<div class="highlight"><pre><span></span><span class="k">echo</span>
-<span class="k">echo</span>
-</pre></div>
-<p>The exception is <cite>and</cite> and <cite>or</cite>, because we are okay with</p>
-<div class="highlight"><pre><span></span>foo<span class="p">;</span> <span class="k">and</span> <span class="k">return</span>
-</pre></div>
-<p>and don't really want</p>
-<div class="highlight"><pre><span></span><span class="k">if</span> <span class="k">true</span>
-<span class="k">and</span> <span class="k">false</span>
-</pre></div>
-<p>So in this case, it will just keep whatever is there, whether that's line breaks or semicolons.</p>
-</div>
-<div class="section" id="unicode-version-autodetection">
-<h2>Unicode version autodetection</h2>
-<p>Because fish does a bunch of cursor movement (for suggestions and syntax highlighting), it needs to know the width of characters. Even worse, it needs to know what width the terminal thinks the characters are. This mostly works <a class="footnote-reference" href="#id14" id="id6">[6]</a>, only plenty of characters <em>changed</em> width in Unicode 9, so we need to know if the current system understands Unicode 9 <a class="footnote-reference" href="#id15" id="id7">[7]</a>.</p>
-<p>So what we actually do is ask the system for the width of <cite>😃</cite>. If it says 2, we think it's Unicode 9-capable. If it says anything else, we guess it doesn't.</p>
-<p>There are some other unicode improvements, including for variation selectors and korean characters <a class="footnote-reference" href="#id16" id="id8">[8]</a>.</p>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Remember, fish emulates aliases via functions.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>If I made this comparison with <cite>string</cite> instead of <cite>cd</cite>, the old error wouldn't fit on the screen.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>But didn't mention in the FAQ because we forgot to add it.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id12" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>The <cite>/usr/{s,}bin</cite> stuff.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id13" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>We have already changed what <cite>{}</cite> means in 3.0 - before it was a zero-element brace expansion, which means it would always be removed entirely.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>It's the bain of my existence.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>Ubuntu 16.04, which is still supported, doesn't.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>Both of which break a core assumption of our code - that the width of each codepoint is independent. Variation selectors change the width of what they are attached to, and korean &quot;characters&quot; are composed of three parts, each of which their own codepoint. Truly solving this requires a major rearchitecture, so we hack around it for now.</td></tr>
-</tbody>
-</table>
-</div>
-                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</footer><!-- /.post-info -->                <p>We're at that point in the release cycle where it's taking shape, and we're slowly thinking about maybe releasing. We don't have a set release schedule or anything, and there's quite some stabilization to be done, but we know most of what will be in the release, so now seems …</p>
+                <a class="readmore" href="https://faho.github.io/cool-stuff-in-fish-31.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>

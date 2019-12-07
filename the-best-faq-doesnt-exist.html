@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>The best FAQ doesn't exist</title>
+        <link rel="stylesheet" href="https://faho.github.io/theme/css/main.css" />
+        <link href="https://faho.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Fabian's Footnotes Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://faho.github.io/">Fabian's Footnotes </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="https://faho.github.io/category/fish.html">fish</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://faho.github.io/the-best-faq-doesnt-exist.html" rel="bookmark"
+           title="Permalink to The best FAQ doesn't exist">The best FAQ doesn't exist</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2019-07-16T20:20:00+02:00">
+                Published: Tue 16 July 2019
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
+
+</footer><!-- /.post-info -->      <p>In fish &lt; 3.0, we've had a frequently asked question <a class="footnote-reference" href="#id4" id="id1">[1]</a> that adding bindings in your config.fish (the configuration file) didn't work.</p>
+<p>You see, fish doesn't use the common &quot;readline&quot; library, but has its own input/output facilities, and to bind keys you'd just execute a <cite>bind</cite> command like</p>
+<div class="highlight"><pre><span></span><span class="nb">bind</span> <span class="se">\c</span>g forward-word
+<span class="nb">bind</span> <span class="se">\t</span> <span class="nb">complete</span>
+</pre></div>
+<p>And that works if you're doing it interactively, so you like the binding and add it to your config file, and restart fish and... the bindings are gone?</p>
+<p>This was a pretty frequent question for us, and we'd always answer the same:</p>
+<blockquote>
+You can't add bindings in config.fish, you'll have to add them to a function called <cite>fish_user_key_bindings</cite>.</blockquote>
+<p>The reason for this was a pretty fundamental decision that:</p>
+<ul class="simple">
+<li>We'd support an emacs-inspired &quot;default&quot; mode and a vi-inspired &quot;vi&quot; mode <a class="footnote-reference" href="#id5" id="id2">[2]</a></li>
+<li>Switching between the two would leave you with the same bindings every time</li>
+<li>Setting up the mode could be done by setting a variable, global or universal <a class="footnote-reference" href="#id6" id="id3">[3]</a></li>
+</ul>
+<p>Because of all these, what we did was to load the bindings <em>after</em> reading the config file (because the variable could be set there), and because of the second, we'd <em>erase</em> all bindings whenever a binding mode was picked. The result was changes from the config file disappearing.</p>
+<p>Now, fixing this took me quite a while, and the fix turns out to be surprisingly elegant and simple:</p>
+<ul class="simple">
+<li>There are now &quot;preset&quot; and &quot;user&quot; bindings</li>
+<li>Modes set up their bindings as preset bindings</li>
+<li>Switching mode just erases the preset bindings</li>
+</ul>
+<p>That means if you tried out vi-mode and decide to go back, it just erases all the h/j/k/l and such bindings and leaves your custom stuff untouched.</p>
+<p>This has the further advantage that you can now decide to remove a custom binding and it'll leave the preset.</p>
+<p>But what's best about this is that I no longer have to answer the FAQ. It just simply stopped existing.</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>That should have been an actual FAQ entry. Sorry!</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>And theoretically other modes, someone just has to write them.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>Universal variables are persistently stored variables - fish saves them to disk, and shares them among the running sessions.</td></tr>
+</tbody>
+</table>
+
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://faho.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
