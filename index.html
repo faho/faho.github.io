@@ -30,7 +30,7 @@
 <p>In <a href="https://faho.github.io/category/fish.html">fish</a>.</p>
 
 </footer><!-- /.post-info --><p>So here's one thing I wanted to do for a while. Let's look at the <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">BashFAQ</a> and see how it holds up in fish.</p>
-<p>This is not a comprehensive comparison (in particular the BashFAQ is by its nature something of a list of bash's most obvious problems, which leaves fish's most obvious problems out) and I'm going to skip over uninteresting questions (including those that are substantially similar in both and those that deal with certain commands). Since much of this is down to Bash following POSIX most of the bash answers apply to e.g. dash and zsh as well.</p>
+<p>This is not a comprehensive comparison (in particular the BashFAQ is by its nature something of a list of bash's most obvious problems) and I'm going to skip over uninteresting questions (including those that are substantially similar in both and those that deal with certain commands). Since much of this is down to Bash following POSIX most of the bash answers apply to e.g. dash and zsh as well.</p>
 <p>This isn't meant to bash (hehehe) bash, but more of an explanation of why we're bothering with our own scripting language at all. One of the most common comments whenever fish is discussed is &quot;well, it's not POSIX compatible&quot;, so this is, in part, an attempt to show <em>why</em>.</p>
 <ol class="arabic">
 <li><p class="first">How can I read a file (data stream, variable) line-by-line (and/or field-by-field)?</p>
@@ -182,6 +182,7 @@ argparse -n abbr <span class="nv">$options</span> -- <span class="nv">$argv</spa
 </li>
 </ol>
 <p>So, what have we learned here? Fish builds most of its scripting power on its builtins, not its syntax, and it has builtins made to solve actual problems that people have. <cite>math</cite> does computations, <cite>string</cite> does string-handling, <cite>argparse</cite> parses args. Also &quot;arrays&quot; are nicer to work with because they're first-class instead of an afterthought <a class="footnote-reference" href="#id18" id="id9">[9]</a>.</p>
+<p>Overall I think we're doing okay.</p>
 <table class="docutils footnote" frame="void" id="id10" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
