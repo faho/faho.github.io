@@ -28,7 +28,6 @@ body {
 
 article {
     background: #222;
-    padding: 5px;
 }
 /* Headings */
 h1 {font-size: 2em }
@@ -151,21 +150,10 @@ aside, nav, article, figure {
 }
 
 /***** Layout *****/
-.body {clear: both; margin: 0 auto; max-width: 1200px;}
+.body {clear: both; margin: 0 auto; max-width: 800px;}
 img.right, figure.right {float: right; margin: 0 0 2em 2em;}
 img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 
-img {
-  transition: transform 0.25s ease;
-  cursor: zoom-in;
-}
-
-img:active {
-    -webkit-transform: scale(2);
-    transform: scale(2);
-    cursor: zoom-out;
-    z-index: 9999;
-}
 /*
 	Header
 *****************/
@@ -200,14 +188,14 @@ img:active {
 		margin: 0 auto 2em auto;
 		padding: 0;
 		text-align: center;
-		max-width: 1200px;
+		max-width: 800px;
 
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
 	}
 
-	#banner nav ul {list-style: none; margin: 0 auto; max-width: 1200px;}
+	#banner nav ul {list-style: none; margin: 0 auto; max-width: 800px;}
 	#banner nav li {float: left; display: inline; margin: 0;}
 
 	#banner nav a:link, #banner nav a:visited {
