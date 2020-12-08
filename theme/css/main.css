@@ -230,7 +230,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px;
-	max-width: 760px;
 
 	border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -259,7 +258,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	margin-bottom: 2em;
 	overflow: hidden;
 	padding: 20px 20px;
-	max-width: 760px;
 
 	border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -333,7 +331,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	overflow: hidden;
 	padding: 20px;
 	text-align: left;
-	max-width: 760px;
 
 	border-radius: 10px;
 	-moz-border-radius: 10px;
