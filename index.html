@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>Fabian's Footnotes</title>
         <link rel="stylesheet" href="https://faho.github.io/theme/css/main.css" />
+        <link rel="stylesheet" href="https://faho.github.io/custom.css" />
         <link href="https://faho.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Fabian's Footnotes Atom Feed" />
 </head>
 
@@ -19,7 +20,152 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://faho.github.io/your-defaults-could-be-better.html">Your Defaults Could Be Better</a></h1>
+                    <h1 class="entry-title"><a href="https://faho.github.io/terminals-are-kinda-bad.html">Terminals are kinda bad</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2020-12-08T19:00:00+01:00">
+                Published: Tue 08 December 2020
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
+        </address>
+<p>In <a href="https://faho.github.io/category/software.html">software</a>.</p>
+
+</footer><!-- /.post-info --><p>I spend a lot of my time in terminals.</p>
+<p>That's probably a bit of an understatement. Really, basically all of my time on a computer is spent either in a browser, in a videogame or in a terminal. I like text-based interfaces, and I still don't know why I would use the emacs GUI.</p>
+<p>So it probably won't be a surprise that I think our terminals are kinda... bad. Here's a few reasons why:</p>
+<div class="section" id="arbitrary-limitations">
+<h2>Arbitrary limitations</h2>
+<p>Ever wondered why you can't bind Control+I separately from tab?</p>
+<p>Well, the reason for that is ASCII. &quot;I&quot; is 73 (0x49), the tab character is 9 (0x09), and applying a control modifier masks off the upper 3 bits, so 73 - 64 = 9.
+That means, as far as the application is concerned, there is no way to tell tab from Control+I. It is the same thing.</p>
+<p>Similarly, there is no such thing as an &quot;alt&quot; key. There might be on your keyboard, but as far as your terminal is concerned it's really a fancy way of saying &quot;escape&quot;. Pressing alt+e will send the escape character quickly followed by the &quot;e&quot; character. The way applications handle this is to wait for a bit after seeing an escape character to determine if it was an escape key that was pressed or an escape sequence.</p>
+<p>This is one of the many many arbitrary limitations that our current terminals have that just aren't intrinsic to the text-based paradigm. There is no reason this needs to be that way, except that somebody in the 70s made it so and nobody has managed to change it.</p>
+<p>Of course you could make a terminal that improves on this, but:</p>
+</div>
+<div class="section" id="terminal-inconsistencies">
+<h2>Terminal inconsistencies</h2>
+<p>There are a lot of terminals, and a lot of variety in what they support and how they behave.</p>
+<p>Some common differences:</p>
+<ul class="simple">
+<li>How many colors does it support?</li>
+<li>What escape sequences does it send for which keys?</li>
+<li>What optional features does it support? Can I send my PWD to it? Does it show a title?</li>
+<li>Does it reflow text on its own? VTE and iTerm do, konsole doesn't</li>
+</ul>
+<p>To me, many of these differences just seem entirely pointless. Why does this send <tt class="docutils literal">\x7f</tt> for my backspace key while that sends <tt class="docutils literal">\b</tt> (the actual backspace character)? There is an answer, but it's a historical one rather than a technical one.</p>
+<p>Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a <tt class="docutils literal">|</tt> bar in insert mode). The sequences, as far as I can tell, work exactly the same <a class="footnote-reference" href="#id3" id="id1">[1]</a>, like cursor blinking), but one uses <tt class="docutils literal">\e]50;CursorShape=0\x7</tt>, while the other uses <tt class="docutils literal">\e]1337;CursorShape=0\x7</tt>. See the difference? Yeah, that's a &quot;1337&quot; in place of a &quot;50&quot;. Cute. <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
+<p>But hey, you can surely detect these small differences automatically, right?</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>(unlike the xterm one that provides other features</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Note: None of this is a slight against the Konsole or iTerm developers.
+I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="detection-sucks">
+<h2>Detection sucks</h2>
+<p>Hahaha, no.</p>
+<p>The primary way to detect what terminal your user is using and what it can do is $TERM, which is an environment variable that explains the type of terminal. You're supposed to use it to look at the actual terminal description in a thing called &quot;terminfo&quot;. <a class="footnote-reference" href="#id8" id="id5">[3]</a></p>
+<p>Only terminfo is basically broken.</p>
+<p>Why? Well:</p>
+<ul class="simple">
+<li>You need the actual files installed to be able to look it up, which means your OS needs to provide them</li>
+<li>People connect to servers via ssh, which just sends the $TERM value along, so all software running on that server will have to look up the terminfo for the terminal running on the (typically much newer) client, and if they don't find it they will fail to see anything and might even crash.</li>
+<li>Adding a new terminfo entry is possible, but with LTS distributions there's a <em>looong</em> lag. <a class="footnote-reference" href="#id9" id="id6">[4]</a></li>
+<li>Some (arguably badly written) software just hardcodes a few $TERM values it knows, mostly &quot;xterm*&quot;. <a class="footnote-reference" href="#id10" id="id7">[5]</a></li>
+<li>The most used terminals are, for the most part, basically xterm-compatible-ish</li>
+</ul>
+<p>Because of this, almost every terminal claims to be some form of &quot;xterm&quot; - most often <tt class="docutils literal"><span class="pre">xterm-256color</span></tt>. Some people claim that this is wrong and you should simply configure the terminal to use its own terminfo entry (<a class="reference external" href="http://jdebp.uk./Softwares/nosh/guide/commands/TERM.xml">e.g.</a>). I can't agree - that just makes ssh'ing awkward, breaks programs and, most importantly, would require me to tell users to reconfigure their terminal.</p>
+<p>Which means, if I want to distinguish gnome-terminal from konsole, I need to look elsewhere - both claim to be xterm-256color by default.</p>
+<p>But at least I can use terminfo as a baseline, right?</p>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>There is also termcap, which is slightly different. I'm mostly familiar with terminfo so I'm gonna talk about that.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>This includes <strong>emacs</strong> - it has its own terminal database that entries need to be added to.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[5]</a></td><td>Alacritty had its entry added to the ncurses terminfo in 2018, and in 2020 you wouldn't expect most servers to have it.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="terminfo-is-woefully-incomplete-or-wrong">
+<h2>Terminfo is woefully incomplete or wrong</h2>
+<p>Remember that <tt class="docutils literal">CursorShape</tt> sequence from above? There <em>is</em> an entry in terminfo for that, by the wonderfully descriptive name of &quot;DECSCUSR&quot; or &quot;Ss&quot; for short</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> infocmp -x <span class="o">|</span> grep -o <span class="s1">&#39;Ss=.*&#39;</span>
+<span class="nv">Ss</span><span class="o">=</span><span class="se">\E</span><span class="o">[</span>%p1%d q,
+</pre></div>
+<p>..but it uses the actual xterm value of <tt class="docutils literal">\e[something q</tt>, not the konsole or iTerm value of <tt class="docutils literal">\e]50/1337something</tt>.</p>
+<p>And even if it did, you still couldn't use it, because macOS' terminfo is old and crusty and doesn't have Ss, at all.</p>
+<p>Of course when I say &quot;wrong&quot; here, it's not that I'm blaming the terminfo for not matching up to a terminal it's never been written for. I'm just saying that the terminfo is, from the application's perspective, wrong. It says things that simply aren't correct. I'm not interested in finding someone to blame, I'm interested in things being broken.</p>
+<p>Or consider the sequence to communicate the current directory to the terminal. As far as I can tell, that one is <em>actually defined</em> as being &quot;OSC 7&quot; <a class="footnote-reference" href="#id14" id="id11">[6]</a>. OSC is an acronym and stands for <tt class="docutils literal">\e]</tt>. <a class="footnote-reference" href="#id15" id="id12">[7]</a></p>
+<p>There is, as best as I can tell, no terminfo entry for it, and I'm really not expecting any.</p>
+<p>What's more, the semantics for OSC 7 are weirdly complicated. Here's how fish handles it</p>
+<div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="se">\e\]</span>7<span class="se">\;</span>file://%s%s<span class="se">\a</span> <span class="nv">$hostname</span> <span class="o">(</span>string escape --style<span class="o">=</span>url <span class="nv">$PWD</span><span class="o">)</span>
+</pre></div>
+<p>So it starts with an escape, then a <tt class="docutils literal">]7;</tt>, then <em>a url to the current directory</em>. With actual URL-encoding. In a terminal. And then it ends with a bel character, just to make sure this wakes up anyone who uses a terminal that doesn't support it.</p>
+<p>Or consider that it took <em>an actual literal decade</em> for terminfo to finally gain a way to say that a terminal supports 24-bit true color. <a class="footnote-reference" href="#id16" id="id13">[8]</a></p>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[6]</a></td><td>Not that I've ever found any good documentation on any of this, mind you.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[7]</a></td><td>Ackchually it stands for &quot;Operating System Control&quot;, for some reason.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id13">[8]</a></td><td>terminfo support arrived in 2018 with ncurses 6.1. Konsole had truecolor support in <strong>2008</strong>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="how-do-we-fix-it">
+<h2>How do we fix it?</h2>
+<p>So if we wanted to fix this, what would have to be done?</p>
+<p>We would need standardization, and flexible standardization at that.</p>
+<p>My preferred solution would be a mix of having an actual baseline of support combined with making optional features just ignored by the terminal if it doesn't want to support them.</p>
+<p>For many things, the application doesn't really <em>care</em> if it necessarily ends up being used, it just wants to not break things. For example the cursor shaping sequence should either cause the cursor to be changed or nothing to happen, so the application can just fire and forget.</p>
+<p>Or truecolor sequences should just be used basically everywhere, in the same format (the &quot;correct&quot; syntax uses colons, but most terminals support it with semicolons, some do both). If the terminal is incapable of rendering truecolor, let it pick the nearest color and use that instead.</p>
+<p>Key escapes should just be the same everywhere, and there should be standardized sequences for expressing e.g. ctrl-i as a distinct keycombination from tab.</p>
+<p>So a terminal would set $NU_TERM to true, and it would signal to the app that the baseline is safe to use. If the app wants to have ctrl-i encoded specially, it should send <tt class="docutils literal"><span class="pre">\e]666;to-the-future!\a</span></tt>, and everything should be grand and kittens will fall from the heavens (and safely land on their cute little feetsies, of course).</p>
+<p>And people would have to stop using bad terminals.</p>
+<p>I'm not holding my breath.</p>
+</div>
+                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="https://faho.github.io/your-defaults-could-be-better.html" rel="bookmark"
+                           title="Permalink to Your Defaults Could Be Better">Your Defaults Could Be Better</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2020-05-23T12:30:00+02:00">
                 Published: Sat 23 May 2020
@@ -30,7 +176,7 @@
         </address>
 <p>In <a href="https://faho.github.io/category/software.html">software</a>.</p>
 
-</footer><!-- /.post-info --><p>My Emacs configuration is 655 lines.</p>
+</footer><!-- /.post-info -->                <p>My Emacs configuration is 655 lines.</p>
 <p>This means a few things:</p>
 <ul class="simple">
 <li>I need to add 11 more.</li>
@@ -38,56 +184,10 @@
 <li>Emacs could really stand to have some of these as defaults.</li>
 </ul>
 <p>What do I mean by that last thing?</p>
-<p>Well, see for yourself. Here's emacs as it ships, out of the box:</p>
-<img alt="The default emacs look" src="img/emacs-default.png" style="width: 400px;" />
-<p>There is one word for that colorscheme, and it's ugly. It's legendarily ugly, enough so that it is known as &quot;angry fruit salad&quot;.</p>
-<p>Now. What if we changed that? What if the default Emacs colorscheme was... you know... acceptable? It's not like there's a colorscheme that's perfect for all users, but it's definitely better than the current one.</p>
-<p>Here's what that same file looks like with a different colorscheme and line-number display:</p>
-<img alt="Emacs with the Cyberpunk colorscheme applied" src="img/emacs-better.png" style="width: 400px;" />
-<p>Is that not nicer?</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It <em>ships</em> with Tetris.</td></tr>
-</tbody>
-</table>
-<hr class="docutils" />
-<p>There is one change I always want to do on every single linux system I have access to, and that is changing the readline bindings for the up/down arrow.</p>
-<p>By default they step through the history incrementally. Press up once for the last command, press again for the second-to-last, press again for the one before that, and so on.
-If you've entered something previously, it's overwritten by the command, it goes strictly chronologically.</p>
-<p>There's an alternative binding called &quot;history-search-backward&quot; that does the same thing, <em>iff</em> the buffer is empty when you start.
-The magic happens when you've entered something, in which case it will step through the history, but only show entries that <em>match</em> what you have entered.</p>
-<p>The beauty of this is that it does strictly <em>more</em> - if you want to step through the history, you can! Just have an empty buffer and press up! If you want to search, you can! Just enter what you want, and press up!</p>
-<p>Is that not nicer? <a class="footnote-reference" href="#id4" id="id3">[2]</a></p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default <em>in readline</em> is bad and should be changed.</td></tr>
-</tbody>
-</table>
-<hr class="docutils" />
-<p>Most software has defaults that just accumulated over time. Features were introduced, and disabled by default. Configuration variables were added, and set to a certain default.
-Everyone is afraid of changing the defaults because it might alienate people who like the current defaults, and it's always easy to tell people that &quot;it's configurable&quot;.</p>
-<p>There are other ways to go about this. There are some projects to provide better defaults, like &quot;vim-sensible&quot; <a class="footnote-reference" href="#id7" id="id5">[3]</a>. Of course that means people have to know about them and configure them. That works for some, personally I'd rather just install emacs and not <em>have</em> to do anything to not get angry fruit salad. <a class="footnote-reference" href="#id8" id="id6">[4]</a></p>
-<p>What I'm getting at is: There is a better way. We could just change the defaults. Of course it would be possible to change the wrong defaults, but that's just design.</p>
-<table class="docutils footnote" frame="void" id="id7" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>It's full of stuff like &quot;show where the search string matches&quot; and &quot;enable syntax highlighting&quot;.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>I would of course still configure 50 other things - there are 650 other lines in my config, after all.</td></tr>
-</tbody>
-</table>
-                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>Well, see for yourself. Here's emacs as …</p>
+                <a class="readmore" href="https://faho.github.io/your-defaults-could-be-better.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
