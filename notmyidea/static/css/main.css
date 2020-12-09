@@ -381,7 +381,6 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	#posts-list footer {
 		left: 10px;
 		position: relative;
-        float: left;
 		top: 0.5em;
 		max-width: 190px;
 	}
