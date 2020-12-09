@@ -23,12 +23,12 @@ That means, as far as the application is concerned, there is no way to tell tab 
 &lt;li&gt;Does it reflow text on its own? VTE and iTerm do, konsole doesn't&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To me, many of these differences just seem entirely pointless. Why does this send &lt;tt class="docutils literal"&gt;\x7f&lt;/tt&gt; for my backspace key while that sends &lt;tt class="docutils literal"&gt;\b&lt;/tt&gt; (the actual backspace character)? There is an answer, but it's a historical one rather than a technical one.&lt;/p&gt;
-&lt;p&gt;Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a &lt;tt class="docutils literal"&gt;|&lt;/tt&gt; bar in insert mode). The sequences, as far as I can tell, work exactly the same &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;, like cursor blinking), but one uses &lt;tt class="docutils literal"&gt;\e]50;CursorShape=0\x7&lt;/tt&gt;, while the other uses &lt;tt class="docutils literal"&gt;\e]1337;CursorShape=0\x7&lt;/tt&gt;. See the difference? Yeah, that's a &amp;quot;1337&amp;quot; in place of a &amp;quot;50&amp;quot;. Cute. &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a &lt;tt class="docutils literal"&gt;|&lt;/tt&gt; bar in insert mode). The sequences, as far as I can tell, work exactly the same &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;, but one uses &lt;tt class="docutils literal"&gt;\e]50;CursorShape=0\x7&lt;/tt&gt;, while the other uses &lt;tt class="docutils literal"&gt;\e]1337;CursorShape=0\x7&lt;/tt&gt;. See the difference? Yeah, that's a &amp;quot;1337&amp;quot; in place of a &amp;quot;50&amp;quot;. Cute. &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;But hey, you can surely detect these small differences automatically, right?&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;(unlike the xterm one that provides other features&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;unlike the xterm one that provides other features like cursor blinking&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;

@@ -54,12 +54,12 @@ That means, as far as the application is concerned, there is no way to tell tab 
 <li>Does it reflow text on its own? VTE and iTerm do, konsole doesn't</li>
 </ul>
 <p>To me, many of these differences just seem entirely pointless. Why does this send <tt class="docutils literal">\x7f</tt> for my backspace key while that sends <tt class="docutils literal">\b</tt> (the actual backspace character)? There is an answer, but it's a historical one rather than a technical one.</p>
-<p>Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a <tt class="docutils literal">|</tt> bar in insert mode). The sequences, as far as I can tell, work exactly the same <a class="footnote-reference" href="#id3" id="id1">[1]</a>, like cursor blinking), but one uses <tt class="docutils literal">\e]50;CursorShape=0\x7</tt>, while the other uses <tt class="docutils literal">\e]1337;CursorShape=0\x7</tt>. See the difference? Yeah, that's a &quot;1337&quot; in place of a &quot;50&quot;. Cute. <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
+<p>Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a <tt class="docutils literal">|</tt> bar in insert mode). The sequences, as far as I can tell, work exactly the same <a class="footnote-reference" href="#id3" id="id1">[1]</a>, but one uses <tt class="docutils literal">\e]50;CursorShape=0\x7</tt>, while the other uses <tt class="docutils literal">\e]1337;CursorShape=0\x7</tt>. See the difference? Yeah, that's a &quot;1337&quot; in place of a &quot;50&quot;. Cute. <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
 <p>But hey, you can surely detect these small differences automatically, right?</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>(unlike the xterm one that provides other features</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>unlike the xterm one that provides other features like cursor blinking</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
