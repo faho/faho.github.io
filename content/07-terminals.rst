@@ -39,11 +39,11 @@ Some common differences:
 
 To me, many of these differences just seem entirely pointless. Why does this send ``\x7f`` for my backspace key while that sends ``\b`` (the actual backspace character)? There is an answer, but it's a historical one rather than a technical one.
 
-Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a ``|`` bar in insert mode). The sequences, as far as I can tell, work exactly the same [#]_, like cursor blinking), but one uses ``\e]50;CursorShape=0\x7``, while the other uses ``\e]1337;CursorShape=0\x7``. See the difference? Yeah, that's a "1337" in place of a "50". Cute. [#]_
+Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a ``|`` bar in insert mode). The sequences, as far as I can tell, work exactly the same [#]_, but one uses ``\e]50;CursorShape=0\x7``, while the other uses ``\e]1337;CursorShape=0\x7``. See the difference? Yeah, that's a "1337" in place of a "50". Cute. [#]_
 
 But hey, you can surely detect these small differences automatically, right?
 
-.. [#] (unlike the xterm one that provides other features
+.. [#] unlike the xterm one that provides other features like cursor blinking
 .. [#] Note: None of this is a slight against the Konsole or iTerm developers.
        I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.
 
