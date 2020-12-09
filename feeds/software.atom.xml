@@ -128,7 +128,7 @@ I've had contact with at least iTerm's maintainer, and he's never been anything 
 &lt;p&gt;This means a few things:&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;I need to add 11 more.&lt;/li&gt;
-&lt;li&gt;Emacs is amazingly configurable and programmable &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Emacs is amazingly configurable and programmable &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Emacs could really stand to have some of these as defaults.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;What do I mean by that last thing?&lt;/p&gt;
@@ -136,7 +136,7 @@ I've had contact with at least iTerm's maintainer, and he's never been anything 
 &lt;p&gt;This means a few things:&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;I need to add 11 more.&lt;/li&gt;
-&lt;li&gt;Emacs is amazingly configurable and programmable &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Emacs is amazingly configurable and programmable &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Emacs could really stand to have some of these as defaults.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;What do I mean by that last thing?&lt;/p&gt;
@@ -147,12 +147,6 @@ I've had contact with at least iTerm's maintainer, and he's never been anything 
 &lt;p&gt;Here's what that same file looks like with a different colorscheme and line-number display:&lt;/p&gt;
 &lt;img alt="Emacs with the Cyberpunk colorscheme applied" src="img/emacs-better.png" style="width: 400px;" /&gt;
 &lt;p&gt;Is that not nicer?&lt;/p&gt;
-&lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
-&lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;It &lt;em&gt;ships&lt;/em&gt; with Tetris.&lt;/td&gt;&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
 &lt;hr class="docutils" /&gt;
 &lt;p&gt;There is one change I always want to do on every single linux system I have access to, and that is changing the readline bindings for the up/down arrow.&lt;/p&gt;
 &lt;p&gt;By default they step through the history incrementally. Press up once for the last command, press again for the second-to-last, press again for the one before that, and so on.
@@ -160,28 +154,37 @@ If you've entered something previously, it's overwritten by the command, it goes
 &lt;p&gt;There's an alternative binding called &amp;quot;history-search-backward&amp;quot; that does the same thing, &lt;em&gt;iff&lt;/em&gt; the buffer is empty when you start.
 The magic happens when you've entered something, in which case it will step through the history, but only show entries that &lt;em&gt;match&lt;/em&gt; what you have entered.&lt;/p&gt;
 &lt;p&gt;The beauty of this is that it does strictly &lt;em&gt;more&lt;/em&gt; - if you want to step through the history, you can! Just have an empty buffer and press up! If you want to search, you can! Just enter what you want, and press up!&lt;/p&gt;
-&lt;p&gt;Is that not nicer? &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[2]&lt;/a&gt;&lt;/p&gt;
-&lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
-&lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default &lt;em&gt;in readline&lt;/em&gt; is bad and should be changed.&lt;/td&gt;&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;Is that not nicer? &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
 &lt;hr class="docutils" /&gt;
 &lt;p&gt;Most software has defaults that just accumulated over time. Features were introduced, and disabled by default. Configuration variables were added, and set to a certain default.
 Everyone is afraid of changing the defaults because it might alienate people who like the current defaults, and it's always easy to tell people that &amp;quot;it's configurable&amp;quot;.&lt;/p&gt;
-&lt;p&gt;There are other ways to go about this. There are some projects to provide better defaults, like &amp;quot;vim-sensible&amp;quot; &lt;a class="footnote-reference" href="#id7" id="id5"&gt;[3]&lt;/a&gt;. Of course that means people have to know about them and configure them. That works for some, personally I'd rather just install emacs and not &lt;em&gt;have&lt;/em&gt; to do anything to not get angry fruit salad. &lt;a class="footnote-reference" href="#id8" id="id6"&gt;[4]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;There are other ways to go about this. There are some projects to provide better defaults, like &amp;quot;vim-sensible&amp;quot; &lt;a class="footnote-reference" href="#id7" id="id3"&gt;[3]&lt;/a&gt;. Of course that means people have to know about them and configure them. That works for some, personally I'd rather just install emacs and not &lt;em&gt;have&lt;/em&gt; to do anything to not get angry fruit salad. &lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;What I'm getting at is: There is a better way. We could just change the defaults. Of course it would be possible to change the wrong defaults, but that's just design.&lt;/p&gt;
+&lt;div class="section" id="footnotes"&gt;
+&lt;h2&gt;Footnotes&lt;/h2&gt;
+&lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;It &lt;em&gt;ships&lt;/em&gt; with Tetris.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default &lt;em&gt;in readline&lt;/em&gt; is bad and should be changed.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id5"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;It's full of stuff like &amp;quot;show where the search string matches&amp;quot; and &amp;quot;enable syntax highlighting&amp;quot;.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;It's full of stuff like &amp;quot;show where the search string matches&amp;quot; and &amp;quot;enable syntax highlighting&amp;quot;.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id6"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;I would of course still configure 50 other things - there are 650 other lines in my config, after all.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;I would of course still configure 50 other things - there are 650 other lines in my config, after all.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;/div&gt;
 </content><category term="software"></category></entry></feed>

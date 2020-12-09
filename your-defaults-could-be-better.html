@@ -30,17 +30,13 @@
         <abbr class="published" title="2020-05-23T12:30:00+02:00">
                 Published: Sat 23 May 2020
         </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://faho.github.io/author/fabian-homborg.html">Fabian Homborg</a>
-        </address>
 <p>In <a href="https://faho.github.io/category/software.html">software</a>.</p>
 
 </footer><!-- /.post-info -->      <p>My Emacs configuration is 655 lines.</p>
 <p>This means a few things:</p>
 <ul class="simple">
 <li>I need to add 11 more.</li>
-<li>Emacs is amazingly configurable and programmable <a class="footnote-reference" href="#id2" id="id1">[1]</a></li>
+<li>Emacs is amazingly configurable and programmable <a class="footnote-reference" href="#id5" id="id1">[1]</a></li>
 <li>Emacs could really stand to have some of these as defaults.</li>
 </ul>
 <p>What do I mean by that last thing?</p>
@@ -51,12 +47,6 @@
 <p>Here's what that same file looks like with a different colorscheme and line-number display:</p>
 <img alt="Emacs with the Cyberpunk colorscheme applied" src="img/emacs-better.png" style="width: 400px;" />
 <p>Is that not nicer?</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It <em>ships</em> with Tetris.</td></tr>
-</tbody>
-</table>
 <hr class="docutils" />
 <p>There is one change I always want to do on every single linux system I have access to, and that is changing the readline bindings for the up/down arrow.</p>
 <p>By default they step through the history incrementally. Press up once for the last command, press again for the second-to-last, press again for the one before that, and so on.
@@ -64,30 +54,39 @@ If you've entered something previously, it's overwritten by the command, it goes
 <p>There's an alternative binding called &quot;history-search-backward&quot; that does the same thing, <em>iff</em> the buffer is empty when you start.
 The magic happens when you've entered something, in which case it will step through the history, but only show entries that <em>match</em> what you have entered.</p>
 <p>The beauty of this is that it does strictly <em>more</em> - if you want to step through the history, you can! Just have an empty buffer and press up! If you want to search, you can! Just enter what you want, and press up!</p>
-<p>Is that not nicer? <a class="footnote-reference" href="#id4" id="id3">[2]</a></p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default <em>in readline</em> is bad and should be changed.</td></tr>
-</tbody>
-</table>
+<p>Is that not nicer? <a class="footnote-reference" href="#id6" id="id2">[2]</a></p>
 <hr class="docutils" />
 <p>Most software has defaults that just accumulated over time. Features were introduced, and disabled by default. Configuration variables were added, and set to a certain default.
 Everyone is afraid of changing the defaults because it might alienate people who like the current defaults, and it's always easy to tell people that &quot;it's configurable&quot;.</p>
-<p>There are other ways to go about this. There are some projects to provide better defaults, like &quot;vim-sensible&quot; <a class="footnote-reference" href="#id7" id="id5">[3]</a>. Of course that means people have to know about them and configure them. That works for some, personally I'd rather just install emacs and not <em>have</em> to do anything to not get angry fruit salad. <a class="footnote-reference" href="#id8" id="id6">[4]</a></p>
+<p>There are other ways to go about this. There are some projects to provide better defaults, like &quot;vim-sensible&quot; <a class="footnote-reference" href="#id7" id="id3">[3]</a>. Of course that means people have to know about them and configure them. That works for some, personally I'd rather just install emacs and not <em>have</em> to do anything to not get angry fruit salad. <a class="footnote-reference" href="#id8" id="id4">[4]</a></p>
 <p>What I'm getting at is: There is a better way. We could just change the defaults. Of course it would be possible to change the wrong defaults, but that's just design.</p>
+<div class="section" id="footnotes">
+<h2>Footnotes</h2>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It <em>ships</em> with Tetris.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default <em>in readline</em> is bad and should be changed.</td></tr>
+</tbody>
+</table>
 <table class="docutils footnote" frame="void" id="id7" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>It's full of stuff like &quot;show where the search string matches&quot; and &quot;enable syntax highlighting&quot;.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>It's full of stuff like &quot;show where the search string matches&quot; and &quot;enable syntax highlighting&quot;.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id8" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>I would of course still configure 50 other things - there are 650 other lines in my config, after all.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>I would of course still configure 50 other things - there are 650 other lines in my config, after all.</td></tr>
 </tbody>
 </table>
+</div>
 
     </div><!-- /.entry-content -->
 

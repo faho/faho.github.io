@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h3, h4, h5, h6 { margin-top: .8em; }
 
-hr { border: 2px solid #EEEEEE; }
+hr { border: 2px solid #444444; }
 
 /* Anchors */
 a {outline: 0;}
@@ -381,7 +381,6 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	#posts-list footer {
 		left: 10px;
 		position: relative;
-        float: left;
 		top: 0.5em;
 		max-width: 190px;
 	}
