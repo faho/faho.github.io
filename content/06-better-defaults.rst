@@ -32,8 +32,6 @@ Here's what that same file looks like with a different colorscheme and line-numb
 
 Is that not nicer?
 
-.. [#] It *ships* with Tetris.
-
 ---------------
 
 There is one change I always want to do on every single linux system I have access to, and that is changing the readline bindings for the up/down arrow.
@@ -48,8 +46,6 @@ The beauty of this is that it does strictly *more* - if you want to step through
 
 Is that not nicer? [#]_
 
-.. [#] Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default *in readline* is bad and should be changed.
-
 -----------------
 
 Most software has defaults that just accumulated over time. Features were introduced, and disabled by default. Configuration variables were added, and set to a certain default.
@@ -59,5 +55,12 @@ There are other ways to go about this. There are some projects to provide better
 
 What I'm getting at is: There is a better way. We could just change the defaults. Of course it would be possible to change the wrong defaults, but that's just design.
 
+Footnotes
+---------
+
+.. [#] It *ships* with Tetris.
+.. [#] Of course there's a bit of disclaimer needed here. I'm involved with the fish shell - which you might view as a competitor to bash, and that notably has a default like history-search-backward. I think the point stands - the default *in readline* is bad and should be changed.
 .. [#] It's full of stuff like "show where the search string matches" and "enable syntax highlighting".
 .. [#] I would of course still configure 50 other things - there are 650 other lines in my config, after all.
+
+
