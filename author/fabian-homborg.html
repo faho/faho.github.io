@@ -54,56 +54,25 @@ That means, as far as the application is concerned, there is no way to tell tab 
 <li>Does it reflow text on its own? VTE and iTerm do, konsole doesn't</li>
 </ul>
 <p>To me, many of these differences just seem entirely pointless. Why does this send <tt class="docutils literal">\x7f</tt> for my backspace key while that sends <tt class="docutils literal">\b</tt> (the actual backspace character)? There is an answer, but it's a historical one rather than a technical one.</p>
-<p>Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a <tt class="docutils literal">|</tt> bar in insert mode). The sequences, as far as I can tell, work exactly the same <a class="footnote-reference" href="#id3" id="id1">[1]</a>, but one uses <tt class="docutils literal">\e]50;CursorShape=0\x7</tt>, while the other uses <tt class="docutils literal">\e]1337;CursorShape=0\x7</tt>. See the difference? Yeah, that's a &quot;1337&quot; in place of a &quot;50&quot;. Cute. <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
+<p>Another example: Konsole and iTerm both support cursor shaping (which is useful e.g. for vi-mode - make your cursor a block in normal mode and a <tt class="docutils literal">|</tt> bar in insert mode). The sequences, as far as I can tell, work exactly the same <a class="footnote-reference" href="#id9" id="id1">[1]</a>, but one uses <tt class="docutils literal">\e]50;CursorShape=0\x7</tt>, while the other uses <tt class="docutils literal">\e]1337;CursorShape=0\x7</tt>. See the difference? Yeah, that's a &quot;1337&quot; in place of a &quot;50&quot;. Cute. <a class="footnote-reference" href="#id10" id="id2">[2]</a></p>
 <p>But hey, you can surely detect these small differences automatically, right?</p>
-<table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>unlike the xterm one that provides other features like cursor blinking</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Note: None of this is a slight against the Konsole or iTerm developers.
-I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.</td></tr>
-</tbody>
-</table>
 </div>
 <div class="section" id="detection-sucks">
 <h2>Detection sucks</h2>
 <p>Hahaha, no.</p>
-<p>The primary way to detect what terminal your user is using and what it can do is $TERM, which is an environment variable that explains the type of terminal. You're supposed to use it to look at the actual terminal description in a thing called &quot;terminfo&quot;. <a class="footnote-reference" href="#id8" id="id5">[3]</a></p>
+<p>The primary way to detect what terminal your user is using and what it can do is $TERM, which is an environment variable that explains the type of terminal. You're supposed to use it to look at the actual terminal description in a thing called &quot;terminfo&quot;. <a class="footnote-reference" href="#id11" id="id3">[3]</a></p>
 <p>Only terminfo is basically broken.</p>
 <p>Why? Well:</p>
 <ul class="simple">
 <li>You need the actual files installed to be able to look it up, which means your OS needs to provide them</li>
 <li>People connect to servers via ssh, which just sends the $TERM value along, so all software running on that server will have to look up the terminfo for the terminal running on the (typically much newer) client, and if they don't find it they will fail to see anything and might even crash.</li>
-<li>Adding a new terminfo entry is possible, but with LTS distributions there's a <em>looong</em> lag. <a class="footnote-reference" href="#id9" id="id6">[4]</a></li>
-<li>Some (arguably badly written) software just hardcodes a few $TERM values it knows, mostly &quot;xterm*&quot;. <a class="footnote-reference" href="#id10" id="id7">[5]</a></li>
+<li>Adding a new terminfo entry is possible, but with LTS distributions there's a <em>looong</em> lag. <a class="footnote-reference" href="#id12" id="id4">[4]</a></li>
+<li>Some (arguably badly written) software just hardcodes a few $TERM values it knows, mostly &quot;xterm*&quot;. <a class="footnote-reference" href="#id13" id="id5">[5]</a></li>
 <li>The most used terminals are, for the most part, basically xterm-compatible-ish</li>
 </ul>
 <p>Because of this, almost every terminal claims to be some form of &quot;xterm&quot; - most often <tt class="docutils literal"><span class="pre">xterm-256color</span></tt>. Some people claim that this is wrong and you should simply configure the terminal to use its own terminfo entry (<a class="reference external" href="http://jdebp.uk./Softwares/nosh/guide/commands/TERM.xml">e.g.</a>). I can't agree - that just makes ssh'ing awkward, breaks programs and, most importantly, would require me to tell users to reconfigure their terminal.</p>
 <p>Which means, if I want to distinguish gnome-terminal from konsole, I need to look elsewhere - both claim to be xterm-256color by default.</p>
 <p>But at least I can use terminfo as a baseline, right?</p>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>There is also termcap, which is slightly different. I'm mostly familiar with terminfo so I'm gonna talk about that.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id9" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td>This includes <strong>emacs</strong> - it has its own terminal database that entries need to be added to.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id10" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7">[5]</a></td><td>Alacritty had its entry added to the ncurses terminfo in 2018, and in 2020 you wouldn't expect most servers to have it.</td></tr>
-</tbody>
-</table>
 </div>
 <div class="section" id="terminfo-is-woefully-incomplete-or-wrong">
 <h2>Terminfo is woefully incomplete or wrong</h2>
@@ -114,31 +83,13 @@ I've had contact with at least iTerm's maintainer, and he's never been anything 
 <p>..but it uses the actual xterm value of <tt class="docutils literal">\e[something q</tt>, not the konsole or iTerm value of <tt class="docutils literal">\e]50/1337something</tt>.</p>
 <p>And even if it did, you still couldn't use it, because macOS' terminfo is old and crusty and doesn't have Ss, at all.</p>
 <p>Of course when I say &quot;wrong&quot; here, it's not that I'm blaming the terminfo for not matching up to a terminal it's never been written for. I'm just saying that the terminfo is, from the application's perspective, wrong. It says things that simply aren't correct. I'm not interested in finding someone to blame, I'm interested in things being broken.</p>
-<p>Or consider the sequence to communicate the current directory to the terminal. As far as I can tell, that one is <em>actually defined</em> as being &quot;OSC 7&quot; <a class="footnote-reference" href="#id14" id="id11">[6]</a>. OSC is an acronym and stands for <tt class="docutils literal">\e]</tt>. <a class="footnote-reference" href="#id15" id="id12">[7]</a></p>
+<p>Or consider the sequence to communicate the current directory to the terminal. As far as I can tell, that one is <em>actually defined</em> as being &quot;OSC 7&quot; <a class="footnote-reference" href="#id14" id="id6">[6]</a>. OSC is an acronym and stands for <tt class="docutils literal">\e]</tt>. <a class="footnote-reference" href="#id15" id="id7">[7]</a></p>
 <p>There is, as best as I can tell, no terminfo entry for it, and I'm really not expecting any.</p>
 <p>What's more, the semantics for OSC 7 are weirdly complicated. Here's how fish handles it</p>
 <div class="highlight"><pre><span></span><span class="nb">printf</span> <span class="se">\e\]</span>7<span class="se">\;</span>file://%s%s<span class="se">\a</span> <span class="nv">$hostname</span> <span class="o">(</span>string escape --style<span class="o">=</span>url <span class="nv">$PWD</span><span class="o">)</span>
 </pre></div>
 <p>So it starts with an escape, then a <tt class="docutils literal">]7;</tt>, then <em>a url to the current directory</em>. With actual URL-encoding. In a terminal. And then it ends with a bel character, just to make sure this wakes up anyone who uses a terminal that doesn't support it.</p>
-<p>Or consider that it took <em>an actual literal decade</em> for terminfo to finally gain a way to say that a terminal supports 24-bit true color. <a class="footnote-reference" href="#id16" id="id13">[8]</a></p>
-<table class="docutils footnote" frame="void" id="id14" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id11">[6]</a></td><td>Not that I've ever found any good documentation on any of this, mind you.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id15" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id12">[7]</a></td><td>Ackchually it stands for &quot;Operating System Control&quot;, for some reason.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id16" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id13">[8]</a></td><td>terminfo support arrived in 2018 with ncurses 6.1. Konsole had truecolor support in <strong>2008</strong>.</td></tr>
-</tbody>
-</table>
+<p>Or consider that it took <em>an actual literal decade</em> for terminfo to finally gain a way to say that a terminal supports 24-bit true color. <a class="footnote-reference" href="#id16" id="id8">[8]</a></p>
 </div>
 <div class="section" id="how-do-we-fix-it">
 <h2>How do we fix it?</h2>
@@ -151,6 +102,58 @@ I've had contact with at least iTerm's maintainer, and he's never been anything 
 <p>So a terminal would set $NU_TERM to true, and it would signal to the app that the baseline is safe to use. If the app wants to have ctrl-i encoded specially, it should send <tt class="docutils literal"><span class="pre">\e]666;to-the-future!\a</span></tt>, and everything should be grand and kittens will fall from the heavens (and safely land on their cute little feetsies, of course).</p>
 <p>And people would have to stop using bad terminals.</p>
 <p>I'm not holding my breath.</p>
+</div>
+<div class="section" id="footnotes">
+<h2>Footnotes</h2>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>unlike the xterm one that provides other features like cursor blinking</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Note: None of this is a slight against the Konsole or iTerm developers.
+I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>There is also termcap, which is slightly different. I'm mostly familiar with terminfo so I'm gonna talk about that.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>Alacritty had its entry added to the ncurses terminfo in 2018, and in 2020 you wouldn't expect most servers to have it.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>This includes <strong>emacs</strong> - it has its own terminal database that entries need to be added to.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[6]</a></td><td>Not that I've ever found any good documentation on any of this, mind you.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[7]</a></td><td>Ackchually it stands for &quot;Operating System Control&quot;, for some reason.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8">[8]</a></td><td>terminfo support arrived in 2018 with ncurses 6.1. Konsole had truecolor support in <strong>2008</strong>.</td></tr>
+</tbody>
+</table>
 </div>
                 </article>
             </aside><!-- /#featured -->
