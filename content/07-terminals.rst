@@ -43,10 +43,6 @@ Another example: Konsole and iTerm both support cursor shaping (which is useful 
 
 But hey, you can surely detect these small differences automatically, right?
 
-.. [#] unlike the xterm one that provides other features like cursor blinking
-.. [#] Note: None of this is a slight against the Konsole or iTerm developers.
-       I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.
-
 Detection sucks
 ---------------
 
@@ -70,10 +66,6 @@ Which means, if I want to distinguish gnome-terminal from konsole, I need to loo
 
 But at least I can use terminfo as a baseline, right?
 
-.. [#] There is also termcap, which is slightly different. I'm mostly familiar with terminfo so I'm gonna talk about that.
-.. [#] This includes **emacs** - it has its own terminal database that entries need to be added to.
-.. [#] Alacritty had its entry added to the ncurses terminfo in 2018, and in 2020 you wouldn't expect most servers to have it.
-       
 Terminfo is woefully incomplete or wrong
 ----------------------------------------
 
@@ -104,10 +96,6 @@ So it starts with an escape, then a ``]7;``, then *a url to the current director
 
 Or consider that it took *an actual literal decade* for terminfo to finally gain a way to say that a terminal supports 24-bit true color. [#]_
 
-.. [#] Not that I've ever found any good documentation on any of this, mind you.
-.. [#] Ackchually it stands for "Operating System Control", for some reason.
-.. [#] terminfo support arrived in 2018 with ncurses 6.1. Konsole had truecolor support in **2008**.
-
 How do we fix it?
 -----------------
 
@@ -128,3 +116,16 @@ So a terminal would set $NU_TERM to true, and it would signal to the app that th
 And people would have to stop using bad terminals.
 
 I'm not holding my breath.
+
+Footnotes
+---------
+
+.. [#] unlike the xterm one that provides other features like cursor blinking
+.. [#] Note: None of this is a slight against the Konsole or iTerm developers.
+       I've had contact with at least iTerm's maintainer, and he's never been anything but lovely.
+.. [#] There is also termcap, which is slightly different. I'm mostly familiar with terminfo so I'm gonna talk about that.
+.. [#] Alacritty had its entry added to the ncurses terminfo in 2018, and in 2020 you wouldn't expect most servers to have it.
+.. [#] This includes **emacs** - it has its own terminal database that entries need to be added to.
+.. [#] Not that I've ever found any good documentation on any of this, mind you.
+.. [#] Ackchually it stands for "Operating System Control", for some reason.
+.. [#] terminfo support arrived in 2018 with ncurses 6.1. Konsole had truecolor support in **2008**.
