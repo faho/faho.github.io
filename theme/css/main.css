@@ -18,7 +18,6 @@
 body {
     background: #111;
     color: #EEE;
-    font-size: 87.5%; /* Base font size: 14px */
     font-family: sans-serif;
     line-height: 1.429;
     margin: 0;
@@ -96,6 +95,7 @@ li { margin-top: 0.5em;
     padding:5px;
     background: #111;
     font-size: 12px;
+    border: 1px solid #333;
 }
 
 .post-info p{
@@ -109,7 +109,14 @@ dl {margin: 0 0 1.5em 0;}
 dt {font-weight: bold;}
 dd {margin-left: 1.5em;}
 
-pre{background-color:  rgb(23, 23, 23); padding: 10px; margin: 10px; overflow: auto;}
+pre{
+    background-color:  rgb(13, 13, 13);
+    padding: 10px;
+    margin: 10px;
+    overflow: auto;
+    color: #FFF;
+    border: 1px solid #444;
+}
 
 /* Quotes */
 blockquote {
@@ -193,8 +200,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 		max-width: 1200px;
 
 		border-radius: 5px;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
 	}
 
 	#banner nav ul {list-style: none; margin: 0 auto; max-width: 1200px;}
@@ -216,12 +221,8 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 
 	#banner nav li:first-child a {
 		border-top-left-radius: 5px;
-		-moz-border-radius-topleft: 5px;
-		-webkit-border-top-left-radius: 5px;
 
 		border-bottom-left-radius: 5px;
-		-moz-border-radius-bottomleft: 5px;
-		-webkit-border-bottom-left-radius: 5px;
 	}
 
 /*
@@ -234,8 +235,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	padding: 20px;
 
 	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
 }
 
 #featured figure {
@@ -262,8 +261,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	padding: 20px 20px;
 
 	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
 }
 
 /*
@@ -331,8 +328,6 @@ img.left, figure.left {float: left; margin: 0 2em 2em 0;}
 	overflow: hidden;
 
 	border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
 }
 
 #about .primary {float: left; max-width: 165px;}
@@ -390,8 +385,6 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 		padding: 10px 20px 15px 20px;
 
 		border-radius: 5px;
-		-moz-border-radius: 5px;
-		-webkit-border-radius: 5px;
 	}
 
 	#about-author strong {
@@ -402,3 +395,29 @@ li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
 	}
 
 	#about-author .photo {border: 1px solid #333; float: left; margin: 5px 1em 0 0;}
+
+body {
+    color: #BBBBBB;
+}
+
+article {
+    background: #222222;
+}
+
+.footnote {
+    background: #181818;
+    border: 1px solid #333;
+}
+
+.content {
+    background: #222222;
+}
+
+img {
+    border: 2px solid #333;
+}
+
+.footnote-reference:link {
+    text-decoration: none;
+}
+
