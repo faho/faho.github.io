@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>is - check conditions on files, numbers and text &#8212; fish-shell 3.1.2-1856-g4116aaeb5 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="isatty - test if a file descriptor is a terminal" href="isatty.html" />
+    <link rel="prev" title="if - conditionally execute a command" href="if.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/fish.png" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    
+     
+
+  </head><body><div id="fmain">  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    <li><img src="../_static/fish.png" alt=""
+             style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
+    
+    <a href="../index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">is - check conditions on files, numbers and text</a></li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="is-check-conditions-on-files-numbers-and-text">
+<span id="cmd-is"></span><h1>is - check conditions on files, numbers and text<a class="headerlink" href="#is-check-conditions-on-files-numbers-and-text" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">is</span><span class="w"> </span><span class="no">empty</span><span class="w"> </span><span class="no">STRINGS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">notempty</span><span class="w"> </span><span class="no">STRINGS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">same</span><span class="w"> </span><span class="no">STRINGS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">number</span><span class="w"> </span><span class="no">STRINGS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">path</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">directory</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">link</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">readable</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">writable</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">executable</span><span class="w"> </span><span class="no">PATHS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">equal</span><span class="w"> </span><span class="no">NUMBERS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">greater</span><span class="w"> </span><span class="no">NUMBERS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">greater-equal</span><span class="w"> </span><span class="no">NUMBERS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">less</span><span class="w"> </span><span class="no">NUMBERS...</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">less-equal</span><span class="w"> </span><span class="no">NUMBERS...</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">is</span></code> checks if conditions are true. It operates on lists of arguments. The first argument is the command.</p>
+<p>A missing or unknown command is an error.</p>
+<p>All commands except <code class="docutils literal notranslate"><span class="pre">empty</span></code> return false if no argument was passed.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">is</span></code> does not support logical operators and lacks some negated forms. Use <span class="xref std std-ref">combiners</span> and multiple calls to <code class="docutils literal notranslate"><span class="pre">is</span></code> instead.</p>
+<p><code class="docutils literal notranslate"><span class="pre">is</span></code> prints the help when given <code class="docutils literal notranslate"><span class="pre">-h</span></code> or <a href="#id1"><span class="problematic" id="id2">``</span></a>--help` as the first argument.</p>
+</div>
+<div class="section" id="string-commands">
+<span id="cmd-is-strings"></span><h2>String commands<a class="headerlink" href="#string-commands" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">empty</span></code> checks if all given strings are empty. This returns true if no string was given.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">notempty</span></code> checks if all given strings are notempty.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">same</span></code> checks if all the given strings are the same. This returns false if only one string was given.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">number</span></code> checks if all the given strings are numbers that <code class="docutils literal notranslate"><span class="pre">is</span></code> understands. See <a class="reference internal" href="#cmd-is-numbers"><span class="std std-ref">Number commands</span></a> for more details.</p></li>
+</ul>
+<p>To check if any string is not empty, negate the <code class="docutils literal notranslate"><span class="pre">is</span></code> instead: <code class="docutils literal notranslate"><span class="pre">not</span> <span class="pre">is</span> <span class="pre">empty</span> <span class="pre">&quot;&quot;</span> <span class="pre">&quot;&quot;</span> <span class="pre">&quot;foo&quot;</span></code> will be true.</p>
+<p>To check if a string has one of a number of given values, use <a class="reference internal" href="contains.html#cmd-contains"><span class="std std-ref">contains</span></a>: <code class="docutils literal notranslate"><span class="pre">contains</span> <span class="pre">--</span> <span class="pre">foo</span> <span class="pre">bar</span> <span class="pre">foo</span> <span class="pre">baz</span></code>.</p>
+</div>
+<div class="section" id="file-and-directory-commands">
+<span id="cmd-is-files"></span><h2>File and directory commands<a class="headerlink" href="#file-and-directory-commands" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">path</span></code> checks if all given paths exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">file</span></code> checks if all given paths are regular files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">directory</span></code> checks if all given paths are directories.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">link</span></code> checks if all given paths are symbolic links.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readable</span></code> checks if all given paths are readable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">writable</span></code> checks if all given paths are writable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">executable</span></code> checks if all given paths are executable.</p></li>
+</ul>
+</div>
+<div class="section" id="number-commands">
+<span id="cmd-is-numbers"></span><h2>Number commands<a class="headerlink" href="#number-commands" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">is</span></code> can compare floating point numbers.</p>
+<ul class="simple">
+<li><p>The radix character is <code class="docutils literal notranslate"><span class="pre">.</span></code>, not dependent on locale.</p></li>
+<li><p>It ignores leading and trailing whitespace, leading zeroes, trailing zeroes after a &quot;.&quot;</p></li>
+<li><p>It can handle hexadecimal numbers with <code class="docutils literal notranslate"><span class="pre">0x</span></code>.</p></li>
+</ul>
+<p>See also the <code class="docutils literal notranslate"><span class="pre">number</span></code> command (under <a class="reference internal" href="#cmd-is-strings"><span class="std std-ref">String commands</span></a>) to check if something is a number in this sense.</p>
+<p>All of these commands return false if less than two numbers were given. A number isn't equal to, greater than or less than nothing.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">equal</span></code> checks if all given numbers are numerically equal</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">greater</span></code> checks if every number is greater than the next, i.e. the numbers are in strictly descending order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">less</span></code> checks if every number is smaller than the next, i.e. they are in strictly ascending order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">greater-equal</span></code>, like <code class="docutils literal notranslate"><span class="pre">greater</span></code>, but also true if the numbers are equal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">less-equal</span></code>, like <code class="docutils literal notranslate"><span class="pre">less</span></code>, but also true if the numbers are equal.</p></li>
+</ul>
+<p>The command names are chosen after the operator that would be put between the operands, so:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">is</span><span class="w"> </span><span class="no">greater</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="c"># compares 2 &gt; 1</span><span class="w"></span>
+<span class="nf">is</span><span class="w"> </span><span class="no">less</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="w"> </span><span class="no">4</span><span class="w"> </span><span class="no">5</span><span class="w"> </span><span class="c"># compares 1 &lt; 2 &lt; 3 &lt; 4 &lt; 5</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>From __fish_complete_docutils:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">same</span><span class="w"> </span><span class="o">$cmd</span><span class="w"> </span><span class="no">rst2html5</span><span class="w"></span>
+<span class="w">    </span><span class="nf">complete</span><span class="w"> </span><span class="no">-x</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="o">$cmd</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">table-style</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;borderless booktabs align-left align-center align-right colwidths-auto&quot;</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s2">&quot;Specify table style&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>From fish_vi_cursor:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># With test - this:</span><span class="w"></span>
+<span class="c"># - needs to test if $KONSOLE_VERSION is non-empty before checking if it&#39;s greater</span><span class="w"></span>
+<span class="c"># - needs to quote $KONSOLE_VERSION because `test -n` is *true*</span><span class="w"></span>
+<span class="c"># - still errors out if $KONSOLE_VERSION is non-numeric</span><span class="w"></span>
+<span class="o">not</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$KONSOLE_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$KONSOLE_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-ge</span><span class="w"> </span><span class="no">200400</span><span class="w"></span>
+
+<span class="c"># With is - no error when the argument is not numeric or missing.</span><span class="w"></span>
+<span class="o">not</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">greater</span><span class="w"> </span><span class="o">$KONSOLE_VERSION</span><span class="w"> </span><span class="no">200400</span><span class="w"></span>
+</pre></div>
+</div>
+<p>From __fish_complete_man:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-z</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$section</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$section</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">=</span><span class="w"> </span><span class="no">1</span><span class="w"></span>
+
+<span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">empty</span><span class="w"> </span><span class="o">$section</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">same</span><span class="w"> </span><span class="o">$section</span><span class="w"> </span><span class="no">1</span><span class="w"></span>
+
+
+<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-z</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$token</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$section</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">!=</span><span class="w"> </span><span class="s2">&quot;[^)]*&quot;</span><span class="w"></span>
+
+<span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">empty</span><span class="w"> </span><span class="o">$token</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="o">not</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">same</span><span class="w"> </span><span class="o">$section</span><span class="w"> </span><span class="s2">&quot;[^)]*&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>__fish_md5:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Note: This either needs to be quoted or needs to have been checked beforehand.</span><span class="w"></span>
+<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"> </span><span class="no">=</span><span class="w"> </span><span class="no">-s</span><span class="w"></span>
+
+<span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">same</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"> </span><span class="no">-s</span><span class="w"></span>
+
+<span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">=</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"> </span><span class="no">-s</span><span class="w"></span>
+</pre></div>
+</div>
+<p>oh-my-fish/oh-my-fish/pkg/omf/omf.update.fish:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Will error out if $OMF_PATH, $OMF_CONFIG or $name aren&#39;t set</span><span class="w"></span>
+<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="se">\(</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="o">$OMF_PATH</span><span class="no">/themes/</span><span class="o">$name</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="se">\(</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="o">$OMF_CONFIG</span><span class="no">/themes/</span><span class="o">$name</span><span class="w"> </span><span class="se">\)</span><span class="w"></span>
+
+<span class="c"># Will just be false if they are unset</span><span class="w"></span>
+<span class="nf">if</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">path</span><span class="w"> </span><span class="o">$OMF_PATH</span><span class="no">/themes/</span><span class="o">$name</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">is</span><span class="w"> </span><span class="no">path</span><span class="w"> </span><span class="o">$OMF_CONFIG</span><span class="no">/themes/</span><span class="o">$name</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ideas">
+<h2>Ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Version comparison using <code class="docutils literal notranslate"><span class="pre">vercmp</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">true</span></code> - check if a value is &quot;truthy&quot; - number greater than 0, a string like &quot;ON&quot; or &quot;true&quot;.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">number</span></code> - check if the value is a number.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--any</span></code>, before the command, to return true if any value is true.</p></li>
+<li><p>Remove <code class="docutils literal notranslate"><span class="pre">notempty</span></code>? Add <code class="docutils literal notranslate"><span class="pre">notequal</span></code>?</p></li>
+<li><p>Other names for numeric commands? <code class="docutils literal notranslate"><span class="pre">=</span></code>?</p></li>
+<li><p>Allow the test option naming, possibly as an alternative? &quot;lt&quot;/&quot;le&quot;/&quot;gt&quot;/&quot;ge&quot;?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">prefix</span></code>, checking if the first argument is prefix of all the others? (same for suffix etc)</p></li>
+</ul>
+<p>Unimplemented bits:</p>
+</div>
+<div class="section" id="some-operators-for-files-that-nobody-really-uses-much">
+<h2>Some operators for files that nobody really uses much<a class="headerlink" href="#some-operators-for-files-that-nobody-really-uses-much" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-b</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> is a block device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-c</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> is a character device.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-g</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> has the set-group-ID bit set.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-G</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> exists and has the same group ID as the current user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-k</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> has the sticky bit set. If the OS does not support the concept it returns false. See <a class="reference external" href="https://en.wikipedia.org/wiki/Sticky_bit">https://en.wikipedia.org/wiki/Sticky_bit</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-O</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> exists and is owned by the current user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> is a named pipe.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-s</span> <span class="pre">FILE</span></code> returns true if the size of <code class="docutils literal notranslate"><span class="pre">FILE</span></code> is greater than zero.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-S</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> is a socket.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">FD</span></code> returns true if the file descriptor <code class="docutils literal notranslate"><span class="pre">FD</span></code> is a terminal (TTY).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-u</span> <span class="pre">FILE</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">FILE</span></code> has the set-user-ID bit set.</p></li>
+</ul>
+</div>
+<div class="section" id="operators-to-compare-and-examine-numbers">
+<h2>Operators to compare and examine numbers<a class="headerlink" href="#operators-to-compare-and-examine-numbers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">NUM1</span> <span class="pre">-ne</span> <span class="pre">NUM2</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">NUM1</span></code> and <code class="docutils literal notranslate"><span class="pre">NUM2</span></code> are not numerically equal.</p></li>
+</ul>
+</div>
+<div class="section" id="operators-to-combine-expressions">
+<h2>Operators to combine expressions<a class="headerlink" href="#operators-to-combine-expressions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">COND1</span> <span class="pre">-a</span> <span class="pre">COND2</span></code> returns true if both <code class="docutils literal notranslate"><span class="pre">COND1</span></code> and <code class="docutils literal notranslate"><span class="pre">COND2</span></code> are true.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COND1</span> <span class="pre">-o</span> <span class="pre">COND2</span></code> returns true if either <code class="docutils literal notranslate"><span class="pre">COND1</span></code> or <code class="docutils literal notranslate"><span class="pre">COND2</span></code> are true.</p></li>
+</ul>
+<p>Expressions can be inverted using the <code class="docutils literal notranslate"><span class="pre">!</span></code> operator:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">EXPRESSION</span></code> returns true if <code class="docutils literal notranslate"><span class="pre">EXPRESSION</span></code> is false, and false if <code class="docutils literal notranslate"><span class="pre">EXPRESSION</span></code> is true.</p></li>
+</ul>
+<p>Expressions can be grouped using parentheses.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">EXPRESSION</span> <span class="pre">)</span></code> returns the value of <code class="docutils literal notranslate"><span class="pre">EXPRESSION</span></code>.</p></li>
+</ul>
+<blockquote>
+<div><p>Note that parentheses will usually require escaping with <code class="docutils literal notranslate"><span class="pre">\(</span></code> to avoid being interpreted as a command substitution.</p>
+</div></blockquote>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../completions.html">Writing your own completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CHANGELOG.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fish_for_bash_users.html">Fish for bash users</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">is - check conditions on files, numbers and text</a><ul>
+<li><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#string-commands">String commands</a></li>
+<li><a class="reference internal" href="#file-and-directory-commands">File and directory commands</a></li>
+<li><a class="reference internal" href="#number-commands">Number commands</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#ideas">Ideas</a></li>
+<li><a class="reference internal" href="#some-operators-for-files-that-nobody-really-uses-much">Some operators for files that nobody really uses much</a></li>
+<li><a class="reference internal" href="#operators-to-compare-and-examine-numbers">Operators to compare and examine numbers</a></li>
+<li><a class="reference internal" href="#operators-to-combine-expressions">Operators to combine expressions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+    <li><img src="../_static/fish.png" alt=""
+             style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
+    <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
+    
+    <a href="../index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    
+
+          <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">is - check conditions on files, numbers and text</a></li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+    </li>
+
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; Copyright 2020, fish-shell developers.
+    <br />
+    <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    </div>
+</div>
+
+  </body>
+</html>
