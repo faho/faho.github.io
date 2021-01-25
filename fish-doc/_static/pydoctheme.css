@@ -30,6 +30,14 @@ div.related {
     margin-top: 0;
 }
 
+div.section {
+    /* Make scrollable when it's too wide
+       Really only happens with tables, the rest flows nicely,
+       but I have no idea how to make the tables themselves scrollable
+     */
+    overflow-y: auto;
+}
+
 div.related a:hover {
     color: #0095C4;
 }
