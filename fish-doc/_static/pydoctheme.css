@@ -10,7 +10,7 @@ body {
 
 div#fmain {
     color: #222;
-    padding: 10px 50px 30px;
+    padding: 10px 40px 10px;
     background-color: #EEEEFA;
     border-radius: 14px;
     position: relative;
@@ -59,14 +59,21 @@ form.inline-search input[type="submit"] {
 
 div.sphinxsidebar {
     background-color: #eeeefa;
-    border: 1px solid;
-    border-radius: 5px;
+    border-right: 1px solid #ccc;
+    border-radius: 0px;
     line-height: 130%;
     font-size: smaller;
     overflow: auto;
     position: absolute;
     margin-left: 0;
     float: none;
+}
+
+div#searchbox {
+    /* Cheesy: The padding is on the sphinxsidebar*wrapper*,
+       so if this is the last element the bottom padding won't apply.
+    */
+    padding-bottom: 5px;
 }
 
 div.sphinxsidebar h3, div.sphinxsidebar h4 {
