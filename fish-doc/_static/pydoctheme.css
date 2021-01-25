@@ -242,6 +242,8 @@ dl > dt span ~ em {
     box-shadow: 0;
     width: 100%;
     padding: 0;
+    /* We have some padding/margins that would overflow - just remove it */
+    overflow: clip;
   }
     div.footer {
         margin: 0;
