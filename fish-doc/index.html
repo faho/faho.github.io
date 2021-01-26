@@ -343,7 +343,8 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <p>This is a kind of function known as a <a class="reference internal" href="#syntax-function-wrappers"><span class="std std-ref">wrapper</span></a> or &quot;alias&quot;.</p>
 <p>Fish's prompt is also defined in a function, called <a class="reference internal" href="cmds/fish_prompt.html#cmd-fish-prompt"><span class="std std-ref">fish_prompt</span></a>. It is run when the prompt is about to be displayed and its output forms the prompt:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
-<span class="w">    </span><span class="c"># A simple prompt. Displays the current directory (which fish stores in the $PWD variable)</span><span class="w"></span>
+<span class="w">    </span><span class="c"># A simple prompt. Displays the current directory</span><span class="w"></span>
+<span class="w">    </span><span class="c"># (which fish stores in the $PWD variable)</span><span class="w"></span>
 <span class="w">    </span><span class="c"># and then a user symbol - a &#39;►&#39; for a normal user and a &#39;#&#39; for root.</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">user_char</span><span class="w"> </span><span class="s1">&#39;►&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="nf">fish_is_root_user</span><span class="w"></span>
@@ -379,7 +380,8 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <p>Anything after a <code class="docutils literal notranslate"><span class="pre">#</span></code> until the end of the line is a comment. That means it's purely for the reader's benefit, fish ignores it.</p>
 <p>This is useful to explain what and why you are doing something:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">ls</span><span class="w"></span>
-<span class="w">    </span><span class="c"># The function is called ls, so we have to explicitly call `command ls` to avoid calling ourselves.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># The function is called ls,</span><span class="w"></span>
+<span class="w">    </span><span class="c"># so we have to explicitly call `command ls` to avoid calling ourselves.</span><span class="w"></span>
 <span class="w">    </span><span class="nf">command</span><span class="w"> </span><span class="nf">ls</span><span class="w"> </span><span class="no">--color=auto</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
 <span class="nf">end</span><span class="w"></span>
 </pre></div>
@@ -426,12 +428,13 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <p>Some examples:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Just see if the file contains the string &quot;fish&quot; anywhere.</span><span class="w"></span>
 <span class="nf">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">myanimals</span><span class="w"></span>
-<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">You</span><span class="w"> </span><span class="no">have</span><span class="w"> </span><span class="no">fish!</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;You have fish!&quot;</span><span class="w"></span>
 <span class="nf">else</span><span class="w"></span>
-<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">You</span><span class="w"> </span><span class="no">don</span><span class="s1">&#39;t have fish!</span>
-<span class="s1">end</span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;You don&#39;t have fish!&quot;</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
 
-<span class="s1"># $XDG_CONFIG_HOME is a standard place to store configuration. If it&#39;</span><span class="no">s</span><span class="w"> </span><span class="no">not</span><span class="w"> </span><span class="no">set</span><span class="w"> </span><span class="no">applications</span><span class="w"> </span><span class="no">should</span><span class="w"> </span><span class="no">use</span><span class="w"> </span><span class="o">~</span><span class="no">/.config.</span><span class="w"></span>
+<span class="c"># $XDG_CONFIG_HOME is a standard place to store configuration.</span><span class="w"></span>
+<span class="c"># If it&#39;s not set applications should use ~/.config.</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">XDG_CONFIG_HOME</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">configdir</span><span class="w"> </span><span class="o">$XDG_CONFIG_HOME</span><span class="w"></span>
 <span class="o">or</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">configdir</span><span class="w"> </span><span class="o">~</span><span class="no">/.config</span><span class="w"></span>
 </pre></div>
@@ -627,7 +630,8 @@ foo-{}
 <span id="cartesian-product"></span><h2>Combining lists (Cartesian Product)<a class="headerlink" href="#combining-lists-cartesian-product" title="Permalink to this headline">¶</a></h2>
 <p>When lists are expanded with other parts attached, they are expanded with these parts still attached. Even if two lists are attached to each other, they are expanded in all combinations. This is referred to as the <cite>cartesian product</cite> (like in mathematics), and works basically like <a class="reference internal" href="#expand-brace"><span class="std std-ref">brace expansion</span></a>.</p>
 <p>Examples:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span># Brace expansion is the most familiar - all elements in the brace combine with the parts outside of the braces
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span># Brace expansion is the most familiar:
+# All elements in the brace combine with the parts outside of the braces
 <span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">{</span><span class="no">good</span><span class="o">,</span><span class="no">bad</span><span class="o">}</span><span class="s2">&quot; apples&quot;</span><span class="w"></span>
 good apples bad apples
 
@@ -663,8 +667,13 @@ x1 y1 z1 x2 y2 z2 x3 y3 z3
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;_ </span><span class="nf">set</span><span class="w"> </span><span class="no">b</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="w"></span>
 <span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">echo</span><span class="w"> </span><span class="no">x</span><span class="o">)$b</span><span class="w"></span>
 x1 x2 x3
-<span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">printf</span><span class="w"> </span><span class="s1">&#39;%s&#39;</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="no">banana</span><span class="w"> </span><span class="c"># the printf prints nothing, so this is nothing times &quot;banana&quot;, which is nothing.</span><span class="w"></span>
-<span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">printf</span><span class="w"> </span><span class="s1">&#39;%s\n&#39;</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="no">banana</span><span class="w"> </span><span class="c"># the printf prints a newline, so the command substitution expands to an empty string, so this is `&#39;&#39;banana`</span><span class="w"></span>
+<span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">printf</span><span class="w"> </span><span class="s1">&#39;%s&#39;</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="no">banana</span><span class="w"></span>
+# the printf prints nothing, so this is nothing times &quot;banana&quot;,
+# which is nothing.
+<span class="gp">&gt;_ </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">printf</span><span class="w"> </span><span class="s1">&#39;%s\n&#39;</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">)</span><span class="no">banana</span><span class="w"></span>
+# the printf prints a newline,
+# so the command substitution expands to an empty string,
+# so this is `&#39;&#39;banana`
 banana
 </pre></div>
 </div>
@@ -847,7 +856,8 @@ If the start is negative the range always goes down, so <code class="docutils li
 <div class="section" id="overriding-variables-for-a-single-command">
 <span id="variables-override"></span><h2>Overriding variables for a single command<a class="headerlink" href="#overriding-variables-for-a-single-command" title="Permalink to this headline">¶</a></h2>
 <p>If you want to override a variable for a single command, you can use &quot;var=val&quot; statements before the command:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Call git status on another directory (can also be done via `git -C somerepo status`)</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Call git status on another directory</span><span class="w"></span>
+<span class="c"># (can also be done via `git -C somerepo status`)</span><span class="w"></span>
 <span class="no">GIT_DIR</span><span class="o">=</span><span class="no">somerepo</span><span class="w"> </span><span class="nf">git</span><span class="w"> </span><span class="no">status</span><span class="w"></span>
 </pre></div>
 </div>
@@ -862,7 +872,8 @@ If the start is negative the range always goes down, so <code class="docutils li
 </pre></div>
 </div>
 <p>Or with a <a class="reference internal" href="#expand-wildcard"><span class="std std-ref">glob</span></a>:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Run vlc on all mp3 files in the current directory - if no file exists it will still be run with no arguments</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="c"># Run vlc on all mp3 files in the current directory</span><span class="w"></span>
+<span class="c"># If no file exists it will still be run with no arguments</span><span class="w"></span>
 <span class="no">mp3s</span><span class="o">=*</span><span class="no">.mp3</span><span class="w"> </span><span class="nf">vlc</span><span class="w"> </span><span class="o">$mp3s</span><span class="w"></span>
 </pre></div>
 </div>
@@ -912,10 +923,8 @@ If the start is negative the range always goes down, so <code class="docutils li
 <p>As a naming convention, exported variables are in uppercase and unexported variables are in lowercase.</p>
 <p>For example:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">ANDROID_HOME</span><span class="w"> </span><span class="o">~</span><span class="no">/.android</span><span class="w"> </span><span class="c"># /opt/android-sdk</span><span class="w"></span>
-<span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">ASPROOT</span><span class="w"> </span><span class="o">~</span><span class="no">/packages/asp</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">CDPATH</span><span class="w"> </span><span class="no">.</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="o">(</span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="o">~</span><span class="no">/Videos</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="o">~</span><span class="no">/Videos</span><span class="o">)</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">EDITOR</span><span class="w"> </span><span class="no">emacs</span><span class="w"> </span><span class="no">-nw</span><span class="w"></span>
-<span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">GCC_COLORS</span><span class="w"> </span><span class="s1">&#39;error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01&#39;</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">GOPATH</span><span class="w"> </span><span class="o">~</span><span class="no">/dev/go</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">GTK2_RC_FILES</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$XDG_CONFIG_HOME</span><span class="s2">/gtk-2.0/gtkrc&quot;</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">LESSHISTFILE</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="w"></span>
@@ -1038,7 +1047,8 @@ banana
 <span class="w">        </span><span class="nf">return</span><span class="w"> </span><span class="no">0</span><span class="w"></span>
 <span class="w">    </span><span class="nf">end</span><span class="w"></span>
 
-<span class="w">    </span><span class="c"># If -s or --second is given, we print the second argument, not the first and third.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># If -s or --second is given, we print the second argument,</span><span class="w"></span>
+<span class="w">    </span><span class="c"># not the first and third.</span><span class="w"></span>
 <span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">_flag_second</span><span class="w"></span>
 <span class="w">        </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">2</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="nf">else</span><span class="w"></span>
@@ -1355,7 +1365,8 @@ session).</p></li>
 <span id="editor"></span><h1>Command line editor<a class="headerlink" href="#command-line-editor" title="Permalink to this headline">¶</a></h1>
 <p>The fish editor features copy and paste, a <a class="reference external" href="#history-search">searchable history</a> and many editor functions that can be bound to special keyboard shortcuts.</p>
 <p>Similar to bash, fish has Emacs and Vi editing modes. The default editing mode is Emacs. You can switch to Vi mode with <code class="docutils literal notranslate"><span class="pre">fish_vi_key_bindings</span></code> and switch back with <code class="docutils literal notranslate"><span class="pre">fish_default_key_bindings</span></code>. You can also make your own key bindings by creating a function and setting $fish_key_bindings to its name. For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_hybrid_key_bindings</span><span class="w"> </span><span class="no">--description</span><span class="w"> </span><span class="s2">&quot;Vi-style bindings that inherit emacs-style bindings in all modes&quot;</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_hybrid_key_bindings</span><span class="w"> </span><span class="no">--description</span><span class="nv"> \</span>
+<span class="s2">&quot;Vi-style bindings that inherit emacs-style bindings in all modes&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">for</span><span class="w"> </span><span class="no">mode</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="no">default</span><span class="w"> </span><span class="no">insert</span><span class="w"> </span><span class="no">visual</span><span class="w"></span>
 <span class="w">        </span><span class="nf">fish_default_key_bindings</span><span class="w"> </span><span class="no">-M</span><span class="w"> </span><span class="o">$mode</span><span class="w"></span>
 <span class="w">    </span><span class="nf">end</span><span class="w"></span>

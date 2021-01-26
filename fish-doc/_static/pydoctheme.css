@@ -14,9 +14,7 @@ div#fmain {
     background-color: #EEEEFA;
     border-radius: 14px;
     position: relative;
-    margin: 15px auto 0;
-    -moz-box-shadow: 0 0 1px 1px #333;
-    -webkit-box-shadow: 0 0 1px 1px #333;
+    margin: 15px auto 15px;
     box-shadow: 0 0 5px 1px #333;
     width: 85%;
     /* This is super-cheesy, but 1270px is the maximum width of the sidebar, the content and the margins */
@@ -72,7 +70,7 @@ div.sphinxsidebar {
 div#searchbox {
     /* Cheesy: The padding is on the sphinxsidebar*wrapper*,
        so if this is the last element the bottom padding won't apply.
-    */
+     */
     padding-bottom: 5px;
 }
 
@@ -235,12 +233,12 @@ dl > dt span ~ em {
 /* On screens that are less than 700px wide remove anything non-essential
    - the sidebar, the gradient background, ... */
 @media screen and (max-width: 700px) {
-  div.sphinxsidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  div.content {margin-left: 0;}
+    div.sphinxsidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    div.content {margin-left: 0;}
 
     div.bodywrapper {
         margin: 0;
@@ -249,17 +247,15 @@ dl > dt span ~ em {
         padding: 1rem;
     }
 
-  div#fmain {
-    border-radius: 0px;
-    margin: 0;
-    -moz-box-shadow: 0;
-    -webkit-box-shadow: 0;
-    box-shadow: 0;
-    width: 100%;
-    padding: 0;
-    /* We have some padding/margins that would overflow - just remove it */
-    overflow: clip;
-  }
+    div#fmain {
+        border-radius: 0px;
+        margin: 0;
+        box-shadow: 0;
+        width: 100%;
+        padding: 0;
+        /* We have some padding/margins that would overflow - just remove it */
+        overflow: clip;
+    }
     div.footer {
         margin: 0;
     }
