@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Frequently asked questions &#8212; fish-shell 3.1.2-1856-g4116aaeb5 documentation</title>
+    <title>Frequently asked questions &#8212; fish-shell 3.1.2-1970-gb722e9ae3 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>
@@ -52,7 +52,65 @@
     </li>
 
       </ul>
-    </div>    
+    </div>  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completions.html">Writing your own completions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fish_for_bash_users.html">Fish for bash users</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+<ul>
+<li><a class="reference internal" href="#">Frequently asked questions</a><ul>
+<li><a class="reference internal" href="#what-is-the-equivalent-to-this-thing-from-bash-or-other-shells">What is the equivalent to this thing from bash (or other shells)?</a></li>
+<li><a class="reference internal" href="#how-do-i-set-or-clear-an-environment-variable">How do I set or clear an environment variable?</a></li>
+<li><a class="reference internal" href="#how-do-i-check-whether-a-variable-is-defined">How do I check whether a variable is defined?</a></li>
+<li><a class="reference internal" href="#how-do-i-check-whether-a-variable-is-not-empty">How do I check whether a variable is not empty?</a></li>
+<li><a class="reference internal" href="#why-doesn-t-set-ux-exported-universal-variables-seem-to-work">Why doesn't <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-Ux</span></code> (exported universal variables) seem to work?</a></li>
+<li><a class="reference internal" href="#how-do-i-run-a-command-every-login-what-s-fish-s-equivalent-to-bashrc-or-profile">How do I run a command every login? What's fish's equivalent to .bashrc or .profile?</a></li>
+<li><a class="reference internal" href="#how-do-i-set-my-prompt">How do I set my prompt?</a></li>
+<li><a class="reference internal" href="#why-does-my-prompt-show-a-i">Why does my prompt show a <code class="docutils literal notranslate"><span class="pre">[I]</span></code>?</a></li>
+<li><a class="reference internal" href="#how-do-i-customize-my-syntax-highlighting-colors">How do I customize my syntax highlighting colors?</a></li>
+<li><a class="reference internal" href="#how-do-i-change-the-greeting-message">How do I change the greeting message?</a></li>
+<li><a class="reference internal" href="#i-m-seeing-weird-output-before-each-prompt-when-using-screen-what-s-wrong">I'm seeing weird output before each prompt when using screen. What's wrong?</a></li>
+<li><a class="reference internal" href="#how-do-i-run-a-command-from-history">How do I run a command from history?</a></li>
+<li><a class="reference internal" href="#why-doesn-t-history-substitution-etc-work">Why doesn't history substitution (&quot;!$&quot; etc.) work?</a></li>
+<li><a class="reference internal" href="#how-do-i-run-a-subcommand-the-backtick-doesn-t-work">How do I run a subcommand? The backtick doesn't work!</a></li>
+<li><a class="reference internal" href="#my-command-pkg-config-gives-its-output-as-a-single-long-string">My command (pkg-config) gives its output as a single long string?</a></li>
+<li><a class="reference internal" href="#how-do-i-get-the-exit-status-of-a-command">How do I get the exit status of a command?</a></li>
+<li><a class="reference internal" href="#my-command-prints-no-matches-for-wildcard-but-works-in-bash">My command prints &quot;No matches for wildcard&quot; but works in bash</a></li>
+<li><a class="reference internal" href="#i-accidentally-entered-a-directory-path-and-fish-changed-directory-what-happened">I accidentally entered a directory path and fish changed directory. What happened?</a></li>
+<li><a class="reference internal" href="#how-can-i-use-as-a-shortcut-for-cd">How can I use <code class="docutils literal notranslate"><span class="pre">-</span></code> as a shortcut for <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">-</span></code>?</a></li>
+<li><a class="reference internal" href="#the-open-command-doesn-t-work">The open command doesn't work.</a></li>
+<li><a class="reference internal" href="#why-won-t-ssh-scp-rsync-connect-properly-when-fish-is-my-login-shell">Why won't SSH/SCP/rsync connect properly when fish is my login shell?</a></li>
+<li><a class="reference internal" href="#i-m-getting-weird-graphical-glitches-a-staircase-effect-ghost-characters">I'm getting weird graphical glitches (a staircase effect, ghost characters,...)?</a></li>
+<li><a class="reference internal" href="#how-do-i-make-fish-my-default-shell">How do I make fish my default shell?</a></li>
+<li><a class="reference internal" href="#uninstalling-fish">Uninstalling fish</a></li>
+<li><a class="reference internal" href="#where-can-i-find-extra-tools-for-fish">Where can I find extra tools for fish?</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -143,8 +201,10 @@ add a statement to your <a class="reference internal" href="index.html#initializ
 <p>You can also use the Web configuration tool, <a class="reference internal" href="cmds/fish_config.html#cmd-fish-config"><span class="std std-ref">fish_config</span></a>, to preview and choose from a gallery of sample prompts.</p>
 <p>If you want to modify your existing prompt, you can use <a class="reference internal" href="cmds/funced.html#cmd-funced"><span class="std std-ref">funced</span></a> and <a class="reference internal" href="cmds/funcsave.html#cmd-funcsave"><span class="std std-ref">funcsave</span></a> like:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;_ </span><span class="nf">funced</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
-# this opens up your editor (set in $EDITOR), modify the function, save the file, repeat to your liking
-# once you are happy with it:
+# This opens up your editor (set in $EDITOR).
+# Modify the function,
+# save the file and repeat to your liking.
+# Once you are happy with it:
 <span class="gp">&gt;_ </span><span class="nf">funcsave</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
 </pre></div>
 </div>
@@ -281,7 +341,8 @@ echo *this*does*not*exist 2&gt;| xsel --clipboard
 <p>appear to work, because most of the time the string doesn't match and so it passes along the <code class="docutils literal notranslate"><span class="pre">string-*</span></code>, which is then interpreted by the receiving program.</p>
 <p>But it also means that these commands can stop working at any moment once a matching file is encountered (because it has been created or the command is executed in a different working directory), and to deal with that bash needs workarounds like</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> f <span class="k">in</span> ./*.mpg<span class="p">;</span> <span class="k">do</span>
-      <span class="c1"># We need to test if the file really exists because the wildcard might have failed to match.</span>
+      <span class="c1"># We need to test if the file really exists because</span>
+      <span class="c1"># the wildcard might have failed to match.</span>
       <span class="nb">test</span> -f <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="k">continue</span>
       mympgviewer <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span>
 <span class="k">done</span>
@@ -355,8 +416,8 @@ like the following:</p>
 </div>
 <div class="section" id="uninstalling-fish">
 <span id="faq-uninstalling"></span><h2>Uninstalling fish<a class="headerlink" href="#uninstalling-fish" title="Permalink to this headline">¶</a></h2>
-<p>Should you wish to uninstall fish, first ensure fish is not set as your shell. Run <code class="docutils literal notranslate"><span class="pre">chsh</span> <span class="pre">-s</span> <span class="pre">/bin/bash</span></code> if you are not sure.</p>
-<p>Next, do the following (assuming fish was installed to /usr/local):</p>
+<p>If you want to uninstall fish, first make sure fish is not set as your shell. Run <code class="docutils literal notranslate"><span class="pre">chsh</span> <span class="pre">-s</span> <span class="pre">/bin/bash</span></code> if you are not sure.</p>
+<p>If you installed it with a package manager, just use that package manager's uninstall function. If you built fish yourself, assuming you installed it to /usr/local, do this:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">rm</span><span class="w"> </span><span class="no">-Rf</span><span class="w"> </span><span class="no">/usr/local/etc/fish</span><span class="w"> </span><span class="no">/usr/local/share/fish</span><span class="w"> </span><span class="o">~</span><span class="no">/.config/fish</span><span class="w"></span>
 <span class="nf">rm</span><span class="w"> </span><span class="no">/usr/local/share/man/man1/fish</span><span class="o">*</span><span class="no">.1</span><span class="w"></span>
 <span class="nf">cd</span><span class="w"> </span><span class="no">/usr/local/bin</span><span class="w"></span>
@@ -381,66 +442,7 @@ like the following:</p>
             <div class="clearer"></div>
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completions.html">Writing your own completions</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Frequently asked questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fish_for_bash_users.html">Fish for bash users</a></li>
-</ul>
-
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Frequently asked questions</a><ul>
-<li><a class="reference internal" href="#what-is-the-equivalent-to-this-thing-from-bash-or-other-shells">What is the equivalent to this thing from bash (or other shells)?</a></li>
-<li><a class="reference internal" href="#how-do-i-set-or-clear-an-environment-variable">How do I set or clear an environment variable?</a></li>
-<li><a class="reference internal" href="#how-do-i-check-whether-a-variable-is-defined">How do I check whether a variable is defined?</a></li>
-<li><a class="reference internal" href="#how-do-i-check-whether-a-variable-is-not-empty">How do I check whether a variable is not empty?</a></li>
-<li><a class="reference internal" href="#why-doesn-t-set-ux-exported-universal-variables-seem-to-work">Why doesn't <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-Ux</span></code> (exported universal variables) seem to work?</a></li>
-<li><a class="reference internal" href="#how-do-i-run-a-command-every-login-what-s-fish-s-equivalent-to-bashrc-or-profile">How do I run a command every login? What's fish's equivalent to .bashrc or .profile?</a></li>
-<li><a class="reference internal" href="#how-do-i-set-my-prompt">How do I set my prompt?</a></li>
-<li><a class="reference internal" href="#why-does-my-prompt-show-a-i">Why does my prompt show a <code class="docutils literal notranslate"><span class="pre">[I]</span></code>?</a></li>
-<li><a class="reference internal" href="#how-do-i-customize-my-syntax-highlighting-colors">How do I customize my syntax highlighting colors?</a></li>
-<li><a class="reference internal" href="#how-do-i-change-the-greeting-message">How do I change the greeting message?</a></li>
-<li><a class="reference internal" href="#i-m-seeing-weird-output-before-each-prompt-when-using-screen-what-s-wrong">I'm seeing weird output before each prompt when using screen. What's wrong?</a></li>
-<li><a class="reference internal" href="#how-do-i-run-a-command-from-history">How do I run a command from history?</a></li>
-<li><a class="reference internal" href="#why-doesn-t-history-substitution-etc-work">Why doesn't history substitution (&quot;!$&quot; etc.) work?</a></li>
-<li><a class="reference internal" href="#how-do-i-run-a-subcommand-the-backtick-doesn-t-work">How do I run a subcommand? The backtick doesn't work!</a></li>
-<li><a class="reference internal" href="#my-command-pkg-config-gives-its-output-as-a-single-long-string">My command (pkg-config) gives its output as a single long string?</a></li>
-<li><a class="reference internal" href="#how-do-i-get-the-exit-status-of-a-command">How do I get the exit status of a command?</a></li>
-<li><a class="reference internal" href="#my-command-prints-no-matches-for-wildcard-but-works-in-bash">My command prints &quot;No matches for wildcard&quot; but works in bash</a></li>
-<li><a class="reference internal" href="#i-accidentally-entered-a-directory-path-and-fish-changed-directory-what-happened">I accidentally entered a directory path and fish changed directory. What happened?</a></li>
-<li><a class="reference internal" href="#how-can-i-use-as-a-shortcut-for-cd">How can I use <code class="docutils literal notranslate"><span class="pre">-</span></code> as a shortcut for <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">-</span></code>?</a></li>
-<li><a class="reference internal" href="#the-open-command-doesn-t-work">The open command doesn't work.</a></li>
-<li><a class="reference internal" href="#why-won-t-ssh-scp-rsync-connect-properly-when-fish-is-my-login-shell">Why won't SSH/SCP/rsync connect properly when fish is my login shell?</a></li>
-<li><a class="reference internal" href="#i-m-getting-weird-graphical-glitches-a-staircase-effect-ghost-characters">I'm getting weird graphical glitches (a staircase effect, ghost characters,...)?</a></li>
-<li><a class="reference internal" href="#how-do-i-make-fish-my-default-shell">How do I make fish my default shell?</a></li>
-<li><a class="reference internal" href="#uninstalling-fish">Uninstalling fish</a></li>
-<li><a class="reference internal" href="#where-can-i-find-extra-tools-for-fish">Where can I find extra tools for fish?</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+      </div> 
       <div class="clearer"></div>
     </div>  
     <div class="related" role="navigation" aria-label="related navigation">
@@ -450,7 +452,7 @@ like the following:</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>

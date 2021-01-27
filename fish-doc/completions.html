@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Writing your own completions &#8212; fish-shell 3.1.2-1856-g4116aaeb5 documentation</title>
+    <title>Writing your own completions &#8212; fish-shell 3.1.2-1970-gb722e9ae3 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Writing your own completions</a></li>
@@ -52,7 +52,42 @@
     </li>
 
       </ul>
-    </div>    
+    </div>  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing your own completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fish_for_bash_users.html">Fish for bash users</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+<ul>
+<li><a class="reference internal" href="#">Writing your own completions</a><ul>
+<li><a class="reference internal" href="#useful-functions-for-writing-completions">Useful functions for writing completions</a></li>
+<li><a class="reference internal" href="#where-to-put-completions">Where to put completions</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -77,7 +112,8 @@
 <span class="c"># Note that this can be undone by using &quot;-F&quot;.</span><span class="w"></span>
 <span class="c">#</span><span class="w"></span>
 <span class="c"># File completions also need to be disabled</span><span class="w"></span>
-<span class="c"># if you want to have more control over what files are offered (e.g. just directories, or just files ending in &quot;.mp3&quot;).</span><span class="w"></span>
+<span class="c"># if you want to have more control over what files are offered</span><span class="w"></span>
+<span class="c"># (e.g. just directories, or just files ending in &quot;.mp3&quot;).</span><span class="w"></span>
 <span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-f</span><span class="w"></span>
 
 <span class="c"># This line offers the subcommands</span><span class="w"></span>
@@ -95,22 +131,26 @@
 <span class="c"># For more complex uses, you can write your own function.</span><span class="w"></span>
 <span class="c"># See e.g. the git completions for an example.</span><span class="w"></span>
 <span class="c">#</span><span class="w"></span>
-<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;not __fish_seen_subcommand_from </span><span class="o">$commands</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;status set-time set-timezone list-timezones&quot;</span><span class="w"></span>
+<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;not __fish_seen_subcommand_from </span><span class="o">$commands</span><span class="s2">&quot;</span><span class="nv"> \</span>
+<span class="nv">    </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;status set-time set-timezone list-timezones&quot;</span><span class="w"></span>
 
 <span class="c"># If the &quot;set-timezone&quot; subcommand is used,</span><span class="w"></span>
 <span class="c"># offer the output of `timedatectl list-timezones` as completions.</span><span class="w"></span>
 <span class="c"># Each line of output is used as a separate candidate,</span><span class="w"></span>
 <span class="c"># and anything after a tab is taken as the description.</span><span class="w"></span>
 <span class="c"># It&#39;s often useful to transform command output with `string` into that form.</span><span class="w"></span>
-<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;__fish_seen_subcommand_from set-timezone&quot;</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;(timedatectl list-timezones)&quot;</span><span class="w"></span>
+<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;__fish_seen_subcommand_from set-timezone&quot;</span><span class="nv"> \</span>
+<span class="nv">    </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;(timedatectl list-timezones)&quot;</span><span class="w"></span>
 
 <span class="c"># Completion candidates can also be described via `-d`,</span><span class="w"></span>
 <span class="c"># which is useful if the description is constant.</span><span class="w"></span>
 <span class="c"># Try to keep these short, because that means the user gets to see more at once.</span><span class="w"></span>
-<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;not __fish_seen_subcommand_from </span><span class="o">$commands</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;set-local-rtc&quot;</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s2">&quot;Maintain RTC in local time&quot;</span><span class="w"></span>
+<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;not __fish_seen_subcommand_from </span><span class="o">$commands</span><span class="s2">&quot;</span><span class="nv"> \</span>
+<span class="nv">    </span><span class="no">-a</span><span class="w"> </span><span class="s2">&quot;set-local-rtc&quot;</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s2">&quot;Maintain RTC in local time&quot;</span><span class="w"></span>
 
 <span class="c"># We can also limit options to certain subcommands by using conditions.</span><span class="w"></span>
-<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;__fish_seen_subcommand_from set-local-rtc&quot;</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">adjust-system-clock</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s1">&#39;Synchronize system clock from the RTC&#39;</span><span class="w"></span>
+<span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;__fish_seen_subcommand_from set-local-rtc&quot;</span><span class="nv"> \</span>
+<span class="nv">    </span><span class="no">-l</span><span class="w"> </span><span class="no">adjust-system-clock</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s1">&#39;Synchronize system clock from the RTC&#39;</span><span class="w"></span>
 
 <span class="c"># These are simple options that can be used everywhere.</span><span class="w"></span>
 <span class="nf">complete</span><span class="w"> </span><span class="no">-c</span><span class="w"> </span><span class="no">timedatectl</span><span class="w"> </span><span class="no">-s</span><span class="w"> </span><span class="no">h</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">help</span><span class="w"> </span><span class="no">-d</span><span class="w"> </span><span class="s1">&#39;Print a short help text and exit&#39;</span><span class="w"></span>
@@ -158,43 +198,7 @@
             <div class="clearer"></div>
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Writing your own completions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fish_for_bash_users.html">Fish for bash users</a></li>
-</ul>
-
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Writing your own completions</a><ul>
-<li><a class="reference internal" href="#useful-functions-for-writing-completions">Useful functions for writing completions</a></li>
-<li><a class="reference internal" href="#where-to-put-completions">Where to put completions</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+      </div> 
       <div class="clearer"></div>
     </div>  
     <div class="related" role="navigation" aria-label="related navigation">
@@ -204,7 +208,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Writing your own completions</a></li>

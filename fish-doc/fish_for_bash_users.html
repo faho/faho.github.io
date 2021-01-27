@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fish for bash users &#8212; fish-shell 3.1.2-1856-g4116aaeb5 documentation</title>
+    <title>Fish for bash users &#8212; fish-shell 3.1.2-1970-gb722e9ae3 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -32,7 +32,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Fish for bash users</a></li>
@@ -51,7 +51,53 @@
     </li>
 
       </ul>
-    </div>    
+    </div>  
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="completions.html">Writing your own completions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fish for bash users</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+<ul>
+<li><a class="reference internal" href="#">Fish for bash users</a><ul>
+<li><a class="reference internal" href="#command-substitutions">Command substitutions</a></li>
+<li><a class="reference internal" href="#variables">Variables</a></li>
+<li><a class="reference internal" href="#wildcards-globs">Wildcards (globs)</a></li>
+<li><a class="reference internal" href="#quoting">Quoting</a></li>
+<li><a class="reference internal" href="#string-manipulation">String manipulation</a></li>
+<li><a class="reference internal" href="#special-variables">Special variables</a></li>
+<li><a class="reference internal" href="#process-substitution">Process substitution</a></li>
+<li><a class="reference internal" href="#heredocs">Heredocs</a></li>
+<li><a class="reference internal" href="#test-test">Test (<code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">[</span></code>, <code class="docutils literal notranslate"><span class="pre">[[</span></code>)</a></li>
+<li><a class="reference internal" href="#arithmetic-expansion">Arithmetic Expansion</a></li>
+<li><a class="reference internal" href="#prompts">Prompts</a></li>
+<li><a class="reference internal" href="#blocks-and-loops">Blocks and loops</a></li>
+<li><a class="reference internal" href="#builtins-and-other-commands">Builtins and other commands</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -60,7 +106,7 @@
             
   <div class="section" id="fish-for-bash-users">
 <span id="id1"></span><h1>Fish for bash users<a class="headerlink" href="#fish-for-bash-users" title="Permalink to this headline">¶</a></h1>
-<p>This is to give you a quick overview if you come from bash (or to a lesser extent other shells zsh or ksh) and want to know how fish differs. Fish is intentionally not POSIX-compatible and as such some of the things you are used to work differently.</p>
+<p>This is to give you a quick overview if you come from bash (or to a lesser extent other shells like zsh or ksh) and want to know how fish differs. Fish is intentionally not POSIX-compatible and as such some of the things you are used to work differently.</p>
 <p>Many things are similar - they both fundamentally expand commandlines to execute commands, have pipes, redirections, variables, globs, use command output in various ways. This document is there to quickly show you the differences.</p>
 <div class="section" id="command-substitutions">
 <h2>Command substitutions<a class="headerlink" href="#command-substitutions" title="Permalink to this headline">¶</a></h2>
@@ -315,54 +361,7 @@ b
             <div class="clearer"></div>
           </div>
         </div>
-      </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h3><a href="index.html">Table of Contents</a></h3>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design.html">Design</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="completions.html">Writing your own completions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
-<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">CHANGELOG</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Fish for bash users</a></li>
-</ul>
-
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>$('#searchbox').show(0);</script>
-  <h3><a href="index.html">Table of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Fish for bash users</a><ul>
-<li><a class="reference internal" href="#command-substitutions">Command substitutions</a></li>
-<li><a class="reference internal" href="#variables">Variables</a></li>
-<li><a class="reference internal" href="#wildcards-globs">Wildcards (globs)</a></li>
-<li><a class="reference internal" href="#quoting">Quoting</a></li>
-<li><a class="reference internal" href="#string-manipulation">String manipulation</a></li>
-<li><a class="reference internal" href="#special-variables">Special variables</a></li>
-<li><a class="reference internal" href="#process-substitution">Process substitution</a></li>
-<li><a class="reference internal" href="#heredocs">Heredocs</a></li>
-<li><a class="reference internal" href="#test-test">Test (<code class="docutils literal notranslate"><span class="pre">test</span></code>, <code class="docutils literal notranslate"><span class="pre">[</span></code>, <code class="docutils literal notranslate"><span class="pre">[[</span></code>)</a></li>
-<li><a class="reference internal" href="#arithmetic-expansion">Arithmetic Expansion</a></li>
-<li><a class="reference internal" href="#prompts">Prompts</a></li>
-<li><a class="reference internal" href="#blocks-and-loops">Blocks and loops</a></li>
-<li><a class="reference internal" href="#builtins-and-other-commands">Builtins and other commands</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+      </div> 
       <div class="clearer"></div>
     </div>  
     <div class="related" role="navigation" aria-label="related navigation">
@@ -372,7 +371,7 @@ b
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Fish for bash users</a></li>
