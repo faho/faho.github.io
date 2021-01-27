@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <title>Putting regexes where they don't belong</title>
+        <link rel="stylesheet" href="https://bean.solutions/theme/css/main.css" />
+        <link href="https://bean.solutions/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Fabian's Footnotes Atom Feed" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://bean.solutions/">Fabian's Footnotes </a></h1>
+                <nav><ul>
+                    <li><a href="https://bean.solutions/category/fish.html">fish</a></li>
+                    <li class="active"><a href="https://bean.solutions/category/software.html">software</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://bean.solutions/putting-regexes-where-they-dont-belong.html" rel="bookmark"
+           title="Permalink to Putting regexes where they don't belong">Putting regexes where they don't belong</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2021-01-21T21:00:00+01:00">
+                Published: Thu 21 January 2021
+        </abbr>
+<p>In <a href="https://bean.solutions/category/software.html">software</a>.</p>
+
+</footer><!-- /.post-info -->      <p>This is the story of a hack.</p>
+<p>It's not anything <em>wrong</em> or <em>bad</em>. It works quite well, but it just has that... quality. The one where you see it and you laugh in amused disgust.</p>
+<p>This is the story of how I made python do regexes when it shouldn't do regexes.</p>
+<div class="section" id="the-motive">
+<h2>The motive</h2>
+<p>I've blogged about littlecheck before. It's fish's script test driver <a class="footnote-reference" href="#id6" id="id1">[1]</a>. The way it works is that you write a script, and then you write the output you expect into <tt class="docutils literal"># CHECK:</tt> comments inside the script.</p>
+<p>Littlecheck then lets whatever interpreter you picked run the script and compares its output to all the <tt class="docutils literal"># CHECK:</tt> lines. This is super simple and works quite well in practice. Here's an example:</p>
+<pre class="literal-block">
+#!/bin/sh
+echo Hello!
+# CHECK: Hello!
+
+echo Goodbye
+# CHECK: Goodbye
+
+echo No check for this
+# ^^ Oh no, that one will fail.
+</pre>
+<p>Only... when things went wrong, littlecheck did this naive comparison where it complained about the first line that was wrong, and then let you figure out the context of all of that.</p>
+<p>Was it a superfluous line of output? A <tt class="docutils literal"># CHECK</tt> too many? Or actually a line that was different from what was expected?</p>
+<p>It didn't tell you. It just said &quot;this line doesn't look like this CHECK on line XYZ, also here's the rest of the output&quot;.</p>
+<p>Now, if you've been around unix a few times, you might know what this is a problem for: diff!</p>
+<p>You have a bunch of lines on one side, a bunch on the other and you want to know what the <strong>diff</strong>-erence is between the two, so you run <tt class="docutils literal">diff</tt> on them!</p>
+<p>Well, yeah, you would. Only there's a problem: Littlecheck does regexes.</p>
+</div>
+<div class="section" id="the-means">
+<h2>The Means</h2>
+<p>The venerable <tt class="docutils literal">diff</tt> utility doesn't handle regexes, and we wouldn't want to launch it anyway <a class="footnote-reference" href="#id7" id="id2">[2]</a>.</p>
+<p>But Littlecheck is written in python, and that has a lot of stuff in the standard library. Maybe there's a diffing tool?</p>
+<p>Oh, there's a <tt class="docutils literal">difflib</tt>. Cool!</p>
+<p>And python can do regexes - that's what we use to match them in the first place. So let's just pass a comparator to the &quot;SequenceMatcher&quot; thing and be done with it.</p>
+<p>Right?</p>
+<p>difflib's <tt class="docutils literal">SequenceMatcher</tt> doesn't take a comparator function, or key, or something comparable (hah!) <a class="footnote-reference" href="#id8" id="id3">[3]</a>.</p>
+</div>
+<div class="section" id="the-opportunity">
+<h2>The Opportunity</h2>
+<p>Where we're going we don't need comparator functions.</p>
+<p>It turns out SequenceMatcher takes its arguments as a list. So how about instead of passing strings we pass the regex objects? No, that won't work because the other side is still strings, so when it compares the two it'll just always be false.</p>
+<p>So what if we overload the list's <tt class="docutils literal">__contains__</tt> function? Well, no, that won't work because SequenceMatcher takes the list and puts the elements into a dictionary <a class="footnote-reference" href="#id9" id="id4">[4]</a> that we don't control.</p>
+<p>So... how about we override the equality operator? Well, not quite. Since it's a dictionary it first tries hash comparisons. Luckily, that goes via the <tt class="docutils literal">__hash__</tt> function, so I can write the most awful python I have ever written:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># Chosen by fair diceroll</span>
+    <span class="c1"># No, just kidding.</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+<p>This makes the hash comparison always collide, so whenever python checks if something is <tt class="docutils literal">in</tt> the dictionary it'll have to take the long route and do an actual comparison. After that, we hack the <tt class="docutils literal">__eq__</tt> function to do a regex match:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">other</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">CheckCmd</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">other</span><span class="o">.</span><span class="n">regex</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Line</span><span class="p">):</span>
+        <span class="c1"># We only compare the text here so SequenceMatcher can reshuffle these</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+</pre></div>
+<p>From there it's smooth sailing putting lipstick on this pig... boat <a class="footnote-reference" href="#id10" id="id5">[5]</a>, and this is what it looks like:</p>
+<img alt="Example output. It shows that Littlecheck can identify errors somewhere in the middle without misinterpreting everything after." src="img/littlecheck-diff.png" style="width: 800px;" />
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Not to be confused with the unit test driver or the interactive test driver</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Littlecheck is a single-file utility with no dependencies other than python, we'd like to keep it that way.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td>To be honest I don't think difflib is &quot;great&quot;. It's mostly a collection of things that someone found useful, once, and the API is a mess.
+Also: I intend all my puns. Even the accidental ones I intend in principle.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[4]</a></td><td>In what I'm pretty sure is an example of premature optimization. That or someone ran this stuff on gigabytes of text and expected an answer in milliseconds.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[5]</a></td><td>Mixing metaphors is good fun, actually</td></tr>
+</tbody>
+</table>
+</div>
+
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            <li><a href="https://bean.solutions/feeds/all.atom.xml" type="application/atom+xml" rel="alternate">atom feed</a></li>
+
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

@@ -1,5 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabian's Footnotes - software</title><link href="https://bean.solutions/" rel="alternate"></link><link href="https://bean.solutions/feeds/software.atom.xml" rel="self"></link><id>https://bean.solutions/</id><updated>2020-12-08T19:00:00+01:00</updated><entry><title>Terminals are kinda bad</title><link href="https://bean.solutions/terminals-are-kinda-bad.html" rel="alternate"></link><published>2020-12-08T19:00:00+01:00</published><updated>2020-12-08T19:00:00+01:00</updated><author><name>Fabian Homborg</name></author><id>tag:bean.solutions,2020-12-08:/terminals-are-kinda-bad.html</id><summary type="html">&lt;p&gt;I spend a lot of my time in terminals.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Fabian's Footnotes - software</title><link href="https://bean.solutions/" rel="alternate"></link><link href="https://bean.solutions/feeds/software.atom.xml" rel="self"></link><id>https://bean.solutions/</id><updated>2021-01-21T21:00:00+01:00</updated><entry><title>Putting regexes where they don't belong</title><link href="https://bean.solutions/putting-regexes-where-they-dont-belong.html" rel="alternate"></link><published>2021-01-21T21:00:00+01:00</published><updated>2021-01-21T21:00:00+01:00</updated><author><name>Fabian Homborg</name></author><id>tag:bean.solutions,2021-01-21:/putting-regexes-where-they-dont-belong.html</id><summary type="html">&lt;p&gt;This is the story of a hack.&lt;/p&gt;
+&lt;p&gt;It's not anything &lt;em&gt;wrong&lt;/em&gt; or &lt;em&gt;bad&lt;/em&gt;. It works quite well, but it just has that... quality. The one where you see it and you laugh in amused disgust.&lt;/p&gt;
+&lt;p&gt;This is the story of how I made python do regexes when it shouldn't do …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is the story of a hack.&lt;/p&gt;
+&lt;p&gt;It's not anything &lt;em&gt;wrong&lt;/em&gt; or &lt;em&gt;bad&lt;/em&gt;. It works quite well, but it just has that... quality. The one where you see it and you laugh in amused disgust.&lt;/p&gt;
+&lt;p&gt;This is the story of how I made python do regexes when it shouldn't do regexes.&lt;/p&gt;
+&lt;div class="section" id="the-motive"&gt;
+&lt;h2&gt;The motive&lt;/h2&gt;
+&lt;p&gt;I've blogged about littlecheck before. It's fish's script test driver &lt;a class="footnote-reference" href="#id6" id="id1"&gt;[1]&lt;/a&gt;. The way it works is that you write a script, and then you write the output you expect into &lt;tt class="docutils literal"&gt;# CHECK:&lt;/tt&gt; comments inside the script.&lt;/p&gt;
+&lt;p&gt;Littlecheck then lets whatever interpreter you picked run the script and compares its output to all the &lt;tt class="docutils literal"&gt;# CHECK:&lt;/tt&gt; lines. This is super simple and works quite well in practice. Here's an example:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+#!/bin/sh
+echo Hello!
+# CHECK: Hello!
+
+echo Goodbye
+# CHECK: Goodbye
+
+echo No check for this
+# ^^ Oh no, that one will fail.
+&lt;/pre&gt;
+&lt;p&gt;Only... when things went wrong, littlecheck did this naive comparison where it complained about the first line that was wrong, and then let you figure out the context of all of that.&lt;/p&gt;
+&lt;p&gt;Was it a superfluous line of output? A &lt;tt class="docutils literal"&gt;# CHECK&lt;/tt&gt; too many? Or actually a line that was different from what was expected?&lt;/p&gt;
+&lt;p&gt;It didn't tell you. It just said &amp;quot;this line doesn't look like this CHECK on line XYZ, also here's the rest of the output&amp;quot;.&lt;/p&gt;
+&lt;p&gt;Now, if you've been around unix a few times, you might know what this is a problem for: diff!&lt;/p&gt;
+&lt;p&gt;You have a bunch of lines on one side, a bunch on the other and you want to know what the &lt;strong&gt;diff&lt;/strong&gt;-erence is between the two, so you run &lt;tt class="docutils literal"&gt;diff&lt;/tt&gt; on them!&lt;/p&gt;
+&lt;p&gt;Well, yeah, you would. Only there's a problem: Littlecheck does regexes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-means"&gt;
+&lt;h2&gt;The Means&lt;/h2&gt;
+&lt;p&gt;The venerable &lt;tt class="docutils literal"&gt;diff&lt;/tt&gt; utility doesn't handle regexes, and we wouldn't want to launch it anyway &lt;a class="footnote-reference" href="#id7" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;But Littlecheck is written in python, and that has a lot of stuff in the standard library. Maybe there's a diffing tool?&lt;/p&gt;
+&lt;p&gt;Oh, there's a &lt;tt class="docutils literal"&gt;difflib&lt;/tt&gt;. Cool!&lt;/p&gt;
+&lt;p&gt;And python can do regexes - that's what we use to match them in the first place. So let's just pass a comparator to the &amp;quot;SequenceMatcher&amp;quot; thing and be done with it.&lt;/p&gt;
+&lt;p&gt;Right?&lt;/p&gt;
+&lt;p&gt;difflib's &lt;tt class="docutils literal"&gt;SequenceMatcher&lt;/tt&gt; doesn't take a comparator function, or key, or something comparable (hah!) &lt;a class="footnote-reference" href="#id8" id="id3"&gt;[3]&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-opportunity"&gt;
+&lt;h2&gt;The Opportunity&lt;/h2&gt;
+&lt;p&gt;Where we're going we don't need comparator functions.&lt;/p&gt;
+&lt;p&gt;It turns out SequenceMatcher takes its arguments as a list. So how about instead of passing strings we pass the regex objects? No, that won't work because the other side is still strings, so when it compares the two it'll just always be false.&lt;/p&gt;
+&lt;p&gt;So what if we overload the list's &lt;tt class="docutils literal"&gt;__contains__&lt;/tt&gt; function? Well, no, that won't work because SequenceMatcher takes the list and puts the elements into a dictionary &lt;a class="footnote-reference" href="#id9" id="id4"&gt;[4]&lt;/a&gt; that we don't control.&lt;/p&gt;
+&lt;p&gt;So... how about we override the equality operator? Well, not quite. Since it's a dictionary it first tries hash comparisons. Luckily, that goes via the &lt;tt class="docutils literal"&gt;__hash__&lt;/tt&gt; function, so I can write the most awful python I have ever written:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__hash__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="c1"&gt;# Chosen by fair diceroll&lt;/span&gt;
+    &lt;span class="c1"&gt;# No, just kidding.&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This makes the hash comparison always collide, so whenever python checks if something is &lt;tt class="docutils literal"&gt;in&lt;/tt&gt; the dictionary it'll have to take the long route and do an actual comparison. After that, we hack the &lt;tt class="docutils literal"&gt;__eq__&lt;/tt&gt; function to do a regex match:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__eq__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;False&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;isinstance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;CheckCmd&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;regex&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;isinstance&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Line&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="c1"&gt;# We only compare the text here so SequenceMatcher can reshuffle these&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;
+    &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="ne"&gt;NotImplementedError&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;From there it's smooth sailing putting lipstick on this pig... boat &lt;a class="footnote-reference" href="#id10" id="id5"&gt;[5]&lt;/a&gt;, and this is what it looks like:&lt;/p&gt;
+&lt;img alt="Example output. It shows that Littlecheck can identify errors somewhere in the middle without misinterpreting everything after." src="img/littlecheck-diff.png" style="width: 800px;" /&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Not to be confused with the unit test driver or the interactive test driver&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Littlecheck is a single-file utility with no dependencies other than python, we'd like to keep it that way.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;To be honest I don't think difflib is &amp;quot;great&amp;quot;. It's mostly a collection of things that someone found useful, once, and the API is a mess.
+Also: I intend all my puns. Even the accidental ones I intend in principle.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id9" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;In what I'm pretty sure is an example of premature optimization. That or someone ran this stuff on gigabytes of text and expected an answer in milliseconds.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id10" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id5"&gt;[5]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Mixing metaphors is good fun, actually&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</content><category term="software"></category></entry><entry><title>Terminals are kinda bad</title><link href="https://bean.solutions/terminals-are-kinda-bad.html" rel="alternate"></link><published>2020-12-08T19:00:00+01:00</published><updated>2020-12-08T19:00:00+01:00</updated><author><name>Fabian Homborg</name></author><id>tag:bean.solutions,2020-12-08:/terminals-are-kinda-bad.html</id><summary type="html">&lt;p&gt;I spend a lot of my time in terminals.&lt;/p&gt;
 &lt;p&gt;That's probably a bit of an understatement. Really, basically all of my time on a computer is spent either in a browser, in a videogame or in a terminal. I like text-based interfaces, and I still don't know why I would …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I spend a lot of my time in terminals.&lt;/p&gt;
 &lt;p&gt;That's probably a bit of an understatement. Really, basically all of my time on a computer is spent either in a browser, in a videogame or in a terminal. I like text-based interfaces, and I still don't know why I would use the emacs GUI.&lt;/p&gt;
 &lt;p&gt;So it probably won't be a surprise that I think our terminals are kinda... bad. Here's a few reasons why:&lt;/p&gt;

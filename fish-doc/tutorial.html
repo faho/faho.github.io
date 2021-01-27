@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; fish-shell 3.1.2-1924-g88a84bd98 documentation</title>
+    <title>Tutorial &#8212; fish-shell 3.1.2-1856-g4116aaeb5 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1924-g88a84bd98 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>
@@ -363,12 +363,12 @@ testing_1360099791.txt
 </div>
 <p>Here, <code class="docutils literal notranslate"><span class="pre">make</span></code> is only executed if <code class="docutils literal notranslate"><span class="pre">./configure</span></code> succeeds (returns 0), and <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">install</span></code> is only executed if both <code class="docutils literal notranslate"><span class="pre">./configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span></code> succeed.</p>
 <p>fish also supports <a class="reference internal" href="cmds/and.html#cmd-and"><span class="std std-ref">and</span></a>, <a class="reference internal" href="cmds/or.html#cmd-or"><span class="std std-ref">or</span></a>, and <a class="reference internal" href="cmds/not.html#cmd-not"><span class="std std-ref">not</span></a>. The first two are job modifiers and have lower precedence. Example usage:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">cp</span><span class="w"> </span><span class="no">file1</span><span class="w"> </span><span class="no">file1_bak</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">cp</span><span class="w"> </span><span class="no">file2</span><span class="w"> </span><span class="no">file2_bak</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup successful&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup failed&quot;</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">cp</span><span class="w"> </span><span class="no">file1.txt</span><span class="w"> </span><span class="no">file1_bak.txt</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">cp</span><span class="w"> </span><span class="no">file2.txt</span><span class="w"> </span><span class="no">file2_bak.txt</span><span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup successful&quot;</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup failed&quot;</span><span class="w"></span>
 Backup failed
 </pre></div>
 </div>
 <p>As mentioned in <a class="reference internal" href="#tut-semicolon"><span class="std std-ref">the section on the semicolon</span></a>, this can also be written in multiple lines, like so:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">cp</span><span class="w"> </span><span class="no">file1</span><span class="w"> </span><span class="no">file1_bak</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">cp</span><span class="w"> </span><span class="no">file2</span><span class="w"> </span><span class="no">file2_bak</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">cp</span><span class="w"> </span><span class="no">file1.txt</span><span class="w"> </span><span class="no">file1_bak.txt</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nf">cp</span><span class="w"> </span><span class="no">file2.txt</span><span class="w"> </span><span class="no">file2_bak.txt</span><span class="w"></span>
 <span class="o">and</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup successful&quot;</span><span class="w"></span>
 <span class="o">or</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Backup failed&quot;</span><span class="w"></span>
 </pre></div>
@@ -401,9 +401,7 @@ Backup failed
 
 <span class="c"># or</span><span class="w"></span>
 
-<span class="c"># This test is true if the path /etc/hosts exists</span><span class="w"></span>
-<span class="c"># - it could be a file or directory or symlink (or possibly something else).</span><span class="w"></span>
-<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="no">/etc/hosts</span><span class="w"></span>
+<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="no">/etc/hosts</span><span class="w"> </span><span class="c"># is true if the path /etc/hosts exists - it could be a file or directory or symlink (or possibly something else).</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">We</span><span class="w"> </span><span class="no">most</span><span class="w"> </span><span class="no">likely</span><span class="w"> </span><span class="no">have</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">hosts</span><span class="w"> </span><span class="no">file</span><span class="w"></span>
 <span class="nf">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">We</span><span class="w"> </span><span class="no">do</span><span class="w"> </span><span class="no">not</span><span class="w"> </span><span class="no">have</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">hosts</span><span class="w"> </span><span class="no">file</span><span class="w"></span>
@@ -444,7 +442,7 @@ Hello
 Hello everybody!
 </pre></div>
 </div>
-<p>Unlike other shells, fish does not have aliases or special prompt syntax. Functions take their place. <a class="footnote-reference brackets" href="#id5" id="id4">2</a></p>
+<p>Unlike other shells, fish does not have aliases or special prompt syntax. Functions take their place.</p>
 <p>You can list the names of all functions with the <a class="reference internal" href="cmds/functions.html#cmd-functions"><span class="std std-ref">functions</span></a> builtin (note the plural!). fish starts out with a number of functions:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">functions</span><span class="w"></span>
 N_, abbr, alias, bg, cd, cdh, contains_seq, delete-or-exit, dirh, dirs, disown, down-or-search, edit_command_buffer, export, fg, fish_add_path, fish_breakpoint_prompt, fish_clipboard_copy, fish_clipboard_paste, fish_config, fish_default_key_bindings, fish_default_mode_prompt, fish_git_prompt, fish_hg_prompt, fish_hybrid_key_bindings, fish_indent, fish_is_root_user, fish_job_summary, fish_key_reader, fish_md5, fish_mode_prompt, fish_npm_helper, fish_opt, fish_print_git_action, fish_print_hg_root, fish_prompt, fish_sigtrap_handler, fish_svn_prompt, fish_title, fish_update_completions, fish_vcs_prompt, fish_vi_cursor, fish_vi_key_bindings, funced, funcsave, grep, help, history, hostname, isatty, kill, la, ll, ls, man, nextd, nextd-or-forward-word, open, popd, prevd, prevd-or-backward-word, prompt_hostname, prompt_pwd, psub, pushd, realpath, seq, setenv, suspend, trap, type, umask, up-or-search, vared, wait
@@ -457,11 +455,6 @@ function ls --description &#39;List contents of directory&#39;
 end
 </pre></div>
 </div>
-<dl class="footnote brackets">
-<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id4">2</a></span></dt>
-<dd><p>There is a function called <a class="reference internal" href="cmds/alias.html#cmd-alias"><span class="std std-ref">alias</span></a>, but it's just a shortcut to make functions.</p>
-</dd>
-</dl>
 </div>
 <div class="section" id="loops">
 <h2>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h2>
@@ -585,7 +578,7 @@ vim
 </div>
 </div>
 <div class="section" id="switching-to-fish">
-<span id="id6"></span><h2>Switching to fish?<a class="headerlink" href="#switching-to-fish" title="Permalink to this headline">¶</a></h2>
+<span id="id4"></span><h2>Switching to fish?<a class="headerlink" href="#switching-to-fish" title="Permalink to this headline">¶</a></h2>
 <p>If you wish to use fish (or any other shell) as your default shell,
 you need to enter your new shell's executable in two places.</p>
 <p>Add the shell to <code class="docutils literal notranslate"><span class="pre">/etc/shells</span></code> with:</p>
@@ -680,7 +673,7 @@ with <code class="docutils literal notranslate"><span class="pre">/bin/bash</spa
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1924-g88a84bd98 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1856-g4116aaeb5 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>
