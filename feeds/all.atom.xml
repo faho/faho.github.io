@@ -8,17 +8,16 @@
 &lt;h2&gt;The motive&lt;/h2&gt;
 &lt;p&gt;I've blogged about littlecheck before. It's fish's script test driver &lt;a class="footnote-reference" href="#id6" id="id1"&gt;[1]&lt;/a&gt;. The way it works is that you write a script, and then you write the output you expect into &lt;tt class="docutils literal"&gt;# CHECK:&lt;/tt&gt; comments inside the script.&lt;/p&gt;
 &lt;p&gt;Littlecheck then lets whatever interpreter you picked run the script and compares its output to all the &lt;tt class="docutils literal"&gt;# CHECK:&lt;/tt&gt; lines. This is super simple and works quite well in practice. Here's an example:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-#!/bin/sh
-echo Hello!
-# CHECK: Hello!
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/sh&lt;/span&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; Hello!
+&lt;span class="c1"&gt;# CHECK: Hello!&lt;/span&gt;
 
-echo Goodbye
-# CHECK: Goodbye
+&lt;span class="nb"&gt;echo&lt;/span&gt; Goodbye
+&lt;span class="c1"&gt;# CHECK: Goodbye&lt;/span&gt;
 
-echo No check for this
-# ^^ Oh no, that one will fail.
-&lt;/pre&gt;
+&lt;span class="nb"&gt;echo&lt;/span&gt; No check &lt;span class="k"&gt;for&lt;/span&gt; this
+&lt;span class="c1"&gt;# ^^ Oh no, that one will fail.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Only... when things went wrong, littlecheck did this naive comparison where it complained about the first line that was wrong, and then let you figure out the context of all of that.&lt;/p&gt;
 &lt;p&gt;Was it a superfluous line of output? A &lt;tt class="docutils literal"&gt;# CHECK&lt;/tt&gt; too many? Or actually a line that was different from what was expected?&lt;/p&gt;
 &lt;p&gt;It didn't tell you. It just said &amp;quot;this line doesn't look like this CHECK on line XYZ, also here's the rest of the output&amp;quot;.&lt;/p&gt;
@@ -59,6 +58,7 @@ echo No check for this
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;From there it's smooth sailing putting lipstick on this pig... boat &lt;a class="footnote-reference" href="#id10" id="id5"&gt;[5]&lt;/a&gt;, and this is what it looks like:&lt;/p&gt;
 &lt;img alt="Example output. It shows that Littlecheck can identify errors somewhere in the middle without misinterpreting everything after." src="img/littlecheck-diff.png" style="width: 800px;" /&gt;
+&lt;p&gt;And that's the way I like it.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
