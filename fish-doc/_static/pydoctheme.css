@@ -275,4 +275,13 @@ dl > dt span ~ em {
     div.footer {
         margin: 0;
     }
+
+    /* Flex sub-sub-subsections so the TOC isn't so dang long */
+    .sphinxsidebarwrapper > div > ul > li > ul > li > ul {
+        display: flex;
+    }
+    .sphinxsidebarwrapper > div > ul > li > ul > li > ul > li {
+        margin-left: 1.3em;
+    }
+
 }
