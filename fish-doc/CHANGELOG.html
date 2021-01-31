@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CHANGELOG &#8212; fish-shell 3.1.2-1970-gb722e9ae3 documentation</title>
+    <title>CHANGELOG &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">CHANGELOG</a></li>
@@ -395,6 +395,7 @@ It can still return incorrect results in other cases (<a class="reference extern
 <li><p>fish should no longer crash if it inherited a windows-style $PWD (like <code class="docutils literal notranslate"><span class="pre">F:\path</span></code>) (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7636">#7636</a>).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">-c</span></code> now reads the remaining arguments into $argv (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/2314">#2314</a>).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">pwd</span></code> command supports the long options <code class="docutils literal notranslate"><span class="pre">--logical</span></code> and <code class="docutils literal notranslate"><span class="pre">--physical</span></code>, matching other implementations (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6787">#6787</a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">--profile</span></code> now only starts the profile after fish's startup (including config.fish) is done. For profiling startup there is a new <code class="docutils literal notranslate"><span class="pre">--profile-startup</span></code> option that profiles only startup (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7648">#7648</a>).</p></li>
 </ul>
 </div>
 <div class="section" id="interactive-improvements">
@@ -563,10 +564,8 @@ shape in vi mode, regardless of terminal (<a class="reference external" href="ht
 <li><p><code class="docutils literal notranslate"><span class="pre">alternatives</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7616">#7616</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">apk</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7108">#7108</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">asciidoctor</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7000">#7000</a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">bootctl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7428">#7428</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">bluetoothctl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7438">#7438</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cmark</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7000">#7000</a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">coredumpctl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7428">#7428</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">create_ap</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7096">#7096</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">deno</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7138">#7138</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">dhclient</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6684">#6684</a>)</p></li>
@@ -579,8 +578,6 @@ shape in vi mode, regardless of terminal (<a class="reference external" href="ht
 <li><p><code class="docutils literal notranslate"><span class="pre">gitk</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">groups</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6889">#6889</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hikari</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7083">#7083</a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">homectl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7435">#7435</a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7428">#7428</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">icdiff</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7503">#7503</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">imv</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6675">#6675</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">julia</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7468">#7468</a>)</p></li>
@@ -605,6 +602,7 @@ shape in vi mode, regardless of terminal (<a class="reference external" href="ht
 <li><p><code class="docutils literal notranslate"><span class="pre">sphinx-apidoc</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx-autogen</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx-build</span></code> and
 <code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7000">#7000</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">strace</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6656">#6656</a>)</p></li>
+<li><p>systemd's <code class="docutils literal notranslate"><span class="pre">bootctl</span></code>, <code class="docutils literal notranslate"><span class="pre">coredumpctl</span></code>, <code class="docutils literal notranslate"><span class="pre">hostnamectl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7428">#7428</a>), <code class="docutils literal notranslate"><span class="pre">homectl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7435">#7435</a>) and <code class="docutils literal notranslate"><span class="pre">userdbctl</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/7667">#7667</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tcpdump</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6690">#6690</a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">tig</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">traceroute</span></code> and <code class="docutils literal notranslate"><span class="pre">tracepath</span></code> (<a class="reference external" href="https://github.com/fish-shell/fish-shell/issues/6803">#6803</a>)</p></li>
@@ -2929,7 +2927,7 @@ track.</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">CHANGELOG</a></li>

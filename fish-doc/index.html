@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; fish-shell 3.1.2-1970-gb722e9ae3 documentation</title>
+    <title>Introduction &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -32,7 +32,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
@@ -137,6 +137,11 @@
 <li><a class="reference internal" href="#help">Help</a></li>
 <li><a class="reference internal" href="#autosuggestions">Autosuggestions</a></li>
 <li><a class="reference internal" href="#tab-completion">Tab Completion</a></li>
+<li><a class="reference internal" href="#syntax-highlighting">Syntax highlighting</a></li>
+<li><a class="reference internal" href="#programmable-title">Programmable title</a></li>
+<li><a class="reference internal" href="#programmable-prompt">Programmable prompt</a></li>
+<li><a class="reference internal" href="#configurable-greeting">Configurable greeting</a></li>
+<li><a class="reference internal" href="#private-mode">Private mode</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#command-line-editor">Command line editor</a><ul>
@@ -153,7 +158,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#navigating-directories">Navigating directories</a><ul>
-<li><a class="reference internal" href="#id33">Directory history</a></li>
+<li><a class="reference internal" href="#id34">Directory history</a></li>
 <li><a class="reference internal" href="#directory-stack">Directory stack</a></li>
 </ul>
 </li>
@@ -161,11 +166,6 @@
 <li><a class="reference internal" href="#initialization-files">Initialization files</a></li>
 <li><a class="reference internal" href="#future-feature-flags">Future feature flags</a></li>
 <li><a class="reference internal" href="#other-features">Other features</a><ul>
-<li><a class="reference internal" href="#syntax-highlighting">Syntax highlighting</a></li>
-<li><a class="reference internal" href="#programmable-title">Programmable title</a></li>
-<li><a class="reference internal" href="#programmable-prompt">Programmable prompt</a></li>
-<li><a class="reference internal" href="#configurable-greeting">Configurable greeting</a></li>
-<li><a class="reference internal" href="#private-mode">Private mode</a></li>
 <li><a class="reference internal" href="#event">Event handlers</a></li>
 <li><a class="reference internal" href="#debugging-fish-scripts">Debugging fish scripts</a></li>
 </ul>
@@ -445,7 +445,7 @@ $ exit
 </pre></div>
 </div>
 <p>will start the emacs text editor in the background. <a class="reference internal" href="cmds/fg.html#cmd-fg"><span class="std std-ref">fg</span></a> can be used to bring it into the foreground again when needed.</p>
-<p>See also <a class="reference internal" href="#id35"><span class="std std-ref">Running multiple programs</span></a>.</p>
+<p>See also <a class="reference internal" href="#id36"><span class="std std-ref">Running multiple programs</span></a>.</p>
 </div>
 <div class="section" id="job-control">
 <span id="syntax-job-control"></span><h2>Job control<a class="headerlink" href="#job-control" title="Permalink to this headline">¶</a></h2>
@@ -1460,8 +1460,9 @@ session).</p></li>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>Fish has an extensive help system. Use the <a class="reference internal" href="cmds/help.html#cmd-help"><span class="std std-ref">help</span></a> command to obtain help on a specific subject or command. For instance, writing <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">syntax</span></code> displays the <a class="reference external" href="#syntax">syntax section</a> of this documentation.</p>
-<p>Fish also has man pages for its commands. For example, <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">set</span></code> will show the documentation for <code class="docutils literal notranslate"><span class="pre">set</span></code> as a man page.</p>
+<p>Fish also has man pages for its commands, and translates the help pages to man pages. For example, <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">set</span></code> will show the documentation for <code class="docutils literal notranslate"><span class="pre">set</span></code> as a man page.</p>
 <p>Help on a specific builtin can also be obtained with the <code class="docutils literal notranslate"><span class="pre">-h</span></code> parameter. For instance, to obtain help on the <a class="reference internal" href="cmds/fg.html#cmd-fg"><span class="std std-ref">fg</span></a> builtin, either type <code class="docutils literal notranslate"><span class="pre">fg</span> <span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">fg</span></code>.</p>
+<p>This page can be viewed via <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">index</span></code> (or just <code class="docutils literal notranslate"><span class="pre">help</span></code>) or <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">fish-doc</span></code>. The tutorial can be viewed with <code class="docutils literal notranslate"><span class="pre">help</span> <span class="pre">tutorial</span></code> or <code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">fish-tutorial</span></code>.</p>
 </div>
 <div class="section" id="autosuggestions">
 <h2>Autosuggestions<a class="headerlink" href="#autosuggestions" title="Permalink to this headline">¶</a></h2>
@@ -1490,6 +1491,51 @@ session).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">apt-get</span></code>, <code class="docutils literal notranslate"><span class="pre">rpm</span></code> and <code class="docutils literal notranslate"><span class="pre">yum</span></code> commands show installed or installable packages</p></li>
 </ul>
 <p>You can also write your own completions or install some you got from someone else. For that, see <a class="reference internal" href="completions.html#completion-own"><span class="std std-ref">Writing your own completions</span></a>.</p>
+</div>
+<div class="section" id="syntax-highlighting">
+<span id="color"></span><h2>Syntax highlighting<a class="headerlink" href="#syntax-highlighting" title="Permalink to this headline">¶</a></h2>
+<p>Fish interprets the command line as it is typed and uses syntax highlighting to provide feedback. The most important feedback is the detection of potential errors. By default, errors are marked red.</p>
+<p>Detected errors include:</p>
+<ul class="simple">
+<li><p>Non existing commands.</p></li>
+<li><p>Reading from or appending to a non existing file.</p></li>
+<li><p>Incorrect use of output redirects</p></li>
+<li><p>Mismatched parenthesis</p></li>
+</ul>
+<p>When the cursor is over a parenthesis or a quote, fish also highlights its matching quote or parenthesis.</p>
+<p>To customize the syntax highlighting, you can set the environment variables listed in the <a class="reference external" href="#variables-color">Variables for changing highlighting colors</a> section.</p>
+</div>
+<div class="section" id="programmable-title">
+<span id="title"></span><h2>Programmable title<a class="headerlink" href="#programmable-title" title="Permalink to this headline">¶</a></h2>
+<p>When using most virtual terminals, it is possible to set the message displayed in the titlebar of the terminal window. This can be done automatically in fish by defining the <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function. The <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function is executed before and after a new command is executed or put into the foreground and the output is used as a titlebar message. The <a class="reference internal" href="cmds/status.html#cmd-status"><span class="std std-ref">status current-command</span></a> builtin will always return the name of the job to be put into the foreground (or <code class="docutils literal notranslate"><span class="pre">fish</span></code> if control is returning to the shell) when the <cite>fish_prompt &lt;cmd-fish_prompt&gt;</cite> function is called. The first argument to fish_title will contain the most recently executed foreground command as a string, starting with fish 2.2.</p>
+<p>Examples:
+The default fish title is:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">status</span><span class="w"> </span><span class="no">current-command</span><span class="o">)</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"></span>
+<span class="w">    </span><span class="nf">pwd</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p>To show the last command in the title:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="programmable-prompt">
+<span id="prompt"></span><h2>Programmable prompt<a class="headerlink" href="#programmable-prompt" title="Permalink to this headline">¶</a></h2>
+<p>When fish waits for input, it will display a prompt by evaluating the <a class="reference internal" href="cmds/fish_prompt.html#cmd-fish-prompt"><span class="std std-ref">fish_prompt</span></a> and <a class="reference internal" href="cmds/fish_right_prompt.html#cmd-fish-right-prompt"><span class="std std-ref">fish_right_prompt</span></a> functions. The output of the former is displayed on the left and the latter's output on the right side of the terminal. The output of <a class="reference internal" href="cmds/fish_mode_prompt.html#cmd-fish-mode-prompt"><span class="std std-ref">fish_mode_prompt</span></a> will be prepended on the left, though the default function only does this when in <a class="reference external" href="#vi-mode">vi-mode</a>.</p>
+</div>
+<div class="section" id="configurable-greeting">
+<span id="greeting"></span><h2>Configurable greeting<a class="headerlink" href="#configurable-greeting" title="Permalink to this headline">¶</a></h2>
+<p>If a function named <a class="reference internal" href="cmds/fish_greeting.html#cmd-fish-greeting"><span class="std std-ref">fish_greeting</span></a> exists, it will be run when entering interactive mode. Otherwise, if an environment variable named <a class="reference internal" href="cmds/fish_greeting.html#cmd-fish-greeting"><span class="std std-ref">fish_greeting</span></a> exists, it will be printed.</p>
+</div>
+<div class="section" id="private-mode">
+<span id="id20"></span><h2>Private mode<a class="headerlink" href="#private-mode" title="Permalink to this headline">¶</a></h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">$fish_private_mode</span></code> is set to a non-empty value, commands will not be written to the history file on disk.</p>
+<p>You can also launch with <code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">--private</span></code> (or <code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">-P</span></code> for short). This both hides old history and prevents writing history to disk. This is useful to avoid leaking personal information (e.g. for screencasts) or when dealing with sensitive information.</p>
+<p>You can query the variable <code class="docutils literal notranslate"><span class="pre">fish_private_mode</span></code> (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">set</span> <span class="pre">-q</span> <span class="pre">fish_private_mode</span> <span class="pre">...</span></code>) if you would like to respect the user's wish for privacy and alter the behavior of your own fish scripts.</p>
 </div>
 </div>
 <div class="section" id="command-line-editor">
@@ -1589,7 +1635,7 @@ session).</p></li>
 <p>If the cursor shape does not appear to be changing after setting the above variables, it's likely your terminal emulator does not support the capabilities necessary to do this. It may also be the case, however, that <code class="docutils literal notranslate"><span class="pre">fish_vi_cursor</span></code> has not detected your terminal's features correctly (for example, if you are using <code class="docutils literal notranslate"><span class="pre">tmux</span></code>). If this is the case, you can force <code class="docutils literal notranslate"><span class="pre">fish_vi_cursor</span></code> to set the cursor shape by setting <code class="docutils literal notranslate"><span class="pre">$fish_vi_force_cursor</span></code> in <code class="docutils literal notranslate"><span class="pre">config.fish</span></code>. You'll have to restart fish for any changes to take effect. If cursor shape setting remains broken after this, it's almost certainly an issue with your terminal emulator, and not fish.</p>
 </div>
 <div class="section" id="vi-mode-command">
-<span id="id22"></span><h2>Command mode<a class="headerlink" href="#vi-mode-command" title="Permalink to this headline">¶</a></h2>
+<span id="id23"></span><h2>Command mode<a class="headerlink" href="#vi-mode-command" title="Permalink to this headline">¶</a></h2>
 <p>Command mode is also known as normal mode.</p>
 <ul class="simple">
 <li><p><kbd class="kbd docutils literal notranslate">H</kbd> moves the cursor left.</p></li>
@@ -1608,14 +1654,14 @@ session).</p></li>
 </ul>
 </div>
 <div class="section" id="vi-mode-insert">
-<span id="id27"></span><h2>Insert mode<a class="headerlink" href="#vi-mode-insert" title="Permalink to this headline">¶</a></h2>
+<span id="id28"></span><h2>Insert mode<a class="headerlink" href="#vi-mode-insert" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><kbd class="kbd docutils literal notranslate">Escape</kbd> enters <a class="reference external" href="#vi-mode-command">command mode</a>.</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">Backspace</kbd> removes one character to the left.</p></li>
 </ul>
 </div>
 <div class="section" id="vi-mode-visual">
-<span id="id29"></span><h2>Visual mode<a class="headerlink" href="#vi-mode-visual" title="Permalink to this headline">¶</a></h2>
+<span id="id30"></span><h2>Visual mode<a class="headerlink" href="#vi-mode-visual" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><kbd class="kbd docutils literal notranslate">←</kbd> (Left) and <kbd class="kbd docutils literal notranslate">→</kbd> (Right) extend the selection backward/forward by one character.</p></li>
 <li><p><kbd class="kbd docutils literal notranslate">B</kbd> and <kbd class="kbd docutils literal notranslate">W</kbd> extend the selection backward/forward by one word.</p></li>
@@ -1656,10 +1702,10 @@ bind \e\[C &#39;do something&#39;
 <div class="section" id="copy-and-paste-kill-ring">
 <span id="killring"></span><h2>Copy and paste (Kill Ring)<a class="headerlink" href="#copy-and-paste-kill-ring" title="Permalink to this headline">¶</a></h2>
 <p>Fish uses an Emacs-style kill ring for copy and paste functionality. For example, use <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">K</kbd> (<cite>kill-line</cite>) to cut from the current cursor position to the end of the line. The string that is cut (a.k.a. killed in emacs-ese) is inserted into a list of kills, called the kill ring. To paste the latest value from the kill ring (emacs calls this &quot;yanking&quot;) use <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">Y</kbd> (the <code class="docutils literal notranslate"><span class="pre">yank</span></code> input function). After pasting, use <kbd class="kbd docutils literal notranslate">Alt</kbd>+<kbd class="kbd docutils literal notranslate">Y</kbd> (<code class="docutils literal notranslate"><span class="pre">yank-pop</span></code>) to rotate to the previous kill.</p>
-<p>Copy and paste from outside are also supported, both via the <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">X</kbd> / <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">V</kbd> bindings (the <code class="docutils literal notranslate"><span class="pre">fish_clipboard_copy</span></code> and <code class="docutils literal notranslate"><span class="pre">fish_clipboard_paste</span></code> functions <a class="footnote-reference brackets" href="#id32" id="id31">7</a>) and via the terminal's paste function, for which fish enables &quot;Bracketed Paste Mode&quot;, so it can tell a paste from manually entered text.
+<p>Copy and paste from outside are also supported, both via the <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">X</kbd> / <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">V</kbd> bindings (the <code class="docutils literal notranslate"><span class="pre">fish_clipboard_copy</span></code> and <code class="docutils literal notranslate"><span class="pre">fish_clipboard_paste</span></code> functions <a class="footnote-reference brackets" href="#id33" id="id32">7</a>) and via the terminal's paste function, for which fish enables &quot;Bracketed Paste Mode&quot;, so it can tell a paste from manually entered text.
 In addition, when pasting inside single quotes, pasted single quotes and backslashes are automatically escaped so that the result can be used as a single token simply by closing the quote after.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id31">7</a></span></dt>
+<dt class="label" id="id33"><span class="brackets"><a class="fn-backref" href="#id32">7</a></span></dt>
 <dd><p>These rely on external tools. Currently xsel, xclip, wl-copy/wl-paste and pbcopy/pbpaste are supported.</p>
 </dd>
 </dl>
@@ -1693,8 +1739,8 @@ In addition, when pasting inside single quotes, pasted single quotes and backsla
 <div class="section" id="navigating-directories">
 <h1>Navigating directories<a class="headerlink" href="#navigating-directories" title="Permalink to this headline">¶</a></h1>
 <p id="directory-history">The current working directory can be displayed with the <a class="reference internal" href="cmds/pwd.html#cmd-pwd"><span class="std std-ref">pwd</span></a> command, or the <code class="docutils literal notranslate"><span class="pre">$PWD</span></code> <a class="reference internal" href="#variables-special"><span class="std std-ref">special variable</span></a>.</p>
-<div class="section" id="id33">
-<h2>Directory history<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id34">
+<h2>Directory history<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h2>
 <p>Fish automatically keeps a trail of the recent visited directories with <a class="reference internal" href="cmds/cd.html#cmd-cd"><span class="std std-ref">cd</span></a> by storing this history in the <code class="docutils literal notranslate"><span class="pre">dirprev</span></code> and <code class="docutils literal notranslate"><span class="pre">dirnext</span></code> variables.</p>
 <p>Several commands are provided to interact with this directory history:</p>
 <ul class="simple">
@@ -1705,7 +1751,7 @@ In addition, when pasting inside single quotes, pasted single quotes and backsla
 </ul>
 </div>
 <div class="section" id="directory-stack">
-<span id="id34"></span><h2>Directory stack<a class="headerlink" href="#directory-stack" title="Permalink to this headline">¶</a></h2>
+<span id="id35"></span><h2>Directory stack<a class="headerlink" href="#directory-stack" title="Permalink to this headline">¶</a></h2>
 <p>Another set of commands, usually also available in other shells like bash, deal with the directory stack. Stack handling is not automatic and needs explicit calls of the following commands:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="cmds/dirs.html#cmd-dirs"><span class="std std-ref">dirs</span></a> prints the stack</p></li>
@@ -1715,7 +1761,7 @@ In addition, when pasting inside single quotes, pasted single quotes and backsla
 </div>
 </div>
 <div class="section" id="running-multiple-programs">
-<span id="id35"></span><h1>Running multiple programs<a class="headerlink" href="#running-multiple-programs" title="Permalink to this headline">¶</a></h1>
+<span id="id36"></span><h1>Running multiple programs<a class="headerlink" href="#running-multiple-programs" title="Permalink to this headline">¶</a></h1>
 <p>Normally when fish starts a program, this program will be put in the foreground, meaning it will take control of the terminal and fish will be stopped until the program finishes. Sometimes this is not desirable. For example, you may wish to start an application with a graphical user interface from the terminal, and then be able to continue using the shell. There are several ways to do this:</p>
 <ul class="simple">
 <li><p>Fish puts commands ending with the <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> (ampersand) symbol into the background. A background process will be run simultaneous with fish. Fish will keep control of the terminal, so the program will not be able to read from the keyboard.</p></li>
@@ -1787,51 +1833,6 @@ regex-easyesc   off    3.1      string replace -r needs fewer \\&#39;s
 </div>
 <div class="section" id="other-features">
 <span id="other"></span><h1>Other features<a class="headerlink" href="#other-features" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="syntax-highlighting">
-<span id="color"></span><h2>Syntax highlighting<a class="headerlink" href="#syntax-highlighting" title="Permalink to this headline">¶</a></h2>
-<p>Fish interprets the command line as it is typed and uses syntax highlighting to provide feedback. The most important feedback is the detection of potential errors. By default, errors are marked red.</p>
-<p>Detected errors include:</p>
-<ul class="simple">
-<li><p>Non existing commands.</p></li>
-<li><p>Reading from or appending to a non existing file.</p></li>
-<li><p>Incorrect use of output redirects</p></li>
-<li><p>Mismatched parenthesis</p></li>
-</ul>
-<p>When the cursor is over a parenthesis or a quote, fish also highlights its matching quote or parenthesis.</p>
-<p>To customize the syntax highlighting, you can set the environment variables listed in the <a class="reference external" href="#variables-color">Variables for changing highlighting colors</a> section.</p>
-</div>
-<div class="section" id="programmable-title">
-<span id="title"></span><h2>Programmable title<a class="headerlink" href="#programmable-title" title="Permalink to this headline">¶</a></h2>
-<p>When using most virtual terminals, it is possible to set the message displayed in the titlebar of the terminal window. This can be done automatically in fish by defining the <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function. The <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function is executed before and after a new command is executed or put into the foreground and the output is used as a titlebar message. The <a class="reference internal" href="cmds/status.html#cmd-status"><span class="std std-ref">status current-command</span></a> builtin will always return the name of the job to be put into the foreground (or <code class="docutils literal notranslate"><span class="pre">fish</span></code> if control is returning to the shell) when the <cite>fish_prompt &lt;cmd-fish_prompt&gt;</cite> function is called. The first argument to fish_title will contain the most recently executed foreground command as a string, starting with fish 2.2.</p>
-<p>Examples:
-The default fish title is:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
-<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">status</span><span class="w"> </span><span class="no">current-command</span><span class="o">)</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nf">pwd</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
-</pre></div>
-</div>
-<p>To show the last command in the title:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
-<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="programmable-prompt">
-<span id="prompt"></span><h2>Programmable prompt<a class="headerlink" href="#programmable-prompt" title="Permalink to this headline">¶</a></h2>
-<p>When fish waits for input, it will display a prompt by evaluating the <a class="reference internal" href="cmds/fish_prompt.html#cmd-fish-prompt"><span class="std std-ref">fish_prompt</span></a> and <a class="reference internal" href="cmds/fish_right_prompt.html#cmd-fish-right-prompt"><span class="std std-ref">fish_right_prompt</span></a> functions. The output of the former is displayed on the left and the latter's output on the right side of the terminal. The output of <a class="reference internal" href="cmds/fish_mode_prompt.html#cmd-fish-mode-prompt"><span class="std std-ref">fish_mode_prompt</span></a> will be prepended on the left, though the default function only does this when in <a class="reference external" href="#vi-mode">vi-mode</a>.</p>
-</div>
-<div class="section" id="configurable-greeting">
-<span id="greeting"></span><h2>Configurable greeting<a class="headerlink" href="#configurable-greeting" title="Permalink to this headline">¶</a></h2>
-<p>If a function named <a class="reference internal" href="cmds/fish_greeting.html#cmd-fish-greeting"><span class="std std-ref">fish_greeting</span></a> exists, it will be run when entering interactive mode. Otherwise, if an environment variable named <a class="reference internal" href="cmds/fish_greeting.html#cmd-fish-greeting"><span class="std std-ref">fish_greeting</span></a> exists, it will be printed.</p>
-</div>
-<div class="section" id="private-mode">
-<span id="id36"></span><h2>Private mode<a class="headerlink" href="#private-mode" title="Permalink to this headline">¶</a></h2>
-<p>If <code class="docutils literal notranslate"><span class="pre">$fish_private_mode</span></code> is set to a non-empty value, commands will not be written to the history file on disk.</p>
-<p>You can also launch with <code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">--private</span></code> (or <code class="docutils literal notranslate"><span class="pre">fish</span> <span class="pre">-P</span></code> for short). This both hides old history and prevents writing history to disk. This is useful to avoid leaking personal information (e.g. for screencasts) or when dealing with sensitive information.</p>
-<p>You can query the variable <code class="docutils literal notranslate"><span class="pre">fish_private_mode</span></code> (<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">set</span> <span class="pre">-q</span> <span class="pre">fish_private_mode</span> <span class="pre">...</span></code>) if you would like to respect the user's wish for privacy and alter the behavior of your own fish scripts.</p>
-</div>
 <div class="section" id="event">
 <span id="id37"></span><h2>Event handlers<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h2>
 <p>When defining a new function in fish, it is possible to make it into an event handler, i.e. a function that is automatically run when a specific event takes place. Events that can trigger a handler currently are:</p>
@@ -1899,7 +1900,7 @@ The default fish title is:</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-1970-gb722e9ae3 documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
