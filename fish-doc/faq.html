@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Frequently asked questions &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
+    <title>Frequently asked questions &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>
@@ -131,7 +131,7 @@
 <div class="section" id="how-do-i-set-or-clear-an-environment-variable">
 <h2>How do I set or clear an environment variable?<a class="headerlink" href="#how-do-i-set-or-clear-an-environment-variable" title="Permalink to this headline">¶</a></h2>
 <p>Use the <a class="reference internal" href="cmds/set.html#cmd-set"><span class="std std-ref">set</span></a> command:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">-x</span><span class="w"> </span><span class="no">key</span><span class="w"> </span><span class="no">value</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">-x</span><span class="w"> </span><span class="no">key</span><span class="w"> </span><span class="no">value</span><span class="w"> </span><span class="c"># typically set -gx key value</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="no">key</span><span class="w"></span>
 </pre></div>
 </div>
@@ -140,6 +140,7 @@
 <span class="nf">begin</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-lx</span><span class="w"> </span><span class="no">key</span><span class="w"> </span><span class="no">value</span><span class="p">;</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="o">$key</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="w"></span>
 </pre></div>
 </div>
+<p>Note that &quot;exported&quot; is not a <a class="reference internal" href="index.html#variables-scope"><span class="std std-ref">scope</span></a>, but an additional bit of state. A variable can be global and exported or local and exported or even universal and exported. Typically it makes sense to make an exported variable global.</p>
 </div>
 <div class="section" id="how-do-i-check-whether-a-variable-is-defined">
 <h2>How do I check whether a variable is defined?<a class="headerlink" href="#how-do-i-check-whether-a-variable-is-defined" title="Permalink to this headline">¶</a></h2>
@@ -457,7 +458,7 @@ like the following:</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
+    <title>Tutorial &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>
@@ -301,6 +301,7 @@ MyVariable=SomeValue
 </div>
 <p>It can also be unexported with <code class="docutils literal notranslate"><span class="pre">--unexport</span></code> or <code class="docutils literal notranslate"><span class="pre">-u</span></code>.</p>
 <p>This works the other way around as well! If fish is started by something else, it inherits that parents exported variables. So if your terminal emulator starts fish, and it exports <code class="docutils literal notranslate"><span class="pre">$LANG</span></code> set to <code class="docutils literal notranslate"><span class="pre">en_US.UTF-8</span></code>, fish will receive that setting. And whatever started your terminal emulator also gave <em>it</em> some variables that it will then pass on unless it specifically decides not to. This is how fish usually receives the values for things like <code class="docutils literal notranslate"><span class="pre">$LANG</span></code>, <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">$TERM</span></code>, without you having to specify them again.</p>
+<p>Note that exported variables can be local or global or universal - &quot;exported&quot; is not a <a class="reference internal" href="index.html#variables-scope"><span class="std std-ref">scope</span></a>. Usually you'd make them global via <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-gx</span> <span class="pre">MyVariable</span> <span class="pre">SomeValue</span></code>.</p>
 </div>
 <div class="section" id="lists">
 <span id="tut-lists"></span><h2>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h2>
@@ -685,7 +686,7 @@ with <code class="docutils literal notranslate"><span class="pre">/bin/bash</spa
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>

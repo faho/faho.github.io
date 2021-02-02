@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>argparse - parse options passed to a fish script or function &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
+    <title>argparse - parse options passed to a fish script or function &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -192,15 +192,19 @@
 </div>
 <p>but not if used like:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">cmd</span><span class="w"> </span><span class="no">--flag</span><span class="w"> </span><span class="no">value</span><span class="w"></span>
-<span class="c"># &quot;value&quot; here will be used as a positional argument and &quot;--flag&quot; won&#39;t have an argument.</span><span class="w"></span>
+<span class="c"># &quot;value&quot; here will be used as a positional argument</span><span class="w"></span>
+<span class="c"># and &quot;--flag&quot; won&#39;t have an argument.</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If this weren't the case, using an option without an optional argument would be difficult if you also wanted to use positional arguments.</p>
 <p>For example:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">grep</span><span class="w"> </span><span class="no">--color</span><span class="w"> </span><span class="no">auto</span><span class="w"></span>
-<span class="c"># Here &quot;auto&quot; will be used as the search string, &quot;color&quot; will not have an argument and will fall back to the default, which also *happens to be* auto.</span><span class="w"></span>
+<span class="c"># Here &quot;auto&quot; will be used as the search string,</span><span class="w"></span>
+<span class="c"># &quot;color&quot; will not have an argument and will fall back to the default,</span><span class="w"></span>
+<span class="c"># which also *happens to be* auto.</span><span class="w"></span>
 <span class="nf">grep</span><span class="w"> </span><span class="no">--color</span><span class="w"> </span><span class="no">always</span><span class="w"></span>
-<span class="c"># Here grep will still only use color &quot;auto&quot;matically and search for the string &quot;always&quot;</span><span class="w"></span>
+<span class="c"># Here grep will still only use color &quot;auto&quot;matically</span><span class="w"></span>
+<span class="c"># and search for the string &quot;always&quot;.</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This isn't specific to argparse but common to all things using <code class="docutils literal notranslate"><span class="pre">getopt(3)</span></code> (if they have optional arguments at all). That <code class="docutils literal notranslate"><span class="pre">grep</span></code> example is how GNU grep actually behaves.</p>
@@ -254,7 +258,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; fish-shell 3.1.2-1985-g261e13e0c documentation</title>
+    <title>Introduction &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -32,7 +32,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
@@ -106,6 +106,7 @@
 </li>
 <li><a class="reference internal" href="#comments">Comments</a></li>
 <li><a class="reference internal" href="#conditions">Conditions</a></li>
+<li><a class="reference internal" href="#loops-and-blocks">Loops and blocks</a></li>
 <li><a class="reference internal" href="#expand">Parameter expansion</a><ul>
 <li><a class="reference internal" href="#wildcards-globbing">Wildcards (&quot;Globbing&quot;)</a></li>
 <li><a class="reference internal" href="#variable-expansion">Variable expansion</a></li>
@@ -555,6 +556,50 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 </pre></div>
 </div>
 <p>For more, see the documentation for the builtins or the <a class="reference internal" href="tutorial.html#tut-conditionals"><span class="std std-ref">Conditionals</span></a> section of the tutorial.</p>
+</div>
+<div class="section" id="loops-and-blocks">
+<h2>Loops and blocks<a class="headerlink" href="#loops-and-blocks" title="Permalink to this headline">¶</a></h2>
+<p>Like most programming language, fish also has the familiar <a class="reference internal" href="cmds/while.html#cmd-while"><span class="std std-ref">while</span></a> and <a class="reference internal" href="cmds/for.html#cmd-for"><span class="std std-ref">for</span></a> loops.</p>
+<p><code class="docutils literal notranslate"><span class="pre">while</span></code> works like a repeated <a class="reference internal" href="cmds/if.html#cmd-if"><span class="std std-ref">if</span></a>:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Still</span><span class="w"> </span><span class="no">running</span><span class="w"></span>
+<span class="w">    </span><span class="nf">sleep</span><span class="w"> </span><span class="no">1</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p>will print &quot;Still running&quot; once a second. You can abort it with ctrl-c.</p>
+<p><code class="docutils literal notranslate"><span class="pre">for</span></code> loops work like in other shells, which is more like python's for-loops than e.g. C's:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">file:</span><span class="w"> </span><span class="o">$file</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p>will print each file in the current directory. The part after the <code class="docutils literal notranslate"><span class="pre">in</span></code> is just a list of arguments, so you can use any <a class="reference internal" href="#expand"><span class="std std-ref">expansions</span></a> there:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">moreanimals</span><span class="w"> </span><span class="no">bird</span><span class="w"> </span><span class="no">fox</span><span class="w"></span>
+<span class="nf">for</span><span class="w"> </span><span class="no">animal</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">{</span><span class="no">cat</span><span class="o">,}</span><span class="no">fish</span><span class="w"> </span><span class="no">dog</span><span class="w"> </span><span class="o">$moreanimals</span><span class="w"></span>
+<span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">I</span><span class="w"> </span><span class="no">like</span><span class="w"> </span><span class="no">the</span><span class="w"> </span><span class="o">$animal</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p>If you need a list of numbers, you can use the <code class="docutils literal notranslate"><span class="pre">seq</span></code> command to create one:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">5</span><span class="o">)</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="cmds/break.html#cmd-break"><span class="std std-ref">break</span></a> is available to break out of a loop, and <a class="reference internal" href="cmds/continue.html#cmd-continue"><span class="std std-ref">continue</span></a> to jump to the next iteration.</p>
+<p><a class="reference internal" href="#redirects"><span class="std std-ref">Input and output redirections</span></a> (including <a class="reference internal" href="#pipes"><span class="std std-ref">pipes</span></a>) can also be applied to loops:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">while</span><span class="w"> </span><span class="nf">read</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">line</span><span class="w"></span>
+<span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">line:</span><span class="w"> </span><span class="o">$line</span><span class="w"></span>
+<span class="nf">end</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="p">file</span><span class="w"></span>
+</pre></div>
+</div>
+<p>In addition there's a <a class="reference internal" href="cmds/begin.html#cmd-begin"><span class="std std-ref">begin</span></a> block that just groups commands together so you can redirect to a block or use a new <a class="reference internal" href="#variables-scope"><span class="std std-ref">variable scope</span></a> without any repetition:</p>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">begin</span><span class="w"></span>
+<span class="w">   </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">foo</span><span class="w"> </span><span class="no">bar</span><span class="w"> </span><span class="c"># this variable will only be available in this block!</span><span class="w"></span>
+<span class="nf">end</span><span class="w"></span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="expand">
 <span id="id8"></span><h2>Parameter expansion<a class="headerlink" href="#expand" title="Permalink to this headline">¶</a></h2>
@@ -1051,7 +1096,7 @@ If the start is negative the range always goes down, so <code class="docutils li
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">LESSHISTFILE</span><span class="w"> </span><span class="s2">&quot;-&quot;</span><span class="w"></span>
 </pre></div>
 </div>
-<p>It typically makes sense to make exported variables global as well, but local-exported variables can be useful if you need something more specific than <a class="reference internal" href="#variables-override"><span class="std std-ref">Overrides</span></a>. They are <em>copied</em> to functions so the function can't alter them outside, and still available to commands.</p>
+<p>Note: Exporting is not a <a class="reference internal" href="#variables-scope"><span class="std std-ref">scope</span></a>, but an additional state. It typically makes sense to make exported variables global as well, but local-exported variables can be useful if you need something more specific than <a class="reference internal" href="#variables-override"><span class="std std-ref">Overrides</span></a>. They are <em>copied</em> to functions so the function can't alter them outside, and still available to commands.</p>
 </div>
 <div class="section" id="lists">
 <span id="variables-lists"></span><h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
@@ -1786,7 +1831,7 @@ They are executed in order of their filename, sorted (like globs) in a natural o
 <p>Examples:</p>
 <p>If you want to add the directory <code class="docutils literal notranslate"><span class="pre">~/linux/bin</span></code> to your PATH variable when using a login shell, add the following to your <code class="docutils literal notranslate"><span class="pre">~/.config/fish/config.fish</span></code> file:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">--is-login</span><span class="w"></span>
-<span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-x</span><span class="w"> </span><span class="no">PATH</span><span class="w"> </span><span class="o">$PATH</span><span class="w"> </span><span class="o">~</span><span class="no">/linux/bin</span><span class="w"></span>
+<span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">PATH</span><span class="w"> </span><span class="o">$PATH</span><span class="w"> </span><span class="o">~</span><span class="no">/linux/bin</span><span class="w"></span>
 <span class="nf">end</span><span class="w"></span>
 </pre></div>
 </div>
@@ -1887,7 +1932,7 @@ regex-easyesc   off    3.1      string replace -r needs fewer \\&#39;s
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-1985-g261e13e0c documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
