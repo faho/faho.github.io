@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>Introduction &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -32,7 +32,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
@@ -409,6 +409,7 @@ $ exit
 <li><p>To append the output of descriptor N to a file, use <code class="docutils literal notranslate"><span class="pre">N&gt;&gt;DESTINATION_FILE</span></code>.</p></li>
 </ul>
 <p>For example, <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">hello</span> <span class="pre">2&gt;</span> <span class="pre">output.stderr</span></code> writes the standard error (file descriptor 2) to <code class="docutils literal notranslate"><span class="pre">output.stderr</span></code>.</p>
+<p>It is an error to redirect a builtin, function, or block to a file descriptor above 2. However this is supported for external commands.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id3">1</a></span></dt>
 <dd><p>Previous versions of fish also allowed specifying this as <code class="docutils literal notranslate"><span class="pre">^DESTINATION</span></code>, but that made another character special so it was deprecated and will be removed in the future. See <a class="reference internal" href="#featureflags"><span class="std std-ref">feature flags</span></a>.</p>
@@ -452,26 +453,26 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <span id="syntax-function"></span><h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <p>Functions are programs written in the fish syntax. They group together various commands and their arguments using a single name.</p>
 <p>For example, here's a simple function to list directories:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">ll</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">ll</span><span class="w"></span>
 <span class="w">    </span><span class="nf">ls</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The first line tells fish to define a function by the name of <code class="docutils literal notranslate"><span class="pre">ll</span></code>, so it can be used by simply writing <code class="docutils literal notranslate"><span class="pre">ll</span></code> on the commandline. The second line tells fish that the command <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">$argv</span></code> should be called when <code class="docutils literal notranslate"><span class="pre">ll</span></code> is invoked. <a class="reference internal" href="#variables-argv"><span class="std std-ref">$argv</span></a> is a <a class="reference internal" href="#variables-lists"><span class="std std-ref">list variable</span></a>, which always contains all arguments sent to the function. In the example above, these are simply passed on to the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command. The <code class="docutils literal notranslate"><span class="pre">end</span></code> on the third line ends the definition.</p>
 <p>Calling this as <code class="docutils literal notranslate"><span class="pre">ll</span> <span class="pre">/tmp/</span></code> will end up running <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">-l</span> <span class="pre">/tmp/</span></code>, which will list the contents of /tmp.</p>
 <p>This is a kind of function known as a <a class="reference internal" href="#syntax-function-wrappers"><span class="std std-ref">wrapper</span></a> or &quot;alias&quot;.</p>
 <p>Fish's prompt is also defined in a function, called <a class="reference internal" href="cmds/fish_prompt.html#cmd-fish-prompt"><span class="std std-ref">fish_prompt</span></a>. It is run when the prompt is about to be displayed and its output forms the prompt:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
 <span class="w">    </span><span class="c"># A simple prompt. Displays the current directory</span><span class="w"></span>
 <span class="w">    </span><span class="c"># (which fish stores in the $PWD variable)</span><span class="w"></span>
 <span class="w">    </span><span class="c"># and then a user symbol - a &#39;►&#39; for a normal user and a &#39;#&#39; for root.</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">user_char</span><span class="w"> </span><span class="s1">&#39;►&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="nf">fish_is_root_user</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nf">fish_is_root_user</span><span class="w"></span>
 <span class="w">        </span><span class="nf">set</span><span class="w"> </span><span class="no">user_char</span><span class="w"> </span><span class="s1">&#39;#&#39;</span><span class="w"></span>
-<span class="w">    </span><span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
 
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">yellow</span><span class="o">)$PWD</span><span class="w"> </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">purple</span><span class="o">)$user_char</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>To edit a function, you can use <a class="reference internal" href="cmds/funced.html#cmd-funced"><span class="std std-ref">funced</span></a>, and to save a function <a class="reference internal" href="cmds/funcsave.html#cmd-funcsave"><span class="std std-ref">funcsave</span></a>. This will store it in a function file that fish will <a class="reference internal" href="#syntax-function-autoloading"><span class="std std-ref">autoload</span></a> when needed.</p>
@@ -480,9 +481,9 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <div class="section" id="defining-aliases">
 <span id="syntax-function-wrappers"></span><h3>Defining aliases<a class="headerlink" href="#defining-aliases" title="Permalink to this headline">¶</a></h3>
 <p>One of the most common uses for functions is to slightly alter the behavior of an already existing command. For example, one might want to redefine the <code class="docutils literal notranslate"><span class="pre">ls</span></code> command to display colors. The switch for turning on colors on GNU systems is <code class="docutils literal notranslate"><span class="pre">--color=auto</span></code>. An alias, or wrapper, around <code class="docutils literal notranslate"><span class="pre">ls</span></code> might look like this:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">ls</span><span class="w"></span>
-<span class="w">    </span><span class="nf">command</span><span class="w"> </span><span class="nf">ls</span><span class="w"> </span><span class="no">--color=auto</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">ls</span><span class="w"></span>
+<span class="w">    </span><span class="k">command</span><span class="w"> </span><span class="nf">ls</span><span class="w"> </span><span class="no">--color=auto</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>There are a few important things that need to be noted about aliases:</p>
@@ -519,11 +520,11 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
 <p>Anything after a <code class="docutils literal notranslate"><span class="pre">#</span></code> until the end of the line is a comment. That means it's purely for the reader's benefit, fish ignores it.</p>
 <p>This is useful to explain what and why you are doing something:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">ls</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">ls</span><span class="w"></span>
 <span class="w">    </span><span class="c"># The function is called ls,</span><span class="w"></span>
 <span class="w">    </span><span class="c"># so we have to explicitly call `command ls` to avoid calling ourselves.</span><span class="w"></span>
-<span class="w">    </span><span class="nf">command</span><span class="w"> </span><span class="nf">ls</span><span class="w"> </span><span class="no">--color=auto</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">command</span><span class="w"> </span><span class="nf">ls</span><span class="w"> </span><span class="no">--color=auto</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>There are no multiline comments. If you want to make a comment span multiple lines, simply start each line with a <code class="docutils literal notranslate"><span class="pre">#</span></code>.</p>
@@ -543,11 +544,11 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <span class="c"># This executes the `grep` command, which searches for a string,</span><span class="w"></span>
 <span class="c"># and if it finds it returns a status of 0.</span><span class="w"></span>
 <span class="c"># The `-q` switch stops it from printing any matches.</span><span class="w"></span>
-<span class="nf">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">myanimals</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">myanimals</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;You have fish!&quot;</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;You don&#39;t have fish!&quot;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># $XDG_CONFIG_HOME is a standard place to store configuration.</span><span class="w"></span>
 <span class="c"># If it&#39;s not set applications should use ~/.config.</span><span class="w"></span>
@@ -561,43 +562,43 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <h2>Loops and blocks<a class="headerlink" href="#loops-and-blocks" title="Permalink to this headline">¶</a></h2>
 <p>Like most programming language, fish also has the familiar <a class="reference internal" href="cmds/while.html#cmd-while"><span class="std std-ref">while</span></a> and <a class="reference internal" href="cmds/for.html#cmd-for"><span class="std std-ref">for</span></a> loops.</p>
 <p><code class="docutils literal notranslate"><span class="pre">while</span></code> works like a repeated <a class="reference internal" href="cmds/if.html#cmd-if"><span class="std std-ref">if</span></a>:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Still</span><span class="w"> </span><span class="no">running</span><span class="w"></span>
 <span class="w">    </span><span class="nf">sleep</span><span class="w"> </span><span class="no">1</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>will print &quot;Still running&quot; once a second. You can abort it with ctrl-c.</p>
 <p><code class="docutils literal notranslate"><span class="pre">for</span></code> loops work like in other shells, which is more like python's for-loops than e.g. C's:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">file:</span><span class="w"> </span><span class="o">$file</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>will print each file in the current directory. The part after the <code class="docutils literal notranslate"><span class="pre">in</span></code> is just a list of arguments, so you can use any <a class="reference internal" href="#expand"><span class="std std-ref">expansions</span></a> there:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">moreanimals</span><span class="w"> </span><span class="no">bird</span><span class="w"> </span><span class="no">fox</span><span class="w"></span>
-<span class="nf">for</span><span class="w"> </span><span class="no">animal</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">{</span><span class="no">cat</span><span class="o">,}</span><span class="no">fish</span><span class="w"> </span><span class="no">dog</span><span class="w"> </span><span class="o">$moreanimals</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="no">animal</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="no">cat</span><span class="o">,}</span><span class="no">fish</span><span class="w"> </span><span class="no">dog</span><span class="w"> </span><span class="o">$moreanimals</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">I</span><span class="w"> </span><span class="no">like</span><span class="w"> </span><span class="no">the</span><span class="w"> </span><span class="o">$animal</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you need a list of numbers, you can use the <code class="docutils literal notranslate"><span class="pre">seq</span></code> command to create one:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">5</span><span class="o">)</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">5</span><span class="o">)</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p><a class="reference internal" href="cmds/break.html#cmd-break"><span class="std std-ref">break</span></a> is available to break out of a loop, and <a class="reference internal" href="cmds/continue.html#cmd-continue"><span class="std std-ref">continue</span></a> to jump to the next iteration.</p>
 <p><a class="reference internal" href="#redirects"><span class="std std-ref">Input and output redirections</span></a> (including <a class="reference internal" href="#pipes"><span class="std std-ref">pipes</span></a>) can also be applied to loops:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">while</span><span class="w"> </span><span class="nf">read</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">line</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="nf">read</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">line</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">line:</span><span class="w"> </span><span class="o">$line</span><span class="w"></span>
-<span class="nf">end</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="p">file</span><span class="w"></span>
+<span class="k">end</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="p">file</span><span class="w"></span>
 </pre></div>
 </div>
 <p>In addition there's a <a class="reference internal" href="cmds/begin.html#cmd-begin"><span class="std std-ref">begin</span></a> block that just groups commands together so you can redirect to a block or use a new <a class="reference internal" href="#variables-scope"><span class="std std-ref">variable scope</span></a> without any repetition:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">begin</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">foo</span><span class="w"> </span><span class="no">bar</span><span class="w"> </span><span class="c"># this variable will only be available in this block!</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -621,11 +622,11 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <li><p><code class="docutils literal notranslate"><span class="pre">?</span></code> can match any single character except <code class="docutils literal notranslate"><span class="pre">/</span></code>. This is deprecated and can be disabled via the <code class="docutils literal notranslate"><span class="pre">qmark-noglob</span></code> <a class="reference internal" href="#featureflags"><span class="std std-ref">feature flag</span></a>, so <code class="docutils literal notranslate"><span class="pre">?</span></code> will just be an ordinary character.</p></li>
 </ul>
 <p>Other shells, such as zsh, have a much richer glob syntax, like <code class="docutils literal notranslate"><span class="pre">**(.)</span></code> to only match regular files. Fish does not. Instead of reinventing the whell, use programs like <code class="docutils literal notranslate"><span class="pre">find</span></code> to look for files. For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">ff</span><span class="w"> </span><span class="no">--description</span><span class="w"> </span><span class="s1">&#39;Like ** but only returns plain files.&#39;</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">ff</span><span class="w"> </span><span class="no">--description</span><span class="w"> </span><span class="s1">&#39;Like ** but only returns plain files.&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="c"># This also ignores .git directories.</span><span class="w"></span>
 <span class="w">    </span><span class="nf">find</span><span class="w"> </span><span class="no">.</span><span class="w"> </span><span class="se">\(</span><span class="w"> </span><span class="no">-name</span><span class="w"> </span><span class="no">.git</span><span class="w"> </span><span class="no">-type</span><span class="w"> </span><span class="no">d</span><span class="w"> </span><span class="no">-prune</span><span class="w"> </span><span class="se">\)</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="no">-type</span><span class="w"> </span><span class="no">f</span><span class="w"> </span><span class="p">|</span><span class="nv"> \</span>
 <span class="nv">        </span><span class="nf">sed</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="s1">&#39;/^\.\/\.git$/n&#39;</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="s1">&#39;s/^\.\///p&#39;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>You would then use it in place of <code class="docutils literal notranslate"><span class="pre">**</span></code> like this, <code class="docutils literal notranslate"><span class="pre">my_prog</span> <span class="pre">(ff)</span></code>, to pass only regular files in or below $PWD to <code class="docutils literal notranslate"><span class="pre">my_prog</span></code>. <a class="footnote-reference brackets" href="#id10" id="id9">3</a></p>
@@ -645,9 +646,9 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 
 <span class="c"># List the .foo files, if any.</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">foos</span><span class="w"> </span><span class="o">*</span><span class="no">.foo</span><span class="w"></span>
-<span class="nf">if</span><span class="w"> </span><span class="nf">count</span><span class="w"> </span><span class="o">$foos</span><span class="w"> </span><span class="p">&gt;/dev/null</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">count</span><span class="w"> </span><span class="o">$foos</span><span class="w"> </span><span class="p">&gt;/dev/null</span><span class="w"></span>
 <span class="w">    </span><span class="nf">ls</span><span class="w"> </span><span class="o">$foos</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <dl class="footnote brackets">
@@ -685,9 +686,9 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 <p>The <code class="docutils literal notranslate"><span class="pre">$</span></code> symbol can also be used multiple times, as a kind of &quot;dereference&quot; operator (the <code class="docutils literal notranslate"><span class="pre">*</span></code> in C or C++), like in the following code:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">set</span><span class="w"> </span><span class="no">foo</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">b</span><span class="w"> </span><span class="no">c</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">10</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">b</span><span class="w"> </span><span class="no">20</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="no">30</span><span class="w"></span>
-<span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="o">(</span><span class="nf">count</span><span class="w"> </span><span class="o">$$foo))</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="o">(</span><span class="nf">count</span><span class="w"> </span><span class="o">$$foo))</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$$foo[</span><span class="no">$i</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># Output is:</span><span class="w"></span>
 <span class="c"># 10</span><span class="w"></span>
@@ -717,11 +718,11 @@ These listed jobs can be removed with the <a class="reference internal" href="cm
 
 <span class="c"># Convert all JPEG files in the current directory to the</span><span class="w"></span>
 <span class="c"># PNG format using the &#39;convert&#39; program.</span><span class="w"></span>
-<span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">*</span><span class="no">.jpg</span><span class="p">;</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="o">$i</span><span class="w"> </span><span class="o">(</span><span class="nf">basename</span><span class="w"> </span><span class="o">$i</span><span class="w"> </span><span class="no">.jpg</span><span class="o">)</span><span class="no">.png</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">*</span><span class="no">.jpg</span><span class="p">;</span><span class="w"> </span><span class="nf">convert</span><span class="w"> </span><span class="o">$i</span><span class="w"> </span><span class="o">(</span><span class="nf">basename</span><span class="w"> </span><span class="o">$i</span><span class="w"> </span><span class="no">.jpg</span><span class="o">)</span><span class="no">.png</span><span class="p">;</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
 
 <span class="c"># Set the ``data`` variable to the contents of &#39;data.txt&#39;</span><span class="w"></span>
 <span class="c"># without splitting it into a list.</span><span class="w"></span>
-<span class="nf">begin</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">IFS</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">data</span><span class="w"> </span><span class="o">(</span><span class="nf">cat</span><span class="w"> </span><span class="no">data.txt</span><span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="w"></span>
+<span class="k">begin</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">IFS</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">data</span><span class="w"> </span><span class="o">(</span><span class="nf">cat</span><span class="w"> </span><span class="no">data.txt</span><span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
 
 <span class="c"># Set ``$data`` to the contents of data, splitting on NUL-bytes.</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">data</span><span class="w"> </span><span class="o">(</span><span class="nf">cat</span><span class="w"> </span><span class="no">data</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">string</span><span class="w"> </span><span class="no">split0</span><span class="o">)</span><span class="w"></span>
@@ -838,7 +839,7 @@ banana
 </pre></div>
 </div>
 <p>This can be quite useful. For example, if you want to go through all the files in all the directories in $PATH, use:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">$PATH</span><span class="no">/</span><span class="o">*</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">$PATH</span><span class="no">/</span><span class="o">*</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Because <a class="reference internal" href="#path"><span class="std std-ref">$PATH</span></a> is a list, this expands to all the files in all the directories in it. And if there are no directories in $PATH, the right answer here is to expand to no files.</p>
@@ -977,12 +978,12 @@ If the start is negative the range always goes down, so <code class="docutils li
 <p>Example:</p>
 <p>There are a few possible uses for different scopes.</p>
 <p>Typically inside funcions you should use local scope:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">something</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">something</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="no">/path/to/my/file</span><span class="w"></span>
-<span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="o">not</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$file</span><span class="s2">&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">not</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$file</span><span class="s2">&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="nf">set</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="no">/path/to/my/otherfile</span><span class="w"></span>
-<span class="w">    </span><span class="nf">end</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you want to set something in config.fish, or set something in a function and have it available for the rest of the session, global scope is a good choice:</p>
@@ -990,11 +991,11 @@ If the start is negative the range always goes down, so <code class="docutils li
 <span class="nf">set</span><span class="w"> </span><span class="no">-g</span><span class="w"> </span><span class="no">fish_prompt_pwd_dir_length</span><span class="w"> </span><span class="no">0</span><span class="w"></span>
 
 <span class="c"># Set my preferred cursor style:</span><span class="w"></span>
-<span class="nf">function</span><span class="w"> </span><span class="no">setcursors</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="no">setcursors</span><span class="w"></span>
 <span class="w">   </span><span class="nf">set</span><span class="w"> </span><span class="no">-g</span><span class="w"> </span><span class="no">fish_cursor_default</span><span class="w"> </span><span class="no">block</span><span class="w"></span>
 <span class="w">   </span><span class="nf">set</span><span class="w"> </span><span class="no">-g</span><span class="w"> </span><span class="no">fish_cursor_insert</span><span class="w"> </span><span class="no">line</span><span class="w"></span>
 <span class="w">   </span><span class="nf">set</span><span class="w"> </span><span class="no">-g</span><span class="w"> </span><span class="no">fish_cursor_visual</span><span class="w"> </span><span class="no">underscore</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># Set my language (also :ref:`exported &lt;variables-export&gt;`):</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">LANG</span><span class="w"> </span><span class="no">de_DE.UTF-8</span><span class="w"></span>
@@ -1006,11 +1007,11 @@ If the start is negative the range always goes down, so <code class="docutils li
 </pre></div>
 </div>
 <p>The following code will not output anything:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">begin</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">begin</span><span class="w"></span>
 <span class="w">    </span><span class="c"># This is a nice local scope where all variables will die</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">pirate</span><span class="w"> </span><span class="s1">&#39;There be treasure in them thar hills&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">captain</span><span class="w"> </span><span class="no">Space,</span><span class="w"> </span><span class="no">the</span><span class="w"> </span><span class="no">final</span><span class="w"> </span><span class="no">frontier</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="nf">echo</span><span class="w"> </span><span class="o">$pirate</span><span class="w"></span>
 <span class="c"># This will not output anything, since the pirate was local</span><span class="w"></span>
@@ -1057,17 +1058,17 @@ If the start is negative the range always goes down, so <code class="docutils li
 <span id="variables-functions"></span><h3>Variable scope for functions<a class="headerlink" href="#variable-scope-for-functions" title="Permalink to this headline">¶</a></h3>
 <p>When calling a function, all current local variables temporarily disappear. This shadowing of the local scope is needed since the variable namespace would become cluttered, making it very easy to accidentally overwrite variables from another function.</p>
 <p>For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">shiver</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">shiver</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">phrase</span><span class="w"> </span><span class="s1">&#39;Shiver me timbers&#39;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="nf">function</span><span class="w"> </span><span class="no">avast</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="no">avast</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">--local</span><span class="w"> </span><span class="no">phrase</span><span class="w"> </span><span class="s1">&#39;Avast, mateys&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="c"># Calling the shiver function here can not</span><span class="w"></span>
 <span class="w">    </span><span class="c"># change any variables in the local scope</span><span class="w"></span>
 <span class="w">    </span><span class="nf">shiver</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$phrase</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 <span class="nf">avast</span><span class="w"></span>
 
 <span class="c"># Outputs &quot;Avast, mateys&quot;</span><span class="w"></span>
@@ -1114,9 +1115,9 @@ third
 </div>
 <p>Note that list indices start at 1 in fish, not 0 like in other languages. This is because it requires less subtracting of 1 and many common Unix tools like <code class="docutils literal notranslate"><span class="pre">seq</span></code> work better with it (<code class="docutils literal notranslate"><span class="pre">seq</span> <span class="pre">5</span></code> prints 1 to 5, not 0 to 5). An invalid index is silently ignored resulting in no value (not even an empty string, just no argument at all).</p>
 <p>If you don't use any brackets, all the elements of the list will be passed to the command as separate items. This means you can iterate over a list with <code class="docutils literal notranslate"><span class="pre">for</span></code>:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">$PATH</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">$PATH</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">in</span><span class="w"> </span><span class="no">the</span><span class="w"> </span><span class="no">path</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This goes over every directory in $PATH separately and prints a line saying it is in the path.</p>
@@ -1185,10 +1186,10 @@ contains blue $smurf
 <div class="section" id="argument-handling">
 <span id="variables-argv"></span><h3>Argument Handling<a class="headerlink" href="#argument-handling" title="Permalink to this headline">¶</a></h3>
 <p>An important list is <code class="docutils literal notranslate"><span class="pre">$argv</span></code>, which contains the arguments to a function or script. For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">myfunction</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">myfunction</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">3</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This function takes whatever arguments it gets and prints the first and third:</p>
@@ -1203,25 +1204,25 @@ banana
 </div>
 <p>Commandline tools often get various options and flags and positional arguments, and $argv would contain all of these.</p>
 <p>A more robust approach to argument handling is <a class="reference internal" href="cmds/argparse.html#cmd-argparse"><span class="std std-ref">argparse</span></a>, which checks the defined options and puts them into various variables, leaving only the positional arguments in $argv. Here's a simple example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">mybetterfunction</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">mybetterfunction</span><span class="w"></span>
 <span class="w">    </span><span class="nf">argparse</span><span class="w"> </span><span class="no">h/help</span><span class="w"> </span><span class="no">s/second</span><span class="w"> </span><span class="no">--</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
 <span class="w">    </span><span class="o">or</span><span class="w"> </span><span class="nf">return</span><span class="w"> </span><span class="c"># exit if argparse failed because it found an option it didn&#39;t recognize - it will print an error</span><span class="w"></span>
 
 <span class="w">    </span><span class="c"># If -h or --help is given, we print a little help text and return</span><span class="w"></span>
-<span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">_flag_help</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">_flag_help</span><span class="w"></span>
 <span class="w">        </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;mybetterfunction [-h|--help] [-s|--second] [ARGUMENTS...]&quot;</span><span class="w"></span>
 <span class="w">        </span><span class="nf">return</span><span class="w"> </span><span class="no">0</span><span class="w"></span>
-<span class="w">    </span><span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
 
 <span class="w">    </span><span class="c"># If -s or --second is given, we print the second argument,</span><span class="w"></span>
 <span class="w">    </span><span class="c"># not the first and third.</span><span class="w"></span>
-<span class="w">    </span><span class="nf">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">_flag_second</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">_flag_second</span><span class="w"></span>
 <span class="w">        </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">2</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="nf">else</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"></span>
 <span class="w">        </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
 <span class="w">        </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">3</span><span class="o">]</span><span class="w"></span>
-<span class="w">    </span><span class="nf">end</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The options will be <em>removed</em> from $argv, so $argv[2] is the second <em>positional</em> argument now:</p>
@@ -1336,52 +1337,55 @@ session).</p></li>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_command</span></code></p></td>
 <td><p>commands like echo</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_quote</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_keyword</span></code></p></td>
+<td><p>keywords like if - this falls back on command color if unset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_quote</span></code></p></td>
 <td><p>quoted text like &quot;abc&quot;</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_redirection</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_redirection</span></code></p></td>
 <td><p>IO redirections like &gt;/dev/null</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_end</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_end</span></code></p></td>
 <td><p>process separators like ';' and '&amp;'</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_error</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_error</span></code></p></td>
 <td><p>syntax errors</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_param</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_param</span></code></p></td>
 <td><p>ordinary command parameters</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_comment</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_comment</span></code></p></td>
 <td><p>comments like '# important'</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_selection</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_selection</span></code></p></td>
 <td><p>selected text in vi visual mode</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_operator</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_operator</span></code></p></td>
 <td><p>parameter expansion operators like '*' and '~'</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_escape</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_escape</span></code></p></td>
 <td><p>character escapes like 'n' and 'x70'</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_autosuggestion</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_autosuggestion</span></code></p></td>
 <td><p>autosuggestions (the proposed rest of a command)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_cwd</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_cwd</span></code></p></td>
 <td><p>the current working directory in the default prompt</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_user</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_user</span></code></p></td>
 <td><p>the username in the default prompt</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_host</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_host</span></code></p></td>
 <td><p>the hostname in the default prompt</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_host_remote</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_host_remote</span></code></p></td>
 <td><p>the hostname in the default prompt for remote sessions (like ssh)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_cancel</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_cancel</span></code></p></td>
 <td><p>the '^C' indicator on a canceled command</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_search_match</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fish_color_search_match</span></code></p></td>
 <td><p>history search matches and selected pager items (background only)</p></td>
 </tr>
 </tbody>
@@ -1509,7 +1513,7 @@ session).</p></li>
 <div class="section" id="tab-completion">
 <h2>Tab Completion<a class="headerlink" href="#tab-completion" title="Permalink to this headline">¶</a></h2>
 <p>Tab completion is a time saving feature of any modern shell. When you type <kbd class="kbd docutils literal notranslate">Tab</kbd>, fish tries to guess the rest of the word under the cursor. If it finds just one possibility, it inserts it. If it finds more, it inserts the longest unambiguous part and then opens a menu (the &quot;pager&quot;) that you can navigate to find what you're looking for.</p>
-<p>The pager can be navigated with the arrow keys, <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Page</kbd> <kbd class="kbd docutils literal notranslate">Up</kbd></kbd> / <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Page</kbd> <kbd class="kbd docutils literal notranslate">Down</kbd></kbd>, <kbd class="kbd docutils literal notranslate">Tab</kbd> or <kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">Tab</kbd>. Pressing <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd> (the <code class="docutils literal notranslate"><span class="pre">pager-toggle-search</span></code> binding - <kbd class="kbd docutils literal notranslate">/</kbd> in vi-mode) opens up a search menu that you can use to filter the list.</p>
+<p>The pager can be navigated with the arrow keys, <kbd class="kbd docutils literal notranslate">Page Up</kbd> / <kbd class="kbd compound docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Page</kbd> <kbd class="kbd docutils literal notranslate">Down</kbd></kbd>, <kbd class="kbd docutils literal notranslate">Tab</kbd> or <kbd class="kbd docutils literal notranslate">Shift</kbd>+<kbd class="kbd docutils literal notranslate">Tab</kbd>. Pressing <kbd class="kbd docutils literal notranslate">Control</kbd>+<kbd class="kbd docutils literal notranslate">S</kbd> (the <code class="docutils literal notranslate"><span class="pre">pager-toggle-search</span></code> binding - <kbd class="kbd docutils literal notranslate">/</kbd> in vi-mode) opens up a search menu that you can use to filter the list.</p>
 <p>Fish provides some general purpose completions:</p>
 <ul class="simple">
 <li><p>Commands (builtins, functions and regular programs).</p></li>
@@ -1555,16 +1559,16 @@ session).</p></li>
 <p>When using most virtual terminals, it is possible to set the message displayed in the titlebar of the terminal window. This can be done automatically in fish by defining the <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function. The <a class="reference internal" href="cmds/fish_title.html#cmd-fish-title"><span class="std std-ref">fish_title</span></a> function is executed before and after a new command is executed or put into the foreground and the output is used as a titlebar message. The <a class="reference internal" href="cmds/status.html#cmd-status"><span class="std std-ref">status current-command</span></a> builtin will always return the name of the job to be put into the foreground (or <code class="docutils literal notranslate"><span class="pre">fish</span></code> if control is returning to the shell) when the <cite>fish_prompt &lt;cmd-fish_prompt&gt;</cite> function is called. The first argument to fish_title will contain the most recently executed foreground command as a string, starting with fish 2.2.</p>
 <p>Examples:
 The default fish title is:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">status</span><span class="w"> </span><span class="no">current-command</span><span class="o">)</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">pwd</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>To show the last command in the title:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1587,13 +1591,13 @@ The default fish title is:</p>
 <span id="editor"></span><h1>Command line editor<a class="headerlink" href="#command-line-editor" title="Permalink to this headline">¶</a></h1>
 <p>The fish editor features copy and paste, a <a class="reference external" href="#history-search">searchable history</a> and many editor functions that can be bound to special keyboard shortcuts.</p>
 <p>Similar to bash, fish has Emacs and Vi editing modes. The default editing mode is Emacs. You can switch to Vi mode with <code class="docutils literal notranslate"><span class="pre">fish_vi_key_bindings</span></code> and switch back with <code class="docutils literal notranslate"><span class="pre">fish_default_key_bindings</span></code>. You can also make your own key bindings by creating a function and setting $fish_key_bindings to its name. For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_hybrid_key_bindings</span><span class="w"> </span><span class="no">--description</span><span class="nv"> \</span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_hybrid_key_bindings</span><span class="w"> </span><span class="no">--description</span><span class="nv"> \</span>
 <span class="s2">&quot;Vi-style bindings that inherit emacs-style bindings in all modes&quot;</span><span class="w"></span>
-<span class="w">    </span><span class="nf">for</span><span class="w"> </span><span class="no">mode</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="no">default</span><span class="w"> </span><span class="no">insert</span><span class="w"> </span><span class="no">visual</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="no">mode</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="no">default</span><span class="w"> </span><span class="no">insert</span><span class="w"> </span><span class="no">visual</span><span class="w"></span>
 <span class="w">        </span><span class="nf">fish_default_key_bindings</span><span class="w"> </span><span class="no">-M</span><span class="w"> </span><span class="o">$mode</span><span class="w"></span>
-<span class="w">    </span><span class="nf">end</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
 <span class="w">    </span><span class="nf">fish_vi_key_bindings</span><span class="w"> </span><span class="no">--no-erase</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 <span class="nf">set</span><span class="w"> </span><span class="no">-g</span><span class="w"> </span><span class="no">fish_key_bindings</span><span class="w"> </span><span class="no">fish_hybrid_key_bindings</span><span class="w"></span>
 </pre></div>
 </div>
@@ -1649,7 +1653,7 @@ The default fish title is:</p>
 <span id="vi-mode"></span><h2>Vi mode commands<a class="headerlink" href="#vi-mode-commands" title="Permalink to this headline">¶</a></h2>
 <p>Vi mode allows for the use of Vi-like commands at the prompt. Initially, <a class="reference external" href="#vi-mode-insert">insert mode</a> is active. <kbd class="kbd docutils literal notranslate">Escape</kbd> enters <a class="reference external" href="#vi-mode-command">command mode</a>. The commands available in command, insert and visual mode are described below. Vi mode shares <a class="reference external" href="#shared-binds">some bindings</a> with <a class="reference external" href="#emacs-mode">Emacs mode</a>.</p>
 <p>It is also possible to add all emacs-mode bindings to vi-mode by using something like:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_user_key_bindings</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_user_key_bindings</span><span class="w"></span>
 <span class="w">    </span><span class="c"># Execute this once per mode that emacs bindings should be used in</span><span class="w"></span>
 <span class="w">    </span><span class="nf">fish_default_key_bindings</span><span class="w"> </span><span class="no">-M</span><span class="w"> </span><span class="no">insert</span><span class="w"></span>
 
@@ -1658,7 +1662,7 @@ The default fish title is:</p>
 <span class="w">    </span><span class="c"># resetting all bindings.</span><span class="w"></span>
 <span class="w">    </span><span class="c"># The argument specifies the initial mode (insert, &quot;default&quot; or visual).</span><span class="w"></span>
 <span class="w">    </span><span class="nf">fish_vi_key_bindings</span><span class="w"> </span><span class="no">--no-erase</span><span class="w"> </span><span class="no">insert</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>When in vi-mode, the <a class="reference internal" href="cmds/fish_mode_prompt.html#cmd-fish-mode-prompt"><span class="std std-ref">fish_mode_prompt</span></a> function will display a mode indicator to the left of the prompt. To disable this feature, override it with an empty function. To display the mode elsewhere (like in your right prompt), use the output of the <code class="docutils literal notranslate"><span class="pre">fish_default_mode_prompt</span></code> function.</p>
@@ -1830,15 +1834,15 @@ They are executed in order of their filename, sorted (like globs) in a natural o
 <p>If you are developing another program, you may wish to install configuration which is run for all users of the fish shell on a system. This is discouraged; if not carefully written, they may have side-effects or slow the startup of the shell. Additionally, users of other shells will not benefit from the Fish-specific configuration. However, if they are absolutely required, you may install them to the &quot;vendor&quot; configuration directory. As this path may vary from system to system, the <code class="docutils literal notranslate"><span class="pre">pkgconfig</span></code> framework should be used to discover this path with the output of <code class="docutils literal notranslate"><span class="pre">pkg-config</span> <span class="pre">--variable</span> <span class="pre">confdir</span> <span class="pre">fish</span></code>.</p>
 <p>Examples:</p>
 <p>If you want to add the directory <code class="docutils literal notranslate"><span class="pre">~/linux/bin</span></code> to your PATH variable when using a login shell, add the following to your <code class="docutils literal notranslate"><span class="pre">~/.config/fish/config.fish</span></code> file:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">--is-login</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">--is-login</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-gx</span><span class="w"> </span><span class="no">PATH</span><span class="w"> </span><span class="o">$PATH</span><span class="w"> </span><span class="o">~</span><span class="no">/linux/bin</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you want to run a set of commands when fish exits, use an <a class="reference external" href="#event">event handler</a> that is triggered by the exit of the shell:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">on_exit</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_exit</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">on_exit</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_exit</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">now</span><span class="w"> </span><span class="no">exiting</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -1877,9 +1881,9 @@ regex-easyesc   off    3.1      string replace -r needs fewer \\&#39;s
 </ul>
 <p>Example:</p>
 <p>To specify a signal handler for the WINCH signal, write:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">my_signal_handler</span><span class="w"> </span><span class="no">--on-signal</span><span class="w"> </span><span class="no">WINCH</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">my_signal_handler</span><span class="w"> </span><span class="no">--on-signal</span><span class="w"> </span><span class="no">WINCH</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Got</span><span class="w"> </span><span class="no">WINCH</span><span class="w"> </span><span class="no">signal!</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Please note that event handlers only become active when a function is loaded, which means you might need to otherwise <a class="reference internal" href="cmds/source.html#cmd-source"><span class="std std-ref">source</span></a> or execute a function instead of relying on <a class="reference internal" href="#syntax-function-autoloading"><span class="std std-ref">autoloading</span></a>. One approach is to put it into your <a class="reference internal" href="#initialization"><span class="std std-ref">initialization file</span></a>.</p>
@@ -1932,7 +1936,7 @@ regex-easyesc   off    3.1      string replace -r needs fewer \\&#39;s
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="#">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="#">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Introduction</a></li>
@@ -1958,7 +1962,7 @@ regex-easyesc   off    3.1      string replace -r needs fewer \\&#39;s
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

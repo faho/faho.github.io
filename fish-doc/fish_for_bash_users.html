@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fish for bash users &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>Fish for bash users &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -32,7 +32,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Fish for bash users</a></li>
@@ -117,7 +117,7 @@
 <h2>Command substitutions<a class="headerlink" href="#command-substitutions" title="Permalink to this headline">¶</a></h2>
 <p>Fish spells command substitutions as <code class="docutils literal notranslate"><span class="pre">(command)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">$(command)</span></code> (or <code class="docutils literal notranslate"><span class="pre">`command`</span></code>).</p>
 <p>In addition, it only splits them on newlines instead of $IFS. If you want to split on something else, use <a class="reference internal" href="cmds/string.html#cmd-string-split"><span class="std std-ref">string split</span></a>, <a class="reference internal" href="cmds/string.html#cmd-string-split"><span class="std std-ref">string split0</span></a> or <a class="reference internal" href="cmds/string.html#cmd-string-collect"><span class="std std-ref">string collect</span></a>. If those are used as the last command in a command substitution the splits they create are carried over. So:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">find</span><span class="w"> </span><span class="no">.</span><span class="w"> </span><span class="no">-print0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">string</span><span class="w"> </span><span class="no">split0</span><span class="o">)</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="nf">find</span><span class="w"> </span><span class="no">.</span><span class="w"> </span><span class="no">-print0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nf">string</span><span class="w"> </span><span class="no">split0</span><span class="o">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>will correctly handle all possible filenames.</p>
@@ -268,13 +268,13 @@ b
 </pre></div>
 </div>
 <p>and a rough fish equivalent:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set</span><span class="w"> </span><span class="no">-l</span><span class="w"> </span><span class="no">prompt_symbol</span><span class="w"> </span><span class="s1">&#39;$&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">fish_is_root_user</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">prompt_symbol</span><span class="w"> </span><span class="s1">&#39;#&#39;</span><span class="w"></span>
 
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">-s</span><span class="w"> </span><span class="o">$hostname</span><span class="w"> </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">blue</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="nf">prompt_pwd</span><span class="o">)</span><span class="nv"> \</span>
 <span class="nv">    </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">yellow</span><span class="o">)</span><span class="w"> </span><span class="o">$prompt_symbol</span><span class="w"> </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">normal</span><span class="o">)</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This shows a few differences:</p>
@@ -289,25 +289,25 @@ b
 <div class="section" id="blocks-and-loops">
 <h2>Blocks and loops<a class="headerlink" href="#blocks-and-loops" title="Permalink to this headline">¶</a></h2>
 <p>Fish's blocking constructs look a little different. They all start with a word, end in <code class="docutils literal notranslate"><span class="pre">end</span></code> and don't have a second starting word:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="p">;</span><span class="w"> </span><span class="nf">do</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="p">;</span><span class="w"> </span><span class="nf">do</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"></span>
 <span class="nf">done</span><span class="w"></span>
 
 <span class="c"># becomes</span><span class="w"></span>
 
-<span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="no">1</span><span class="w"> </span><span class="no">2</span><span class="w"> </span><span class="no">3</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="nf">while</span><span class="w"> </span><span class="nf">true</span><span class="p">;</span><span class="w"> </span><span class="nf">do</span><span class="w"></span>
+<span class="k">while</span><span class="w"> </span><span class="nf">true</span><span class="p">;</span><span class="w"> </span><span class="nf">do</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">Weeee</span><span class="w"></span>
 <span class="nf">done</span><span class="w"></span>
 
 <span class="c"># becomes</span><span class="w"></span>
 
-<span class="nf">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
+<span class="k">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">Weeeeeee</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="o">{</span><span class="nf"></span>
 <span class="nf">   echo Hello</span>
@@ -315,23 +315,23 @@ b
 
 <span class="c"># becomes</span><span class="w"></span>
 
-<span class="nf">begin</span><span class="w"></span>
+<span class="k">begin</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">Hello</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="nf">if</span><span class="w"> </span><span class="nf">true</span><span class="p">;</span><span class="w"> </span><span class="nf">then</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">true</span><span class="p">;</span><span class="w"> </span><span class="nf">then</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">Yes</span><span class="w"> </span><span class="no">I</span><span class="w"> </span><span class="no">am</span><span class="w"> </span><span class="no">true</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;How is true not true?&quot;</span><span class="w"></span>
 <span class="nf">fi</span><span class="w"></span>
 
 <span class="c"># becomes</span><span class="w"></span>
 
-<span class="nf">if</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="no">Yes</span><span class="w"> </span><span class="no">I</span><span class="w"> </span><span class="no">am</span><span class="w"> </span><span class="no">true</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">   </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;How is true not true?&quot;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="nf">foo</span><span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="no"></span>
 <span class="no">   echo foo</span>
@@ -339,9 +339,9 @@ b
 
 <span class="c"># becomes</span><span class="w"></span>
 
-<span class="nf">function</span><span class="w"> </span><span class="no">foo</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="no">foo</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">foo</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># (note that bash specifically allows the word &quot;function&quot; as an extension, but POSIX only specifies the form without, so it&#39;s more compatible to just use the form without)</span><span class="w"></span>
 </pre></div>
@@ -376,7 +376,7 @@ b
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Fish for bash users</a></li>
@@ -402,7 +402,7 @@ b
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

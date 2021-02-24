@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bind - handle fish key bindings &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>bind - handle fish key bindings &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -127,7 +127,7 @@
 <p>If the <code class="docutils literal notranslate"><span class="pre">-k</span></code> switch is used, the name of a key (such as 'down', 'up' or 'backspace') is used instead of a sequence. The names used are the same as the corresponding curses variables, but without the 'key_' prefix. (See <code class="docutils literal notranslate"><span class="pre">terminfo(5)</span></code> for more information, or use <code class="docutils literal notranslate"><span class="pre">bind</span> <span class="pre">--key-names</span></code> for a list of all available named keys). Normally this will print an error if the current <code class="docutils literal notranslate"><span class="pre">$TERM</span></code> entry doesn't have a given key, unless the <code class="docutils literal notranslate"><span class="pre">-s</span></code> switch is given.</p>
 <p>To find out what sequence a key combination sends, you can use <a class="reference internal" href="fish_key_reader.html#cmd-fish-key-reader"><span class="std std-ref">fish_key_reader</span></a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> can be any fish command, but it can also be one of a set of special input functions. These include functions for moving the cursor, operating on the kill-ring, performing tab completion, etc. Use <code class="docutils literal notranslate"><span class="pre">bind</span> <span class="pre">--function-names</span></code> for a complete list of these input functions.</p>
-<p>When <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> is a shellscript command, it is a good practice to put the actual code into a <a class="reference external" href="#function">function</a> and simply bind to the function name. This way it becomes significantly easier to test the function while editing, and the result is usually more readable as well.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code> is a shellscript command, it is a good practice to put the actual code into a <a class="reference internal" href="../index.html#syntax-function"><span class="std std-ref">function</span></a> and simply bind to the function name. This way it becomes significantly easier to test the function while editing, and the result is usually more readable as well.</p>
 <p>If a script produces output, it should finish by calling <code class="docutils literal notranslate"><span class="pre">commandline</span> <span class="pre">-f</span> <span class="pre">repaint</span></code> to tell fish that a repaint is in order.</p>
 <p>Note that special input functions cannot be combined with ordinary shell script commands. The commands must be entirely a sequence of special input functions (from <code class="docutils literal notranslate"><span class="pre">bind</span> <span class="pre">-f</span></code>) or all shell script commands (i.e., valid fish script).</p>
 <p>If no <code class="docutils literal notranslate"><span class="pre">SEQUENCE</span></code> is provided, all bindings (or just the bindings in the given <code class="docutils literal notranslate"><span class="pre">MODE</span></code>) are printed. If <code class="docutils literal notranslate"><span class="pre">SEQUENCE</span></code> is provided but no <code class="docutils literal notranslate"><span class="pre">COMMAND</span></code>, just the binding matching that sequence is printed.</p>
@@ -209,7 +209,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">self-insert-notfirst</span></code>, inserts the matching sequence into the command line, unless the cursor is at the beginning</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">suppress-autosuggestion</span></code>, remove the current autosuggestion. Returns true if there was a suggestion to remove.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">swap-selection-start-stop</span></code>, go to the other end of the highlighted text without changing the selection</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">transpose-chars</span></code>,  transpose two characters to the left of the cursor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">transpose-chars</span></code>, transpose two characters to the left of the cursor</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">transpose-words</span></code>, transpose two words to the left of the cursor</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">insert-line-under</span></code>, add a new line under the current line</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">insert-line-over</span></code>, add a new line over the current line</p></li>
@@ -226,7 +226,7 @@
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">bind</span><span class="w"> </span><span class="se">\c</span><span class="no">d</span><span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Perform a history search when <kbd class="kbd docutils literal notranslate"><kbd class="kbd docutils literal notranslate">Page</kbd> <kbd class="kbd docutils literal notranslate">Up</kbd></kbd> is pressed:</p>
+<p>Perform a history search when <kbd class="kbd docutils literal notranslate">Page Up</kbd> is pressed:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">bind</span><span class="w"> </span><span class="no">-k</span><span class="w"> </span><span class="no">ppage</span><span class="w"> </span><span class="no">history-search-backward</span><span class="w"></span>
 </pre></div>
 </div>
@@ -272,7 +272,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
@@ -299,7 +299,7 @@
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

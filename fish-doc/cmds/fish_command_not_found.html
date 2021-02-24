@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fish_command_not_found - what to do when a command wasn&#39;t found &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>fish_command_not_found - what to do when a command wasn&#39;t found &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -106,9 +106,9 @@
 <span id="cmd-fish-cmd-not-found"></span><h1>fish_command_not_found - what to do when a command wasn't found<a class="headerlink" href="#fish-command-not-found-what-to-do-when-a-command-wasn-t-found" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="synopsis">
 <h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">    </span><span class="nf">...</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -133,15 +133,15 @@ Did not find command flounder
 </pre></div>
 </div>
 <p>Or the handler for OpenSUSE's command-not-found:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">    </span><span class="nf">/usr/bin/command-not-found</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Or the simple default handler:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">    </span><span class="nf">__fish_default_command_not_found_handler</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -149,20 +149,20 @@ Did not find command flounder
 <h2>Backwards compatibility<a class="headerlink" href="#backwards-compatibility" title="Permalink to this headline">¶</a></h2>
 <p>This command was introduced in fish 3.2.0. Previous versions of fish used the &quot;fish_command_not_found&quot; <a class="reference internal" href="../index.html#event"><span class="std std-ref">event</span></a> instead.</p>
 <p>To define a handler that works in older versions of fish as well, define it the old way:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">__fish_command_not_found_handler</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">__fish_command_not_found_handler</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">     </span><span class="nf">echo</span><span class="w"> </span><span class="no">COMMAND</span><span class="w"> </span><span class="no">WAS</span><span class="w"> </span><span class="no">NOT</span><span class="w"> </span><span class="no">FOUND</span><span class="w"> </span><span class="no">MY</span><span class="w"> </span><span class="no">FRIEND</span><span class="w"> </span><span class="o">$argv[</span><span class="no">1</span><span class="o">]</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>in which case fish will define a <code class="docutils literal notranslate"><span class="pre">fish_command_not_found</span></code> that calls it,
 or define a wrapper:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">     </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;G&#39;day mate, could not find your command: </span><span class="o">$argv</span><span class="s2">&quot;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
-<span class="nf">function</span><span class="w"> </span><span class="no">__fish_command_not_found_handler</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
+<span class="k">function</span><span class="w"> </span><span class="no">__fish_command_not_found_handler</span><span class="w"> </span><span class="no">--on-event</span><span class="w"> </span><span class="no">fish_command_not_found</span><span class="w"></span>
 <span class="w">     </span><span class="nf">fish_command_not_found</span><span class="w"> </span><span class="o">$argv</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -182,7 +182,7 @@ or define a wrapper:</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
@@ -209,7 +209,7 @@ or define a wrapper:</p>
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

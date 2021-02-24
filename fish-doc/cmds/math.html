@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>math - perform mathematics calculations &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>math - perform mathematics calculations &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -117,8 +117,8 @@
 </div>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">math</span></code> is used to perform mathematical calculations. It supports all the usual operations such as addition, subtraction, etc. As well as functions like <code class="docutils literal notranslate"><span class="pre">abs()</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt()</span></code> and <code class="docutils literal notranslate"><span class="pre">log2()</span></code>.</p>
-<p>By default, the output is as a float with trailing zeroes trimmed. To get a fixed representation, the <code class="docutils literal notranslate"><span class="pre">--scale</span></code> option can be used, including <code class="docutils literal notranslate"><span class="pre">--scale=0</span></code> for integer output.</p>
+<p><code class="docutils literal notranslate"><span class="pre">math</span></code> performs mathematical calculations. It supports simple operations such as addition, subtraction, and so on, as well as functions like <code class="docutils literal notranslate"><span class="pre">abs()</span></code>, <code class="docutils literal notranslate"><span class="pre">sqrt()</span></code> and <code class="docutils literal notranslate"><span class="pre">ln()</span></code>.</p>
+<p>By default, the output is a floating-point number with trailing zeroes trimmed. To get a fixed representation, the <code class="docutils literal notranslate"><span class="pre">--scale</span></code> option can be used, including <code class="docutils literal notranslate"><span class="pre">--scale=0</span></code> for integer output.</p>
 <p>Keep in mind that parameter expansion happens before expressions are evaluated. This can be very useful in order to perform calculations involving shell variables or the output of command substitutions, but it also means that parenthesis (<code class="docutils literal notranslate"><span class="pre">()</span></code>) and the asterisk (<code class="docutils literal notranslate"><span class="pre">*</span></code>) glob character have to be escaped or quoted. <code class="docutils literal notranslate"><span class="pre">x</span></code> can also be used to denote multiplication, but it needs to be followed by whitespace to distinguish it from hexadecimal numbers.</p>
 <p><code class="docutils literal notranslate"><span class="pre">math</span></code> ignores whitespace between arguments and takes its input as multiple arguments (internally joined with a space), so <code class="docutils literal notranslate"><span class="pre">math</span> <span class="pre">2</span> <span class="pre">+2</span></code> and <code class="docutils literal notranslate"><span class="pre">math</span> <span class="pre">&quot;2</span> <span class="pre">+</span>&#160;&#160;&#160; <span class="pre">2&quot;</span></code> work the same. <code class="docutils literal notranslate"><span class="pre">math</span> <span class="pre">2</span> <span class="pre">2</span></code> is an error.</p>
 <p>The following options are available:</p>
@@ -153,7 +153,8 @@
 <p><code class="docutils literal notranslate"><span class="pre">math</span></code> knows the following constants:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">e</span></code> - Euler's number.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">pi</span></code> - You know that one. Half of Tau. (<code class="docutils literal notranslate"><span class="pre">tau</span></code> is also implemented)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pi</span></code> - π. You know this one. Half of Tau.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tau</span></code>. Equivalent to 2π, or the number of radians in a circle.</p></li>
 </ul>
 <p>Use them without a leading <code class="docutils literal notranslate"><span class="pre">$</span></code> - <code class="docutils literal notranslate"><span class="pre">pi</span> <span class="pre">-</span> <span class="pre">3</span></code> should be about 0.</p>
 </div>
@@ -173,7 +174,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">exp</span></code> - the base-e exponential function</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fac</span></code> - factorial</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">floor</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ln</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ln</span></code> - the base-e logarithm</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">log</span></code> or <code class="docutils literal notranslate"><span class="pre">log10</span></code> - the base-10 logarithm</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ncr</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">npr</span></code></p></li>
@@ -204,7 +205,7 @@
 <div class="section" id="compatibility-notes">
 <h2>Compatibility notes<a class="headerlink" href="#compatibility-notes" title="Permalink to this headline">¶</a></h2>
 <p>Fish 1.x and 2.x releases relied on the <code class="docutils literal notranslate"><span class="pre">bc</span></code> command for handling <code class="docutils literal notranslate"><span class="pre">math</span></code> expressions. Starting with fish 3.0.0 fish uses the tinyexpr library and evaluates the expression without the involvement of any external commands.</p>
-<p>You don't need to use <code class="docutils literal notranslate"><span class="pre">--</span></code> before the expression even if it begins with a minus sign which might otherwise be interpreted as an invalid option. If you do insert <code class="docutils literal notranslate"><span class="pre">--</span></code> before the expression it will cause option scanning to stop just like for every other command and it won't be part of the expression.</p>
+<p>You don't need to use <code class="docutils literal notranslate"><span class="pre">--</span></code> before the expression, even if it begins with a minus sign which might otherwise be interpreted as an invalid option. If you do insert <code class="docutils literal notranslate"><span class="pre">--</span></code> before the expression, it will cause option scanning to stop just like for every other command and it won't be part of the expression.</p>
 </div>
 </div>
 
@@ -222,7 +223,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
@@ -249,7 +250,7 @@
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>abbr - manage fish abbreviations &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>abbr - manage fish abbreviations &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -166,12 +166,12 @@
 <h2>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">¶</a></h2>
 <p>Each abbreviation is stored in its own global or universal variable. The name consists of the prefix <code class="docutils literal notranslate"><span class="pre">_fish_abbr_</span></code> followed by the WORD after being transformed by <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">escape</span> <span class="pre">style=var</span></code>. The WORD cannot contain a space but all other characters are legal.</p>
 <p>Defining an abbreviation with global scope is slightly faster than universal scope (which is the default). But in general you'll only want to use the global scope when defining abbreviations in a startup script like <code class="docutils literal notranslate"><span class="pre">~/.config/fish/config.fish</span></code> like this:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">--is-interactive</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">--is-interactive</span><span class="w"></span>
 <span class="w">    </span><span class="nf">abbr</span><span class="w"> </span><span class="no">--add</span><span class="w"> </span><span class="no">--global</span><span class="w"> </span><span class="no">first</span><span class="w"> </span><span class="s1">&#39;echo my first abbreviation&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">abbr</span><span class="w"> </span><span class="no">--add</span><span class="w"> </span><span class="no">--global</span><span class="w"> </span><span class="no">second</span><span class="w"> </span><span class="s1">&#39;echo my second abbreviation&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">abbr</span><span class="w"> </span><span class="no">--add</span><span class="w"> </span><span class="no">--global</span><span class="w"> </span><span class="no">gco</span><span class="w"> </span><span class="no">git</span><span class="w"> </span><span class="no">checkout</span><span class="w"></span>
 <span class="w">    </span><span class="c"># etcetera</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>You can create abbreviations interactively and they will be visible to other fish sessions if you use the <code class="docutils literal notranslate"><span class="pre">-U</span></code> or <code class="docutils literal notranslate"><span class="pre">--universal</span></code> flag or don't explicitly specify the scope and the abbreviation isn't already defined with global scope. If you want it to be visible only to the current shell use the <code class="docutils literal notranslate"><span class="pre">-g</span></code> or <code class="docutils literal notranslate"><span class="pre">--global</span></code> flag.</p>
@@ -192,7 +192,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
@@ -219,7 +219,7 @@
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

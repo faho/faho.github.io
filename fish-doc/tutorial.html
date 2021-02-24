@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>Tutorial &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>
@@ -340,7 +340,7 @@ MyVariable=SomeValue
 </pre></div>
 </div>
 <p>You can iterate over a list (or a slice) with a for loop:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">for</span><span class="w"> </span><span class="no">val</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">$PATH</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">for</span><span class="w"> </span><span class="no">val</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">$PATH</span><span class="w"></span>
     echo &quot;entry: $val&quot;
   end
 entry: /usr/bin/
@@ -443,57 +443,57 @@ Backup failed
 <div class="section" id="conditionals-if-else-switch">
 <span id="tut-conditionals"></span><h2>Conditionals (If, Else, Switch)<a class="headerlink" href="#conditionals-if-else-switch" title="Permalink to this headline">¶</a></h2>
 <p>Use <a class="reference internal" href="cmds/if.html#cmd-if"><span class="std std-ref">if</span></a> and <a class="reference internal" href="cmds/else.html#cmd-else"><span class="std std-ref">else</span></a> to conditionally execute code, based on the exit status of a command.</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">/etc/shells</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">/etc/shells</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Found</span><span class="w"> </span><span class="no">fish</span><span class="w"></span>
-<span class="nf">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">bash</span><span class="w"> </span><span class="no">/etc/shells</span><span class="w"></span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">bash</span><span class="w"> </span><span class="no">/etc/shells</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Found</span><span class="w"> </span><span class="no">bash</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Got</span><span class="w"> </span><span class="no">nothing</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>To compare strings or numbers or check file properties (whether a file exists or is writeable and such), use <a class="reference internal" href="cmds/test.html#cmd-test"><span class="std std-ref">test</span></a>, like</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$fish</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">=</span><span class="w"> </span><span class="s2">&quot;flounder&quot;</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$fish</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">=</span><span class="w"> </span><span class="s2">&quot;flounder&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">FLOUNDER</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># or</span><span class="w"></span>
 
-<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$number</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-gt</span><span class="w"> </span><span class="no">5</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$number</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-gt</span><span class="w"> </span><span class="no">5</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$number</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">greater</span><span class="w"> </span><span class="no">than</span><span class="w"> </span><span class="no">five</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$number</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">five</span><span class="w"> </span><span class="no">or</span><span class="w"> </span><span class="no">less</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 
 <span class="c"># or</span><span class="w"></span>
 
 <span class="c"># This test is true if the path /etc/hosts exists</span><span class="w"></span>
 <span class="c"># - it could be a file or directory or symlink (or possibly something else).</span><span class="w"></span>
-<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="no">/etc/hosts</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-e</span><span class="w"> </span><span class="no">/etc/hosts</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">We</span><span class="w"> </span><span class="no">most</span><span class="w"> </span><span class="no">likely</span><span class="w"> </span><span class="no">have</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">hosts</span><span class="w"> </span><span class="no">file</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">We</span><span class="w"> </span><span class="no">do</span><span class="w"> </span><span class="no">not</span><span class="w"> </span><span class="no">have</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">hosts</span><span class="w"> </span><span class="no">file</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p><a class="reference internal" href="#tut-combiners"><span class="std std-ref">Combiners</span></a> can also be used to make more complex conditions, like</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">/etc/shells</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">command</span><span class="w"> </span><span class="no">-sq</span><span class="w"> </span><span class="no">fish</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">/etc/shells</span><span class="p">;</span><span class="w"> </span><span class="o">and</span><span class="w"> </span><span class="nf">command</span><span class="w"> </span><span class="no">-sq</span><span class="w"> </span><span class="no">fish</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">fish</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">installed</span><span class="w"> </span><span class="no">and</span><span class="w"> </span><span class="no">configured</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>For even more complex conditions, use <a class="reference internal" href="cmds/begin.html#cmd-begin"><span class="std std-ref">begin</span></a> and <a class="reference internal" href="cmds/end.html#cmd-end"><span class="std std-ref">end</span></a> to group parts of them.</p>
 <p>There is also a <a class="reference internal" href="cmds/switch.html#cmd-switch"><span class="std std-ref">switch</span></a> command:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">switch</span><span class="w"> </span><span class="o">(</span><span class="nf">uname</span><span class="o">)</span><span class="w"></span>
-<span class="nf">case</span><span class="w"> </span><span class="no">Linux</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">switch</span><span class="w"> </span><span class="o">(</span><span class="nf">uname</span><span class="o">)</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">Linux</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Hi</span><span class="w"> </span><span class="no">Tux!</span><span class="w"></span>
-<span class="nf">case</span><span class="w"> </span><span class="no">Darwin</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">Darwin</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Hi</span><span class="w"> </span><span class="no">Hexley!</span><span class="w"></span>
-<span class="nf">case</span><span class="w"> </span><span class="no">FreeBSD</span><span class="w"> </span><span class="no">NetBSD</span><span class="w"> </span><span class="no">DragonFly</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="no">FreeBSD</span><span class="w"> </span><span class="no">NetBSD</span><span class="w"> </span><span class="no">DragonFly</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Hi</span><span class="w"> </span><span class="no">Beastie!</span><span class="w"></span>
-<span class="nf">case</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"></span>
+<span class="k">case</span><span class="w"> </span><span class="s1">&#39;*&#39;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">Hi,</span><span class="w"> </span><span class="no">stranger!</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Note that <a class="reference internal" href="cmds/case.html#cmd-case"><span class="std std-ref">case</span></a> does not fall through, and can accept multiple arguments or (quoted) wildcards.</p>
@@ -501,7 +501,7 @@ Backup failed
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <p>A fish function is a list of commands, which may optionally take arguments. Unlike other shells, arguments are not passed in &quot;numbered variables&quot; like <code class="docutils literal notranslate"><span class="pre">$1</span></code>, but instead in a single list <code class="docutils literal notranslate"><span class="pre">$argv</span></code>. To create a function, use the <a class="reference internal" href="cmds/function.html#cmd-function"><span class="std std-ref">function</span></a> builtin:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">function</span><span class="w"> </span><span class="no">say_hello</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">function</span><span class="w"> </span><span class="no">say_hello</span><span class="w"></span>
      echo Hello $argv
   end
 <span class="gp">&gt; </span><span class="nf">say_hello</span><span class="w"></span>
@@ -532,7 +532,7 @@ end
 <div class="section" id="loops">
 <h2>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h2>
 <p>While loops:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">while</span><span class="w"> </span><span class="nf">true</span><span class="w"></span>
     echo &quot;Loop forever&quot;
 end
 Loop forever
@@ -542,13 +542,13 @@ Loop forever
 </pre></div>
 </div>
 <p>For loops can be used to iterate over a list. For example, a list of files:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">*</span><span class="no">.txt</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">for</span><span class="w"> </span><span class="no">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">*</span><span class="no">.txt</span><span class="w"></span>
     cp $file $file.bak
 end
 </pre></div>
 </div>
 <p>Iterating over a list of numbers can be done with <code class="docutils literal notranslate"><span class="pre">seq</span></code>:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">for</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="no">5</span><span class="o">)</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">for</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="nf">seq</span><span class="w"> </span><span class="no">5</span><span class="o">)</span><span class="w"></span>
     touch file_$x.txt
 end
 </pre></div>
@@ -558,18 +558,18 @@ end
 <h2>Prompt<a class="headerlink" href="#prompt" title="Permalink to this headline">¶</a></h2>
 <p>Unlike other shells, there is no prompt variable like <code class="docutils literal notranslate"><span class="pre">PS1</span></code>. To display your prompt, fish executes the <a class="reference internal" href="cmds/fish_prompt.html#cmd-fish-prompt"><span class="std std-ref">fish_prompt</span></a> function and uses its output as the prompt. And if it exists, fish also executes the <a class="reference internal" href="cmds/fish_right_prompt.html#cmd-fish-right-prompt"><span class="std std-ref">fish_right_prompt</span></a> function and uses its output as the right prompt.</p>
 <p>You can define your own prompt from the command line:</p>
-<div class="highlight highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="p">;</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;New Prompt % &quot;</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="w"></span>
+<div class="highlight highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt; </span><span class="k">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="p">;</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;New Prompt % &quot;</span><span class="p">;</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
 New Prompt % _
 </pre></div>
 </div>
 <p>Then, if you are happy with it, you can save it to disk by typing <code class="docutils literal notranslate"><span class="pre">funcsave</span> <span class="pre">fish_prompt</span></code>. This saves the prompt in <code class="docutils literal notranslate"><span class="pre">~/.config/fish/functions/fish_prompt.fish</span></code>. (Or, if you want, you can create that file manually from the start.)</p>
 <p>Multiple lines are OK. Colors can be set via <a class="reference internal" href="cmds/set_color.html#cmd-set-color"><span class="std std-ref">set_color</span></a>, passing it named ANSI colors, or hex RGB values:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set_color</span><span class="w"> </span><span class="no">purple</span><span class="w"></span>
 <span class="w">    </span><span class="nf">date</span><span class="w"> </span><span class="s2">&quot;+%m/%d/%y&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set_color</span><span class="w"> </span><span class="no">F00</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">(</span><span class="nf">pwd</span><span class="o">)</span><span class="w"> </span><span class="s1">&#39;&gt;&#39;</span><span class="w"> </span><span class="o">(</span><span class="nf">set_color</span><span class="w"> </span><span class="no">normal</span><span class="o">)</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This prompt would look like:</p>
@@ -686,7 +686,7 @@ with <code class="docutils literal notranslate"><span class="pre">/bin/bash</spa
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Tutorial</a></li>
@@ -712,7 +712,7 @@ with <code class="docutils literal notranslate"><span class="pre">/bin/bash</spa
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 

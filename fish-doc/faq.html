@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Frequently asked questions &#8212; fish-shell 3.1.2-2003-g2faf814da documentation</title>
+    <title>Frequently asked questions &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/pydoctheme.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
@@ -33,7 +33,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>
@@ -137,7 +137,7 @@
 </div>
 <p>Since fish 3.1 you can set an environment variable for just one command using the <code class="docutils literal notranslate"><span class="pre">key=value</span> <span class="pre">some</span> <span class="pre">command</span></code> syntax, like in other shells.  The two lines below behave identically - unlike other shells, fish will output <code class="docutils literal notranslate"><span class="pre">value</span></code> both times:</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="no">key</span><span class="o">=</span><span class="no">value</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="o">$key</span><span class="w"></span>
-<span class="nf">begin</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-lx</span><span class="w"> </span><span class="no">key</span><span class="w"> </span><span class="no">value</span><span class="p">;</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="o">$key</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="w"></span>
+<span class="k">begin</span><span class="p">;</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-lx</span><span class="w"> </span><span class="no">key</span><span class="w"> </span><span class="no">value</span><span class="p">;</span><span class="w"> </span><span class="nf">echo</span><span class="w"> </span><span class="o">$key</span><span class="p">;</span><span class="w"> </span><span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Note that &quot;exported&quot; is not a <a class="reference internal" href="index.html#variables-scope"><span class="std std-ref">scope</span></a>, but an additional bit of state. A variable can be global and exported or local and exported or even universal and exported. Typically it makes sense to make an exported variable global.</p>
@@ -145,9 +145,9 @@
 <div class="section" id="how-do-i-check-whether-a-variable-is-defined">
 <h2>How do I check whether a variable is defined?<a class="headerlink" href="#how-do-i-check-whether-a-variable-is-defined" title="Permalink to this headline">¶</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-q</span> <span class="pre">var</span></code>.  For example, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">set</span> <span class="pre">-q</span> <span class="pre">var;</span> <span class="pre">echo</span> <span class="pre">variable</span> <span class="pre">defined;</span> <span class="pre">end</span></code>.  To check multiple variables you can combine with <code class="docutils literal notranslate"><span class="pre">and</span></code> and <code class="docutils literal notranslate"><span class="pre">or</span></code> like so:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">var1</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">var2</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">var1</span><span class="p">;</span><span class="w"> </span><span class="o">or</span><span class="w"> </span><span class="nf">set</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">var2</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">either</span><span class="w"> </span><span class="no">variable</span><span class="w"> </span><span class="no">defined</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Keep in mind that a defined variabled could also be empty, either by having no elements (if set like <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">var</span></code>) or only empty elements (if set like <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">var</span> <span class="pre">&quot;&quot;</span></code>). Read on for how to deal with those.</p>
@@ -155,15 +155,15 @@
 <div class="section" id="how-do-i-check-whether-a-variable-is-not-empty">
 <h2>How do I check whether a variable is not empty?<a class="headerlink" href="#how-do-i-check-whether-a-variable-is-not-empty" title="Permalink to this headline">¶</a></h2>
 <p>Use <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">length</span> <span class="pre">-q</span> <span class="pre">--</span> <span class="pre">$var</span></code>.  For example, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">string</span> <span class="pre">length</span> <span class="pre">-q</span> <span class="pre">--</span> <span class="pre">$var;</span> <span class="pre">echo</span> <span class="pre">not</span> <span class="pre">empty;</span> <span class="pre">end</span></code>.  Note that <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">length</span></code> will interpret a list of multiple variables as a disjunction (meaning any/or):</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">string</span><span class="w"> </span><span class="no">length</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">--</span><span class="w"> </span><span class="o">$var1</span><span class="w"> </span><span class="o">$var2</span><span class="w"> </span><span class="o">$var3</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">string</span><span class="w"> </span><span class="no">length</span><span class="w"> </span><span class="no">-q</span><span class="w"> </span><span class="no">--</span><span class="w"> </span><span class="o">$var1</span><span class="w"> </span><span class="o">$var2</span><span class="w"> </span><span class="o">$var3</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">at</span><span class="w"> </span><span class="no">least</span><span class="w"> </span><span class="no">one</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">these</span><span class="w"> </span><span class="no">variables</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">not</span><span class="w"> </span><span class="no">empty</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Alternatively, use <code class="docutils literal notranslate"><span class="pre">test</span> <span class="pre">-n</span> <span class="pre">&quot;$var&quot;</span></code>, but remember that <strong>the variable must be double-quoted</strong>.  For example, <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">test</span> <span class="pre">-n</span> <span class="pre">&quot;$var&quot;;</span> <span class="pre">echo</span> <span class="pre">not</span> <span class="pre">empty;</span> <span class="pre">end</span></code>. The <code class="docutils literal notranslate"><span class="pre">test</span></code> command provides its own and (-a) and or (-o):</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var1</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var2</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var3</span><span class="s2">&quot;</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var1</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var2</span><span class="s2">&quot;</span><span class="w"> </span><span class="no">-o</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s2">&quot;</span><span class="o">$var3</span><span class="s2">&quot;</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">at</span><span class="w"> </span><span class="no">least</span><span class="w"> </span><span class="no">one</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">these</span><span class="w"> </span><span class="no">variables</span><span class="w"> </span><span class="no">is</span><span class="w"> </span><span class="no">not</span><span class="w"> </span><span class="no">empty</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you want to know if a variable has <em>no elements</em>, use <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-q</span> <span class="pre">var[1]</span></code>.</p>
@@ -196,12 +196,12 @@ add a statement to your <a class="reference internal" href="index.html#initializ
 <div class="section" id="how-do-i-set-my-prompt">
 <h2>How do I set my prompt?<a class="headerlink" href="#how-do-i-set-my-prompt" title="Permalink to this headline">¶</a></h2>
 <p>The prompt is the output of the <code class="docutils literal notranslate"><span class="pre">fish_prompt</span></code> function. Put it in <code class="docutils literal notranslate"><span class="pre">~/.config/fish/functions/fish_prompt.fish</span></code>. For example, a simple prompt is:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_prompt</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set_color</span><span class="w"> </span><span class="o">$fish_color_cwd</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="o">(</span><span class="nf">prompt_pwd</span><span class="o">)</span><span class="w"></span>
 <span class="w">    </span><span class="nf">set_color</span><span class="w"> </span><span class="no">normal</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="no">-n</span><span class="w"> </span><span class="s1">&#39; &gt; &#39;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>You can also use the Web configuration tool, <a class="reference internal" href="cmds/fish_config.html#cmd-fish-config"><span class="std std-ref">fish_config</span></a>, to preview and choose from a gallery of sample prompts.</p>
@@ -242,7 +242,7 @@ add a statement to your <a class="reference internal" href="index.html#initializ
 <h2>I'm seeing weird output before each prompt when using screen. What's wrong?<a class="headerlink" href="#i-m-seeing-weird-output-before-each-prompt-when-using-screen-what-s-wrong" title="Permalink to this headline">¶</a></h2>
 <p>Quick answer:</p>
 <p>Run the following command in fish:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">function</span><span class="w"> </span><span class="no">fish_title</span><span class="p">;</span><span class="w"> </span><span class="nf">end</span><span class="p">;</span><span class="w"> </span><span class="nf">funcsave</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">function</span><span class="w"> </span><span class="no">fish_title</span><span class="p">;</span><span class="w"> </span><span class="k">end</span><span class="p">;</span><span class="w"> </span><span class="nf">funcsave</span><span class="w"> </span><span class="no">fish_title</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Problem solved!</p>
@@ -271,9 +271,9 @@ add a statement to your <a class="reference internal" href="index.html#initializ
 <div class="section" id="how-do-i-run-a-subcommand-the-backtick-doesn-t-work">
 <h2>How do I run a subcommand? The backtick doesn't work!<a class="headerlink" href="#how-do-i-run-a-subcommand-the-backtick-doesn-t-work" title="Permalink to this headline">¶</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">fish</span></code> uses parentheses for subcommands. For example:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="o">(</span><span class="nf">ls</span><span class="o">)</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="no">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="nf">ls</span><span class="o">)</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="o">$i</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -301,17 +301,17 @@ add a statement to your <a class="reference internal" href="index.html#initializ
 <h2>How do I get the exit status of a command?<a class="headerlink" href="#how-do-i-get-the-exit-status-of-a-command" title="Permalink to this headline">¶</a></h2>
 <p>Use the <code class="docutils literal notranslate"><span class="pre">$status</span></code> variable. This replaces the <code class="docutils literal notranslate"><span class="pre">$?</span></code> variable used in some other shells.</p>
 <div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">somecommand</span><span class="w"></span>
-<span class="nf">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="o">$status</span><span class="w"> </span><span class="no">-eq</span><span class="w"> </span><span class="no">7</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="nf">test</span><span class="w"> </span><span class="o">$status</span><span class="w"> </span><span class="no">-eq</span><span class="w"> </span><span class="no">7</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;That&#39;s my lucky number!&quot;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you are just interested in success or failure, you can run the command directly as the if-condition:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">somecommand</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">somecommand</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Command succeeded&quot;</span><span class="w"></span>
-<span class="nf">else</span><span class="w"></span>
+<span class="k">else</span><span class="w"></span>
 <span class="w">    </span><span class="nf">echo</span><span class="w"> </span><span class="s2">&quot;Command failed&quot;</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Or if you just want to do one command in case the first succeeded or failed, use <code class="docutils literal notranslate"><span class="pre">and</span></code> or <code class="docutils literal notranslate"><span class="pre">or</span></code>:</p>
@@ -383,9 +383,9 @@ in <code class="docutils literal notranslate"><span class="pre">ssh_exchange_ide
 <code class="docutils literal notranslate"><span class="pre">~/.config/fish/config.fish</span></code>) producing output when started in non-interactive mode.</p>
 <p>All statements in initialization files that output to the terminal should be guarded with something
 like the following:</p>
-<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="nf">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">is-interactive</span><span class="w"></span>
+<div class="highlight-fish-docs-samples notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="nf">status</span><span class="w"> </span><span class="no">is-interactive</span><span class="w"></span>
 <span class="w">  </span><span class="nf">...</span><span class="w"></span>
-<span class="nf">end</span><span class="w"></span>
+<span class="k">end</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
@@ -458,7 +458,7 @@ like the following:</p>
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="index.html">fish-shell 3.1.2-2003-g2faf814da documentation</a> &#187;
+    <a href="index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
     
 
         <li class="nav-item nav-item-this"><a href="">Frequently asked questions</a></li>
@@ -484,7 +484,7 @@ like the following:</p>
     <a href="https://github.com/fish-shell/fish-shell/issues">Found a bug</a>?
     <br />
 
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.1.
     </div>
 </div>
 
