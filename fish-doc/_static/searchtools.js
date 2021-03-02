@@ -7,6 +7,9 @@
  * :copyright: Copyright 2007-2021 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
+ * This file taken for fish from sphinx 3.5.1 to add a special error message
+ * that lists short builtins.
+ *
  */
 
 if (!Scorer) {
@@ -246,9 +249,9 @@ var Search = {
     var resultCount = results.length;
     function displayNextItem() {
       // results left, load the summary and display it
+      var listItem = $('<li></li>');
       if (results.length) {
         var item = results.pop();
-        var listItem = $('<li></li>');
         var requestUrl = "";
         var linkUrl = "";
         if (DOCUMENTATION_OPTIONS.BUILDER === 'dirhtml') {
@@ -301,10 +304,24 @@ var Search = {
       else {
         Search.stopPulse();
         Search.title.text(_('Search Results'));
-        if (!resultCount)
-          Search.status.text(_('Your search did not match any documents. Please make sure that all words are spelled correctly and that you\'ve selected enough categories.'));
-        else
+        if (!resultCount) {
+          Search.status.text(_('Your search did not match any documents. Unfortunately search does not work with short terms, so here are some commonly used short builtins:'));
+            var shortbuiltins = {
+                "and": "conditionally execute a command",
+                "cd": "change directory",
+                "end": "end a block of commands",
+                "for": "perform a set of commands multiple times",
+                "if": "conditionally execute a command",
+                "or": "condtionally execute a command",
+                "set": "display and change shell variables",
+            };
+          for (var sb in shortbuiltins) {
+            var li = $('<li><a href="cmds/' + sb + '.html">' + sb + " - " + shortbuiltins[sb] + '</a></li>');
+            Search.output.append(li);
+          }
+        } else {
             Search.status.text(_('Search finished, found %s page(s) matching the search query.').replace('%s', resultCount));
+        }
         Search.status.fadeIn(500);
       }
     }

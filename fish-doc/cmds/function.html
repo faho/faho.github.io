@@ -5,10 +5,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>function - create a function &#8212; fish-shell 3.1.2-2140-g9db51e715 documentation</title>
+    <title>function - create a function &#8212; fish-shell 3.2.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -20,9 +19,6 @@
     <link rel="next" title="functions - print or erase functions" href="functions.html" />
     <link rel="prev" title="funcsave - save the definition of a function to the user&#39;s autoload directory" href="funcsave.html" />
     <link rel="shortcut icon" type="image/png" href="../_static/fish.png" />
-    
-    <script type="text/javascript" src="../_static/copybutton.js"></script>
-    
      
 
   </head><body><div id="fmain">  
@@ -33,7 +29,7 @@
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.2.0 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" accesskey="U">Commands</a> &#187;</li>
@@ -120,7 +116,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">DESCRIPTION</span></code> or <code class="docutils literal notranslate"><span class="pre">--description=DESCRIPTION</span></code> is a description of what the function does, suitable as a completion description.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">WRAPPED_COMMAND</span></code> or <code class="docutils literal notranslate"><span class="pre">--wraps=WRAPPED_COMMAND</span></code> causes the function to inherit completions from the given wrapped command. See the documentation for <a class="reference internal" href="complete.html#cmd-complete"><span class="std std-ref">complete</span></a> for more information.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-e</span></code> or <code class="docutils literal notranslate"><span class="pre">--on-event</span> <span class="pre">EVENT_NAME</span></code> tells fish to run this function when the specified named event is emitted. Fish internally generates named events e.g. when showing the prompt.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code> or <code class="docutils literal notranslate"><span class="pre">--on-variable</span> <span class="pre">VARIABLE_NAME</span></code> tells fish to run this function when the variable VARIABLE_NAME changes value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-v</span></code> or <code class="docutils literal notranslate"><span class="pre">--on-variable</span> <span class="pre">VARIABLE_NAME</span></code> tells fish to run this function when the variable VARIABLE_NAME changes value. Note that the function will not necessarily be run for each change; rather, it will be run when the variable has changed at least once.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-j</span> <span class="pre">PGID</span></code> or <code class="docutils literal notranslate"><span class="pre">--on-job-exit</span> <span class="pre">PGID</span></code> tells fish to run this function when the job with group ID PGID exits. Instead of PGID, the string 'caller' can be specified. This is only legal when in a command substitution, and will result in the handler being triggered by the exit of the job which created this command substitution.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">PID</span></code> or <code class="docutils literal notranslate"><span class="pre">--on-process-exit</span> <span class="pre">PID</span></code> tells fish to run this function when the fish child process
 with process ID PID exits. Instead of a PID, for backward compatibility,
@@ -198,7 +194,7 @@ It's important to note that this does not capture referenced variables or the sc
              style="max-width: 80px; vertical-align: middle; margin-top: -1px"/></li>
     <li><a href="https://fishshell.com/">fish-shell</a> &#187;</li>
     
-    <a href="../index.html">fish-shell 3.1.2-2140-g9db51e715 documentation</a> &#187;
+    <a href="../index.html">fish-shell 3.2.0 documentation</a> &#187;
     
 
           <li class="nav-item nav-item-1"><a href="../commands.html" >Commands</a> &#187;</li>
